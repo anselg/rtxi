@@ -455,6 +455,45 @@ int NIDevice::setDigitalDirection(index_t chan,direction_t direction) {
 	return retval;
 }
 
+
+/* Added functions for compatibility with RTXI v2.1 */
+size_t NIDevice::getAnalogDownsample(type_t type, index_t channel) const {
+	if(!analog_exists(type,channel)) return 0;
+	return subdevice[type].chan[channel].analog.downsample;
+}
+
+
+int NIDevice::setAnalogDownsample(type_t type, index_t channel, size_t downsample_rate) {
+	if(!analog_exists(type,channel))
+		return -EINVAL;
+
+	subdevice[type].chan[channel].analog.downsample = downsample_rate;
+		return 0;
+}
+
+int NIDevice::setAnalogCounter(type_t type, index_t channel) {
+	if(!analog_exists(type,channel))
+		return -EINVAL;
+
+	subdevice[type].chan[channel].analog.counter = 0;
+		return 0;
+}
+
+int NIDevice::setAnalogCalibrationValue(type_t type, index_t channel, double value) {
+	if(!analog_exists(type,channel))
+		return -EINVAL;
+
+	subdevice[type].chan[channel].analog.calOffset = value;
+	return 0;
+}
+
+double NIDevice::getAnalogCalibrationValue(type_t type, index_t channel) const {
+	if(!analog_exists(type,channel))
+		return -EINVAL;
+
+	return subdevice[type].chan[channel].analog.calOffset;
+}
+
 void NIDevice::read(void) {
 	size_t count;
 

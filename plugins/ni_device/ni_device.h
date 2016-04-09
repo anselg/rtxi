@@ -67,6 +67,13 @@ class NIDevice : public DAQ::Device
 		int setAnalogCalibration(DAQ::type_t,DAQ::index_t) {};
 		int setAnalogCalibrationActive(DAQ::type_t,DAQ::index_t,bool) {};
 
+		/* For compatibility with RTXI 2.1 */
+		size_t getAnalogDownsample(DAQ::type_t,DAQ::index_t) const;
+		int setAnalogDownsample(DAQ::type_t, DAQ::index_t, size_t);
+		int setAnalogCounter(DAQ::type_t, DAQ::index_t);
+		int setAnalogCalibrationValue(DAQ::type_t,DAQ::index_t,double);
+		double getAnalogCalibrationValue(DAQ::type_t,DAQ::index_t) const;
+
 		DAQ::direction_t getDigitalDirection(DAQ::index_t) const;
 		int setDigitalDirection(DAQ::index_t,DAQ::direction_t);
 
@@ -90,9 +97,15 @@ class NIDevice : public DAQ::Device
 			DAQ::index_t range;
 			DAQ::index_t reference;
 			DAQ::index_t units;
+			double conv;
+			double offset;
 			double zerooffset;
 			tScalingCoefficients scale;
 			DAQ::index_t offsetunits;
+			size_t downsample;
+			size_t counter;
+			bool calibrationActive;
+			double calOffset;
 		};
 
 		struct  digital_channel_t {
