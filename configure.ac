@@ -109,6 +109,15 @@ elif test x$rtos = xxenomai; then
   AM_CONDITIONAL(BUILD_ANALOGY, test x$analogy = xtrue)
 fi
 
+AC_ARG_ENABLE(ni,
+  [  --enable-ni             build the ni driver],
+  [case "${enableval}" in
+    "" | y | ye | yes) ni=true;;
+    n | no) ni=false;;
+    *) AC_MSG_ERROR(bad value ${enableval} for --enable-ni);;
+  esac],
+  [ni=false])
+AM_CONDITIONAL(BUILD_NI, test x$ni = xtrue)
 dnl Clear build variables
 
 INCLUDES=
@@ -128,6 +137,7 @@ scripts/Makefile
 scripts/rtxi_plugin_config
 plugins/Makefile
 plugins/analogy_device/Makefile
+plugins/ni_device/Makefile
 plugins/connector/Makefile
 plugins/data_recorder/Makefile
 plugins/model_loader/Makefile

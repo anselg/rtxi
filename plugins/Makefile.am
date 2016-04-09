@@ -10,4 +10,5 @@ SUBDIRS = \
 	connector \
 	data_recorder \
 	oscilloscope \
+	ni_device \
 	module_installer
