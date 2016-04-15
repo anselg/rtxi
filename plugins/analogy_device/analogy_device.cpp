@@ -16,10 +16,15 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <rtdm/analogy/device.h>
+#include <analogy_device.h>
 #include <debug.h>
 #include <math.h>
 #include <sstream>
+
+#define A4L_CHAN_AREF_GROUND 0x1; 
+#define A4L_CHAN_AREF_COMMON 0x2; 
+#define A4L_CHAN_AREF_DIFF   0x4; 
+#define A4L_CHAN_AREF_OTHER  0x8; 
 
 using namespace DAQ;
 
