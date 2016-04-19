@@ -37,6 +37,8 @@
 typedef struct
 {
     long long period;
+    long long next_t;
+    long long wakeup;
     RT_TASK task;
 } xenomai_task_t;
 
@@ -186,10 +188,26 @@ int RT::OS::setPeriod(RT::OS::Task task,long long period)
 {
     xenomai_task_t *t = reinterpret_cast<xenomai_task_t *>(task);
     t->period = period;
+    
+    /* copying old code from setPeriod() in the ni driver */
+    if (period/10 > 100000ll) t->wakeup = 100000ll;
+	 else t->wakeup = (period/10);
+	 t->next_t = rt_timer_read() + t->period;
+
     return rt_task_set_periodic(&t->task,TM_NOW,period);
 }
 
 void RT::OS::sleepTimestep(RT::OS::Task task)
 {
-    rt_task_wait_period(0);
+    xenomai_task_t *t = reinterpret_cast<xenomai_task_t *>(task);
+    
+    register RTIME sleep_time;
+    
+    rt_task_sleep_until(t->next_t - t->wakeup);
+
+	 sleep_time = t->next_t - rt_timer_read();
+	 if (sleep_time > 0) rt_timer_spin(sleep_time);
+    
+    t->next_t += t->period;
+//    rt_task_wait_period(0);
 }
