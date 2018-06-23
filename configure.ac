@@ -1,6 +1,26 @@
-AC_INIT([RTXI],[2.0-rc3],[help@rtxi.org],rtxi)
+#
+# The Real-Time eXperiment Interface (RTXI)
+# 
+# Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill
+# Cornell Medical College
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <http://www.gnu.org/licenses/>.
+#
 
-AM_CONFIG_HEADER(include/rtxi_config.h)
+AC_INIT([RTXI],[2.2],[help@rtxi.org],rtxi)
+
+AM_CONFIG_HEADER(src/rtxi_config.h)
 AM_INIT_AUTOMAKE([foreign])
 AM_PATH_CPPUNIT
 AM_SILENT_RULES([yes])
@@ -17,18 +37,20 @@ AC_CHECK_LIB([gsl],[gsl_blas_dgemm])
 GSL_LIBS=$LIBS
 AC_SUBST(GSL_LIBS)
 
-LIBS=
-AC_CHECK_HEADER([hdf5.h])
-AC_CHECK_LIB([hdf5],[H5Fopen])
-AC_CHECK_LIB([hdf5_hl],[H5PTopen])
-HDF_LIBS=$LIBS
-AC_SUBST(HDF_LIBS)
+# LIBS=
+# AC_CHECK_HEADER([hdf5.h])
+# AC_CHECK_LIB([hdf5],[H5Fopen])
+# AC_CHECK_LIB([hdf5_hl],[H5PTopen])
+# HDF_LIBS=$LIBS
+# AC_SUBST(HDF_LIBS)
+
+# Quiet ar warning about default modifiers
+AC_SUBST(AR_FLAGS, [cr])
 
 rtos=""
 
 AX_BOOST_BASE([1.54],,[AC_MSG_ERROR([libboost version 1.54 or great is required])])
 
-AC_CHECK_RTAI
 AC_ARG_ENABLE(xenomai,
   [  --enable-xenomai        build the Xenomai interface],
   [case "${enablecal}" in
@@ -46,13 +68,9 @@ AC_ARG_ENABLE(posix,
   esac],
   [])
 
-AM_CONDITIONAL(RTAI3, test x$rtos = xrtai3)
 AM_CONDITIONAL([XENOMAI],[test x$rtos = xxenomai])
 AM_CONDITIONAL([POSIX],[test x$rtos = xposix])
-if test x$rtos = xrtai3; then
-  RTOS_CPPFLAGS=$RTAI_CPPFLAGS
-  RTOS_LDFLAGS=$RTAI_LDFLAGS
-elif test x$rtos = xxenomai; then
+if test x$rtos = xxenomai; then
   if test -x /usr/xenomai/bin/xeno-config; then
     XENO_CONFIG='/usr/xenomai/bin/xeno-config'
   elif test -x /usr/bin/xeno-config; then
@@ -60,11 +78,11 @@ elif test x$rtos = xxenomai; then
   else
     XENO_CONFIG=`which xeno-config`
   fi
-  RTOS_CPPFLAGS=`$XENO_CONFIG --skin=native --cflags`
-  RTOS_LDFLAGS=`$XENO_CONFIG --skin=native --ldflags`
+  RTOS_CPPFLAGS=`$XENO_CONFIG --alchemy --cflags`
+  RTOS_LDFLAGS=`$XENO_CONFIG --alchemy --ldflags --auto-init-solib`
 elif test x$rtos = xposix; then
   RTOS_CPPFLAGS='-I/usr/local/include'
-  RTOS_LDFLAGS='-I/usr/local/include -L/usr/local/lib -lpthread'
+  RTOS_LDFLAGS='-L/usr/local/lib -lpthread'
 elif test x$rtos = x;then
   AC_MSG_ERROR([no realtime system found])
 fi
@@ -81,15 +99,6 @@ AC_ARG_ENABLE(debug,
   [debug=false])
 AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 
-AC_ARG_ENABLE(comedi,
-  [  --enable-comedi         build the comedi driver],
-  [case "${enableval}" in
-    "" | y | ye | yes) comedi=true;;
-    n | no) comedi=false;;
-    *) AC_MSG_ERROR(bad value ${enableval} for --enable-comedi);;
-  esac],
-[comedi=true])
-
 AC_ARG_ENABLE(analogy,
   [  --enable-analogy        build the analogy driver],
   [case "${enableval}" in
@@ -99,22 +108,10 @@ AC_ARG_ENABLE(analogy,
   esac],
   [analogy=true])  
 
-if test x$rtos = xrtai3; then
-  AM_CONDITIONAL(BUILD_COMEDI, test x$comedi = xtrue)
-  AM_CONDITIONAL(BUILD_COMEDILIB,false)
-  AM_CONDITIONAL(BUILD_ANALOGY, false)
-elif test x$rtos = xposix; then
-  AM_CONDITIONAL(BUILD_COMEDI,false)
-  AM_CONDITIONAL(BUILD_COMEDILIB, test x$comedi = xtrue)
+if test x$rtos = xposix; then
   AM_CONDITIONAL(BUILD_ANALOGY, false)
 elif test x$rtos = xxenomai; then
-  AM_CONDITIONAL(BUILD_COMEDI,false)
-  AM_CONDITIONAL(BUILD_COMEDILIB,false)
   AM_CONDITIONAL(BUILD_ANALOGY, test x$analogy = xtrue)
-else
-  AM_CONDITIONAL(BUILD_COMEDI,false)
-  AM_CONDITIONAL(BUILD_COMEDILIB,false)
-  AM_CONDITIONAL(BUILD_ANALOGY, false)
 fi
 
 dnl Clear build variables
@@ -131,24 +128,26 @@ LIBS=
 dnl Create makefiles and other configuration files
 AC_CONFIG_FILES([
 Makefile
-rtxi/Makefile
+src/Makefile
 scripts/Makefile
-scripts/init_rtxi
-scripts/rtxi_comedi
 scripts/rtxi_plugin_config
+res/Makefile
+res/icons/Makefile
+libs/Makefile
+libs/dsp/Makefile
+libs/gen/Makefile
+libs/math/Makefile
+libs/plot/Makefile
 plugins/Makefile
 plugins/analogy_device/Makefile
-plugins/comedi_device/Makefile
-plugins/comedilib_device/Makefile
 plugins/connector/Makefile
 plugins/data_recorder/Makefile
-plugins/dynamo_model_loader/Makefile
 plugins/model_loader/Makefile
 plugins/oscilloscope/Makefile
 plugins/performance_measurement/Makefile
 plugins/system_control/Makefile
 plugins/userprefs/Makefile
-deps/hdf/Makefile
+plugins/module_installer/Makefile
 ])
 
 dnl Generate config.status and launch it

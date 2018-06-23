@@ -1,5 +1,5 @@
 /*
- 	 The Real-Time eXperiment Interface (RTXI)
+	 The Real-Time eXperiment Interface (RTXI)
 	 Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill Cornell Medical College
 
 	 This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 	 You should have received a copy of the GNU General Public License
 	 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-*/
+ */
 
 #include <debug.h>
 #include <daq.h>
@@ -25,26 +25,28 @@
 #include <system_control_panel.h>
 #include <main_window.h>
 
-struct find_daq_t {
+struct find_daq_t
+{
 	int index;
 	DAQ::Device *device;
 };
 
-static void findDAQDevice(DAQ::Device *dev,void *arg) {
+static void findDAQDevice(DAQ::Device *dev,void *arg)
+{
 	struct find_daq_t *info = static_cast<struct find_daq_t *>(arg);
 	if(!info->index)
 		info->device = dev;
 	info->index--;
 }
 
-static void buildDAQDeviceList(DAQ::Device *dev,void *arg) {
+static void buildDAQDeviceList(DAQ::Device *dev,void *arg)
+{
 	QComboBox *deviceList = static_cast<QComboBox *>(arg);
 	deviceList->addItem(QString::fromStdString(dev->getName()));
 }
 
-SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
-
-	QWidget::setAttribute(Qt::WA_DeleteOnClose);
+SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent)
+{
 
 	setWhatsThis(
 			"<p><b>System Control Panel:</b><br>This control panel allows you to configure "
@@ -63,11 +65,10 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 
 	// Make Mdi
 	subWindow = new QMdiSubWindow;
-	subWindow->setWindowIcon(QIcon("/usr/local/lib/rtxi/RTXI-widget-icon.png"));
-	subWindow->setFixedSize(400,425);
+	subWindow->setWindowIcon(QIcon("/usr/local/share/rtxi/RTXI-widget-icon.png"));
 	subWindow->setAttribute(Qt::WA_DeleteOnClose);
-	subWindow->setWindowFlags(Qt::CustomizeWindowHint);
-	subWindow->setWindowFlags(Qt::WindowCloseButtonHint);
+	subWindow->setWindowFlags(Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint |
+			Qt::WindowMinimizeButtonHint);
 	MainWindow::getInstance()->createMdi(subWindow);
 
 	// Create main layout
@@ -94,7 +95,7 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 	freqUnitList = new QComboBox;
 	freqUnitList->setFixedWidth(50);
 	freqUnitList->addItem(" Hz");
-	freqUnitList->addItem("kHz");  
+	freqUnitList->addItem("kHz");
 	deviceLayout->addWidget(freqUnitList, 1, 2);
 	QObject::connect(freqUnitList,SIGNAL(activated(int)),this,SLOT(updatePeriod(void)));
 
@@ -137,13 +138,10 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 	analogActiveButton->setCheckable(true);
 	analogLayout->addWidget(analogActiveButton, 1, 3);
 
-	analogCalibrationButton = new QPushButton("Calibrate");
-	analogCalibrationButton->setCheckable(true);
-	//analogLayout->addWidget(analogCalibrationButton, 1, 4);
-
 	analogLayout->addWidget(new QLabel(tr("Range:")), 2, 0, 1, 1);
 	analogRangeList = new QComboBox;
 	analogLayout->addWidget(analogRangeList, 2, 1, 1, 2);
+
 	analogReferenceList = new QComboBox;
 	analogLayout->addWidget(analogReferenceList, 2, 3, 1, 2);
 
@@ -204,6 +202,16 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 	analogLayout->addWidget(analogUnitPrefixList2, 4, 2, 1, 1);
 	analogLayout->addWidget(new QLabel(tr(" Volt/Amps")), 4, 3);
 
+	analogLayout->addWidget(new QLabel(tr("Downsample:")), 5, 0);
+	analogDownsampleList = new QComboBox;
+	analogDownsampleList->addItem("1");
+	analogDownsampleList->addItem("2");
+	analogDownsampleList->addItem("4");
+	analogDownsampleList->addItem("6");
+	analogDownsampleList->addItem("8");
+	analogDownsampleList->addItem("10");
+	analogLayout->addWidget(analogDownsampleList, 5, 1);
+
 	// Assign layout to child widget
 	analogGroup->setLayout(analogLayout);
 
@@ -244,7 +252,7 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 	QObject::connect(applyButton,SIGNAL(released(void)),this,SLOT(apply(void)));
 	buttonLayout->addWidget(applyButton);
 	QPushButton *cancelButton = new QPushButton("Close");
-	QObject::connect(cancelButton,SIGNAL(released(void)),this,SLOT(goodbye(void)));
+	QObject::connect(cancelButton,SIGNAL(released(void)),subWindow,SLOT(close()));
 	buttonLayout->addWidget(cancelButton);
 
 	// Assign layout to child widget
@@ -262,6 +270,7 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 
 	// Set layout to Mdi
 	subWindow->setWidget(this);
+	subWindow->setFixedSize(subWindow->minimumSizeHint());
 
 	// Updates settings for device and builds lists of channels
 	updateDevice();
@@ -269,12 +278,13 @@ SystemControlPanel::SystemControlPanel(QWidget *parent) : QWidget(parent) {
 	show();
 }
 
-SystemControlPanel::~SystemControlPanel(void) {
+SystemControlPanel::~SystemControlPanel(void)
+{
 	SystemControl::getInstance()->removeControlPanel(this);
 }
 
-void SystemControlPanel::apply(void) {
-
+void SystemControlPanel::apply(void)
+{
 	// Apply channel settings
 	DAQ::Device *dev;
 	{
@@ -283,20 +293,21 @@ void SystemControlPanel::apply(void) {
 		dev = info.device;
 	}
 
-	if(dev){
+	if(dev)
+	{
 		DAQ::index_t a_chan = analogChannelList->currentIndex();
 		DAQ::type_t a_type = static_cast<DAQ::type_t>(analogSubdeviceList->currentIndex());
 		double a_gain = analogGainEdit->text().toDouble()*pow(10,-3*(analogUnitPrefixList->currentIndex()-8));
 		double a_zerooffset = analogZeroOffsetEdit->text().toDouble()*pow(10,-3*(analogUnitPrefixList2->currentIndex()-8));
 
 		dev->setChannelActive(a_type,a_chan,analogActiveButton->isChecked());
-		dev->setAnalogCalibrationActive(a_type,a_chan,analogCalibrationButton->isChecked());
 		dev->setAnalogGain(a_type,a_chan,a_gain);
 		dev->setAnalogZeroOffset(a_type,a_chan,a_zerooffset);
 		dev->setAnalogRange(a_type,a_chan,analogRangeList->currentIndex());
 		dev->setAnalogReference(a_type,a_chan,analogReferenceList->currentIndex());
 		dev->setAnalogUnits(a_type,a_chan,analogUnitList->currentIndex());
-		dev->setAnalogCalibrationActive(a_type,a_chan,analogCalibrationButton->isChecked());
+		dev->setAnalogDownsample(a_type,a_chan,(analogDownsampleList->itemData(analogDownsampleList->currentIndex(),Qt::DisplayRole)).toInt());
+		dev->setAnalogCounter(a_type,a_chan);
 
 		DAQ::index_t d_chan = digitalChannelList->currentIndex();
 		DAQ::type_t d_type = static_cast<DAQ::type_t>(digitalSubdeviceList->currentIndex()+DAQ::DIO);
@@ -315,11 +326,8 @@ void SystemControlPanel::apply(void) {
 	display();
 }
 
-void SystemControlPanel::goodbye(void) {
-	subWindow->close();
-}
-
-void SystemControlPanel::updateDevice(void) {
+void SystemControlPanel::updateDevice(void)
+{
 	DAQ::Device *dev;
 	DAQ::type_t type;
 	{
@@ -335,19 +343,22 @@ void SystemControlPanel::updateDevice(void) {
 	digitalChannelList->clear();
 
 	type = static_cast<DAQ::type_t>(analogSubdeviceList->currentIndex());
-	for(size_t i=0;i<dev->getChannelCount(type);++i) {
+	for(size_t i=0; i<dev->getChannelCount(type); ++i)
+	{
 		analogChannelList->addItem(QString::number(i));
 	}
 
 	type = static_cast<DAQ::type_t>(digitalSubdeviceList->currentIndex()+DAQ::DIO);
-	for(size_t i=0;i<dev->getChannelCount(type);++i) {
+	for(size_t i=0; i<dev->getChannelCount(type); ++i)
+	{
 		digitalChannelList->addItem(QString::number(i));
 	}
 
 	display();
 }
 
-void SystemControlPanel::updateFreq(void) {
+void SystemControlPanel::updateFreq(void)
+{
 	int i = 0;
 	double freq;
 	double period;
@@ -363,7 +374,8 @@ void SystemControlPanel::updateFreq(void) {
 	period *= pow(10,-3*periodUnitList->currentIndex());
 	freq = 1 / period;
 
-	if(freq > 1000) {
+	if(freq > 1000)
+	{
 		freq /= 1000;
 		i = 1;
 	}
@@ -373,7 +385,8 @@ void SystemControlPanel::updateFreq(void) {
 	rateUpdate = false;
 }
 
-void SystemControlPanel::updatePeriod(void) {
+void SystemControlPanel::updatePeriod(void)
+{
 	int i = 0;
 	double freq, period;
 
@@ -382,14 +395,15 @@ void SystemControlPanel::updatePeriod(void) {
 	else
 		rateUpdate = true;
 
-	/* Determine the Frequency */
+	// Determine the Frequency
 	freq = freqEdit->text().toDouble();
 	if(freqUnitList->currentIndex())
 		freq *= 1000;
 
 	period = 1 / freq;
 
-	while(period < .001 && (i < 4)) {
+	while(period < .001 && (i < 4))
+	{
 		period *= 1000;
 		i++;
 	}
@@ -399,8 +413,8 @@ void SystemControlPanel::updatePeriod(void) {
 	rateUpdate = false;
 }
 
-void SystemControlPanel::display(void) {
-
+void SystemControlPanel::display(void)
+{
 	// Display channel info
 	DAQ::Device *dev;
 	{
@@ -411,53 +425,64 @@ void SystemControlPanel::display(void) {
 
 	// Check to make sure DAQ is of the right type
 	// if not, disable functions, else set
-	if(!dev) {
+	if(!dev)
+	{
 		deviceList->setEnabled(false);
 		analogSubdeviceList->setEnabled(false);
 		digitalSubdeviceList->setEnabled(false);
 	}
 
-	if(!dev || !analogChannelList->count()) {
-		analogActiveButton->setChecked(false);        
+	if(!dev || !analogChannelList->count())
+	{
+		analogActiveButton->setChecked(false);
 		analogActiveButton->setEnabled(false);
 		analogActiveButton->setChecked(false);
-		analogCalibrationButton->setEnabled(false);
 		analogChannelList->setEnabled(false);
 		analogRangeList->setEnabled(false);
+		analogDownsampleList->setEnabled(false);
 		analogReferenceList->setEnabled(false);
 		analogGainEdit->setEnabled(false);
 		analogZeroOffsetEdit->setEnabled(false);
 		analogUnitPrefixList->setEnabled(false);
 		analogUnitPrefixList2->setEnabled(false);
-		analogUnitList->setEnabled(false);        
+		analogUnitList->setEnabled(false);
 
-	} else {
+	}
+	else
+	{
 		DAQ::type_t type = static_cast<DAQ::type_t>(analogSubdeviceList->currentIndex());
 		DAQ::index_t chan = static_cast<DAQ::index_t>(analogChannelList->currentIndex());
 
-		analogActiveButton->setEnabled(true);        
+		// Downsample is only enabled for AI
+		if(type == DAQ::AI)
+			analogDownsampleList->setEnabled(true);
+		else
+			analogDownsampleList->setEnabled(false);
+
+		analogActiveButton->setEnabled(true);
+		analogChannelList->setEnabled(true);
 		analogRangeList->setEnabled(true);
 		analogReferenceList->setEnabled(true);
 		analogGainEdit->setEnabled(true);
 		analogZeroOffsetEdit->setEnabled(true);
 		analogUnitPrefixList->setEnabled(true);
 		analogUnitPrefixList2->setEnabled(true);
-		analogUnitList->setEnabled(true);        
+		analogUnitList->setEnabled(true);
 
 		analogRangeList->clear();
-		for(size_t i=0;i < dev->getAnalogRangeCount(type,chan);++i)
+		for(size_t i=0; i < dev->getAnalogRangeCount(type,chan); ++i)
 			analogRangeList->addItem(QString::fromStdString(dev->getAnalogRangeString(type,chan,i)));
 		analogReferenceList->clear();
-		for(size_t i=0;i < dev->getAnalogReferenceCount(type,chan);++i)
+		for(size_t i=0; i < dev->getAnalogReferenceCount(type,chan); ++i)
 			analogReferenceList->addItem(QString::fromStdString(dev->getAnalogReferenceString(type,chan,i)));
 		analogUnitList->clear();
-		for(size_t i=0;i < dev->getAnalogUnitsCount(type,chan);++i) {
+		for(size_t i=0; i < dev->getAnalogUnitsCount(type,chan); ++i)
+		{
 			analogUnitList->addItem(QString::fromStdString(dev->getAnalogUnitsString(type,chan,i)));
 		}
 		analogActiveButton->setChecked(dev->getChannelActive(type,chan));
-		analogCalibrationButton->setEnabled(dev->getAnalogCalibrationState(type,chan));
-		analogCalibrationButton->setChecked(dev->getAnalogCalibrationActive(type,chan));        
 		analogRangeList->setCurrentIndex(dev->getAnalogRange(type,chan));
+		analogDownsampleList->setCurrentIndex(analogDownsampleList->findData(QVariant::fromValue(dev->getAnalogDownsample(type,chan)),Qt::DisplayRole));
 		analogReferenceList->setCurrentIndex(dev->getAnalogReference(type,chan));
 		analogUnitList->setCurrentIndex(dev->getAnalogUnits(type,chan));
 
@@ -469,12 +494,15 @@ void SystemControlPanel::display(void) {
 			sign = false; // Negative value
 		tmp = fabs(dev->getAnalogGain(type,chan));
 		if(tmp != 0.0)
-			while(((tmp >= 1000)&&(i > 0))||((tmp < 1)&&(i < 16))) {
-				if(tmp >= 1000) {
+			while(((tmp >= 1000)&&(i > 0))||((tmp < 1)&&(i < 16)))
+			{
+				if(tmp >= 1000)
+				{
 					tmp /= 1000;
 					i--;
 				}
-				else {
+				else
+				{
 					tmp *= 1000;
 					i++;
 				}
@@ -494,12 +522,15 @@ void SystemControlPanel::display(void) {
 			sign = false; // Negative value
 		tmp = fabs(dev->getAnalogZeroOffset(type,chan));
 		if(tmp != 0.0)
-			while(((tmp >= 1000) && (i > 0)) || ((tmp < 1) && (i < 16))) {
-				if(tmp >= 1000) {
+			while(((tmp >= 1000) && (i > 0)) || ((tmp < 1) && (i < 16)))
+			{
+				if(tmp >= 1000)
+				{
 					tmp /= 1000;
 					i--;
 				}
-				else {
+				else
+				{
 					tmp *= 1000;
 					i++;
 				}
@@ -513,13 +544,15 @@ void SystemControlPanel::display(void) {
 		analogUnitPrefixList2->setCurrentIndex(i);
 	}
 
-	if(!dev || !digitalChannelList->count()) {
+	if(!dev || !digitalChannelList->count())
+	{
 		digitalActiveButton->setChecked(false);
 		digitalActiveButton->setEnabled(false);
 		digitalChannelList->setEnabled(false);
 		digitalDirectionList->setEnabled(false);
 	}
-	else {
+	else
+	{
 		DAQ::type_t type = static_cast<DAQ::type_t>(digitalSubdeviceList->currentIndex()+DAQ::DIO);
 		DAQ::index_t chan = static_cast<DAQ::index_t>(digitalChannelList->currentIndex());
 
@@ -532,17 +565,20 @@ void SystemControlPanel::display(void) {
 
 		digitalActiveButton->setChecked(dev->getChannelActive(type,chan));
 
-		if(type == DAQ::DIO) {
+		if(type == DAQ::DIO)
+		{
 			digitalDirectionList->setEnabled(true);
 			digitalDirectionList->setCurrentIndex(dev->getDigitalDirection(chan));
-		} else
+		}
+		else
 			digitalDirectionList->setEnabled(false);
 	}
 
 	// Display thread info
 	int i = 3;
 	long long tmp = RT::System::getInstance()->getPeriod();
-	while((tmp >= 1000)&&(i)) {
+	while((tmp >= 1000)&&(i))
+	{
 		tmp /= 1000;
 		i--;
 	}
@@ -551,13 +587,16 @@ void SystemControlPanel::display(void) {
 	updateFreq();
 }
 
-void SystemControlPanel::receiveEvent(const Event::Object *event) {
-	if(event->getName() == Event::RT_POSTPERIOD_EVENT) {
+void SystemControlPanel::receiveEvent(const Event::Object *event)
+{
+	if(event->getName() == Event::RT_POSTPERIOD_EVENT)
+	{
 		display();
 	}
 
 	if(event->getName() == Event::SETTINGS_OBJECT_INSERT_EVENT ||
-			event->getName() == Event::SETTINGS_OBJECT_REMOVE_EVENT) {
+			event->getName() == Event::SETTINGS_OBJECT_REMOVE_EVENT)
+	{
 		deviceList->clear();
 		DAQ::Manager::getInstance()->foreachDevice(buildDAQDeviceList,deviceList);
 		updateDevice();

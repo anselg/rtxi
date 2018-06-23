@@ -4,11 +4,16 @@ MAINTAINERCLEANFILES = Makefile.in
 
 include $(top_srcdir)/Makefile.buildvars
 
+pluginincludedir = $(pkgincludedir)/plugins
+
+plugininclude_HEADERS = \
+		data_recorder.h
+
 pkglib_LTLIBRARIES = data_recorder.la
 
-LIBS = $(HDF_LIBS)
+HDF_LIBS = -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5 -lhdf5_hl 
 
-data_recorder_la_LDFLAGS = -module -avoid-version
+data_recorder_la_LDFLAGS = -module -avoid-version $(HDF_LIBS)
 
 data_recorder_la_SOURCES = \
 		data_recorder.h \
