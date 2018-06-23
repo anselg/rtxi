@@ -2,8 +2,8 @@
 set -eu
 
 #
-# The Real-Time eXperiment Interface (RTXI) 
-# 
+# The Real-Time eXperiment Interface (RTXI)
+#
 # Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill
 # Cornell Medical College
 #
@@ -24,8 +24,8 @@ set -eu
 #
 
 if id | grep -q root; then
-	echo "You do not need to run as root; try again without sudo"
-	exit
+  echo "You do not need to run as root; try again without sudo"
+  exit
 fi
 
 # Directories
@@ -47,14 +47,14 @@ echo "-----> Please select your configuration and then press enter:"
 read kernel
 
 if [ $kernel -eq "1" ]; then
-	./configure --enable-xenomai --enable-analogy --disable-debug
+  ./configure --enable-xenomai --enable-analogy --disable-debug
 elif [ $kernel -eq "2" ]; then
-	./configure --enable-xenomai --enable-analogy --enable-debug
+  ./configure --enable-xenomai --enable-analogy --enable-debug
 elif [ $kernel -eq "3" ]; then
-	./configure --enable-posix --disable-debug
+  ./configure --enable-posix --disable-debug
 else
-	echo "Invalid configuration."
-	exit 1
+  echo "Invalid configuration."
+  exit 1
 fi
 
 make -sj`nproc` -C ./
@@ -69,13 +69,13 @@ chmod +x ~/Desktop/rtxi.desktop
 
 # Install startup script to load analogy driver at boot
 if [ $(lsb_release -sc) == "jessie" ] || [ $(lsb_release -sc) == "xenial" ]; then
-	echo "-----> Load analogy driver with systemd"
-	sudo cp -f ./scripts/services/rtxi_load_analogy.service /etc/systemd/system/
-	sudo systemctl enable rtxi_load_analogy.service
+  echo "-----> Load analogy driver with systemd"
+  sudo cp -f ./scripts/services/rtxi_load_analogy.service /etc/systemd/system/
+  sudo systemctl enable rtxi_load_analogy.service
 else
-	echo "-----> Load analogy driver with sysvinit/upstart"
-	sudo cp -f ./scripts/services/rtxi_load_analogy /etc/init.d/
-	sudo update-rc.d rtxi_load_analogy defaults
+  echo "-----> Load analogy driver with sysvinit/upstart"
+  sudo cp -f ./scripts/services/rtxi_load_analogy /etc/init.d/
+  sudo update-rc.d rtxi_load_analogy defaults
 fi
 sudo ldconfig
 echo "-----> Successfully placed files.."
@@ -84,8 +84,8 @@ echo "-----> Successfully placed files.."
 echo "-----> Installing basic modules."
 sudo mkdir -p ${MODS}
 
-# Allow all members of adm (administrator accounts) write access to the 
-# rtxi_modules/ directory. 
+# Allow all members of adm (administrator accounts) write access to the
+# rtxi_modules/ directory.
 sudo setfacl -Rm g:adm:rwX,d:g:adm:rwX ${MODS}
 
 cd ${MODS}
@@ -101,12 +101,12 @@ git clone https://github.com/RTXI/wave-maker.git
 git clone https://github.com/RTXI/noise-generator.git
 
 for dir in ${MODS}/*; do
-	if [ -d "$dir" ]; then
-		make clean -C "$dir"
-		git -C "$dir" pull
-		make -j`nproc` -C "$dir"
-		sudo make install -C "$dir"
-	fi
+  if [ -d "$dir" ]; then
+    make clean -C "$dir"
+    git -C "$dir" pull
+    make -j`nproc` -C "$dir"
+    sudo make install -C "$dir"
+  fi
 done
 
 echo ""

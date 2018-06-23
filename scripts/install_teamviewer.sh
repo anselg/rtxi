@@ -2,8 +2,8 @@
 set -eu
 
 #
-# The Real-Time eXperiment Interface (RTXI) 
-# 
+# The Real-Time eXperiment Interface (RTXI)
+#
 # Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill
 # Cornell Medical College
 #
@@ -24,18 +24,18 @@ set -eu
 #
 
 if ! id | grep -q root; then
-	echo "Must run script as root; try again with sudo ./install_teamviewer.sh"
-	exit
+  echo "Must run script as root; try again with sudo ./install_teamviewer.sh"
+  exit
 fi
 
 # Install gdebi for detecting and automatically installing dependencies
-apt-get -y install gdebi 
+apt-get -y install gdebi
 
-# Teamviewer doesn't provide a 64-bit binary, so enable multiarch (i386) for 
-# installing dependencies. 
+# Teamviewer doesn't provide a 64-bit binary, so enable multiarch (i386) for
+# installing dependencies.
 if [ `uname -m` == "x86_64" ]; then
-	dpkg --add-architecture i386 # if x86_64, enable i386 mirrors
-	apt-get update
+  dpkg --add-architecture i386 # if x86_64, enable i386 mirrors
+  apt-get update
 fi
 
 wget http://download.teamviewer.com/download/teamviewer_i386.deb

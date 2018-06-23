@@ -2,8 +2,8 @@
 set -eu
 
 #
-# The Real-Time eXperiment Interface (RTXI) 
-# 
+# The Real-Time eXperiment Interface (RTXI)
+#
 # Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill
 # Cornell Medical College
 #
@@ -24,8 +24,8 @@ set -eu
 #
 
 if ! id | grep -q root; then
-	echo "Must run script as root; try again with sudo ./uninstall_rtxi.sh"
-	exit
+  echo "Must run script as root; try again with sudo ./uninstall_rtxi.sh"
+  exit
 fi
 
 # Directories
@@ -39,16 +39,16 @@ RTXI_MOD=/usr/local/lib/rtxi_modules
 
 # Uninstall Qwt
 if ! [[ $(dpkg -s libqwt-qt5-dev) > /dev/null ]]; then
-	cd ${DEPS}
-	if [ -d qwt-${QWT_VERSION} ]; then
-		rm -rf qwt-${QWT_VERSION}
-	fi
-	tar xf qwt-${QWT_VERSION}.tar.bz2
-	cd qwt-${QWT_VERSION}
-	qmake qwt.pro
-	make uninstall
-	cd ${DEPS}
-	rm -rf qwt-${QWT_VERSION}
+  cd ${DEPS}
+  if [ -d qwt-${QWT_VERSION} ]; then
+    rm -rf qwt-${QWT_VERSION}
+  fi
+  tar xf qwt-${QWT_VERSION}.tar.bz2
+  cd qwt-${QWT_VERSION}
+  qmake qwt.pro
+  make uninstall
+  cd ${DEPS}
+  rm -rf qwt-${QWT_VERSION}
 fi
 
 # Uninstall RTXI
@@ -60,17 +60,17 @@ rm -rf ${RTXI_MOD}
 
 # Remove startup scripts/services
 if [ $(lsb_release -sc) == "jessie" ] || [ $(lsb_release -sc) == "xenial" ]; then
-	echo "-----> Remove analogy driver systemd service"
-	systemctl stop rtxi_load_analogy.service
-	systemctl disable rtxi_load_analogy.service
-	rm -f /etc/systemd/system/rtxi_load_analogy.service
-	systemctl daemon-reload
-	systemctl reset-failed
+  echo "-----> Remove analogy driver systemd service"
+  systemctl stop rtxi_load_analogy.service
+  systemctl disable rtxi_load_analogy.service
+  rm -f /etc/systemd/system/rtxi_load_analogy.service
+  systemctl daemon-reload
+  systemctl reset-failed
 else
-	echo "-----> Remove analogy driver sysvinit/upstart scripts"
-	update-rc.d rtxi_load_analogy disable
-	update-rc.d -f rtxi_load_analogy remove
-	rm -f /etc/init.d/rtxi_load_analogy
+  echo "-----> Remove analogy driver sysvinit/upstart scripts"
+  update-rc.d rtxi_load_analogy disable
+  update-rc.d -f rtxi_load_analogy remove
+  rm -f /etc/init.d/rtxi_load_analogy
 fi
 
 cd ${DIR}

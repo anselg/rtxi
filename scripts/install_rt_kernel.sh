@@ -2,8 +2,8 @@
 set -eu
 
 #
-# The Real-Time eXperiment Interface (RTXI) 
-# 
+# The Real-Time eXperiment Interface (RTXI)
+#
 # Copyright (C) 2011 Georgia Institute of Technology, University of Utah, Weill
 # Cornell Medical College
 #
@@ -24,8 +24,8 @@ set -eu
 #
 
 if ! id | grep -q root; then
-	echo "Must run script as root; try again with sudo ./install_rt_kernel.sh."
-	exit
+  echo "Must run script as root; try again with sudo ./install_rt_kernel.sh."
+  exit
 fi
 
 # Export environment variables
@@ -47,13 +47,13 @@ echo  "-----> Environment configuration complete."
 # Download essentials
 echo  "-----> Downloading Linux kernel."
 cd $opt
-if [[ "$linux_version" =~ "3." ]]; then 
-	wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-$linux_version.tar.xz
+if [[ "$linux_version" =~ "3." ]]; then
+  wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-$linux_version.tar.xz
 elif [[ "$linux_version" =~ "4." ]]; then
-	wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v4.x/linux-$linux_version.tar.xz
+  wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v4.x/linux-$linux_version.tar.xz
 else
-	echo "Kernel specified in the \$linux_version variable needs to be 3.x or 4.x"
-	exit 1
+  echo "Kernel specified in the \$linux_version variable needs to be 3.x or 4.x"
+  exit 1
 fi
 tar xf linux-$linux_version.tar.xz
 
@@ -67,9 +67,9 @@ echo  "-----> Downloads complete."
 echo  "-----> Patching kernel."
 cd $linux_tree
 $xenomai_root/scripts/prepare-kernel.sh \
-	--arch=x86 \
-	--ipipe=$opt/ipipe-core-$linux_version-x86-[0-9]*.patch \
-	--linux=$linux_tree
+  --arch=x86 \
+  --ipipe=$opt/ipipe-core-$linux_version-x86-[0-9]*.patch \
+  --linux=$linux_tree
 yes "" | make oldconfig
 make localmodconfig
 make menuconfig
@@ -80,10 +80,10 @@ echo  "-----> Compiling kernel."
 cd $linux_tree
 export CONCURRENCY_LEVEL=$(grep -c ^processor /proc/cpuinfo)
 fakeroot make-kpkg \
-	--initrd \
-	--append-to-version=-xenomai-$xenomai_version \
-	--revision $(date +%Y%m%d) \
-	kernel-image kernel-headers modules
+  --initrd \
+  --append-to-version=-xenomai-$xenomai_version \
+  --revision $(date +%Y%m%d) \
+  kernel-image kernel-headers modules
 echo  "-----> Kernel compilation complete."
 
 # Install compiled kernel
