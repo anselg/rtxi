@@ -9,7 +9,8 @@
 
 BartlettPeriodogram::BartlettPeriodogram(SignalSource* signal_source,
                                          double samp_intvl,
-                                         int num_samps_per_seg, int fft_len,
+                                         int num_samps_per_seg,
+                                         int fft_len,
                                          GenericWindow* data_wind,
                                          int num_segs_to_avg)
   : PsdEstimate(num_samps_per_seg, samp_intvl)

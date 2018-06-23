@@ -4,8 +4,11 @@
 #include <qwt_plot.h>
 #include <qwt_plot_curve.h>
 
-PlotDialog::PlotDialog(QWidget* parent, QString name, double* xData,
-                       double* yData, int size)
+PlotDialog::PlotDialog(QWidget* parent,
+                       QString name,
+                       double* xData,
+                       double* yData,
+                       int size)
   : QDialog(parent)
 {
   setWindowTitle(name);
@@ -20,8 +23,10 @@ PlotDialog::PlotDialog(QWidget* parent, QString name, double* xData,
   layout->addWidget(closeBttn);
 
   QObject::connect(closeBttn, SIGNAL(clicked()), this, SLOT(accept()));
-  QObject::connect(this, SIGNAL(setPlotRange(double, double, double, double)),
-                   gPlot, SLOT(setAxes(double, double, double, double)));
+  QObject::connect(this,
+                   SIGNAL(setPlotRange(double, double, double, double)),
+                   gPlot,
+                   SLOT(setAxes(double, double, double, double)));
 
   QwtPlotCurve* gCurve = new QwtPlotCurve("Curve 1");
   gCurve->setSamples(xData, yData, size);

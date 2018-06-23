@@ -3,12 +3,12 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
-#include "swept.h"
 #include "misdefs.h"
+#include "swept.h"
 #include "typedefs.h"
 
 using namespace std;
@@ -18,7 +18,8 @@ extern std::ofstream DebugFile;
 #endif
 
 SweptResponse::SweptResponse(FilterImplementation* filter_implem,
-                             double sampling_interval, istream& uin,
+                             double sampling_interval,
+                             istream& uin,
                              ostream& uout)
 {
   int resp_indx;
@@ -92,7 +93,8 @@ SweptResponse::SweptResponse(FilterImplementation* filter_implem,
     }
     max_output_mag = 0.0;
     for (samp_indx = num_holdoff_samps;
-         samp_indx < (samps_per_corr + num_holdoff_samps); samp_indx++) {
+         samp_indx < (samps_per_corr + num_holdoff_samps);
+         samp_indx++) {
       input_val = cos(lambda * samp_indx);
       output_tone[samp_indx] = filter_implem->ProcessSample(input_val);
       if (fabs(output_tone[samp_indx]) > max_output_mag) {

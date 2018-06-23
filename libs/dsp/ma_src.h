@@ -7,7 +7,7 @@
 
 #include "ma_proc.h"
 
-template <class T>
+template<class T>
 class MaSource : public MaProcess<T>
 {
 public:

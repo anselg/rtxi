@@ -18,6 +18,7 @@ public:
 
 private:
 };
-complex* CovarMethRightHandVect(complex* x, int seq_len, int max_lag);
+complex*
+CovarMethRightHandVect(complex* x, int seq_len, int max_lag);
 
 #endif

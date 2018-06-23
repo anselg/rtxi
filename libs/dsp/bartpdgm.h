@@ -12,8 +12,11 @@
 class BartlettPeriodogram : public PsdEstimate
 {
 public:
-  BartlettPeriodogram(SignalSource* signal_source, double samp_intvl,
-                      int num_samps_per_seg, int fft_len,
-                      GenericWindow* data_wind, int num_segs_to_avg);
+  BartlettPeriodogram(SignalSource* signal_source,
+                      double samp_intvl,
+                      int num_samps_per_seg,
+                      int fft_len,
+                      GenericWindow* data_wind,
+                      int num_segs_to_avg);
 };
 #endif // _BARTPDGM_H_

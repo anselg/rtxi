@@ -5,6 +5,7 @@
 #ifndef _SINC_H_
 #define _SINC_H_
 
-double sinc(double x);
+double
+sinc(double x);
 
 #endif

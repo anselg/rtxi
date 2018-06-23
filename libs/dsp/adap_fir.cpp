@@ -2,9 +2,9 @@
 //  File = adap_fir.cpp
 //
 #include <fstream>
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
 #include "adap_fir.h"
 #include "dirform1.h"
@@ -15,11 +15,18 @@ extern std::ofstream DebugFile;
 
 using namespace std;
 
-AdaptiveFir::AdaptiveFir(int num_taps, double* coeff, logical quan_enab,
-                         long coeff_quan_factor, long input_quan_factor,
-                         int tap_for_trans, int secondary_tap,
+AdaptiveFir::AdaptiveFir(int num_taps,
+                         double* coeff,
+                         logical quan_enab,
+                         long coeff_quan_factor,
+                         long input_quan_factor,
+                         int tap_for_trans,
+                         int secondary_tap,
                          int transient_len)
-  : DirectFormFir(num_taps, coeff, quan_enab, coeff_quan_factor,
+  : DirectFormFir(num_taps,
+                  coeff,
+                  quan_enab,
+                  coeff_quan_factor,
                   input_quan_factor)
 {
   int samp_idx;

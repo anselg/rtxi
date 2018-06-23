@@ -10,7 +10,7 @@
 //#include "typedefs.h"
 #include "ma_proc.h"
 
-template <class T>
+template<class T>
 class MaEstimate : public MaProcess<T>
 {
 public:

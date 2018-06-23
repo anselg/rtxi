@@ -15,8 +15,11 @@
 // constructor
 //------------------------------------------
 
-CpfskSource::CpfskSource(double samp_intvl, double freq_dev, int samps_per_symb,
-                         long prn_seed, int num_samps_per_seg,
+CpfskSource::CpfskSource(double samp_intvl,
+                         double freq_dev,
+                         int samps_per_symb,
+                         long prn_seed,
+                         int num_samps_per_seg,
                          int samps_initial_delay)
   : SignalSource()
 {
@@ -44,9 +47,7 @@ CpfskSource::CpfskSource(double samp_intvl, double freq_dev, int samps_per_symb,
 // destructor
 //------------------------------------------
 
-CpfskSource::~CpfskSource()
-{
-}
+CpfskSource::~CpfskSource() {}
 //++++++++++++++++++++++++++++++++++++++++++
 
 //====================================================

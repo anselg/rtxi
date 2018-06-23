@@ -14,8 +14,11 @@
 //               AR coefficients are known or assumed and
 //               are provided as input parameters
 
-template <class T>
-ArmaSource<T>::ArmaSource(int ar_order, T* a_coeffs, int ma_order, T* b_coeffs,
+template<class T>
+ArmaSource<T>::ArmaSource(int ar_order,
+                          T* a_coeffs,
+                          int ma_order,
+                          T* b_coeffs,
                           double drv_noise_var)
   : ArmaProcess<T>()
 {

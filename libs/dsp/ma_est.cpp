@@ -3,11 +3,11 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
-#include "ma_est.h"
 #include "gausrand.h"
+#include "ma_est.h"
 #include "sig_type.h"
 #include "yulewalk.h"
 
@@ -21,8 +21,10 @@ using namespace std;
 //  MaEstimate - subclass of MaProcess for the case where
 //  the MA coefficients must be estimated from observed data
 
-template <class T>
-MaEstimate<T>::MaEstimate(int est_ma_order, int durbin_ar_order, T* sig_seq,
+template<class T>
+MaEstimate<T>::MaEstimate(int est_ma_order,
+                          int durbin_ar_order,
+                          T* sig_seq,
                           int seq_len)
   : MaProcess<T>()
 {
@@ -42,8 +44,12 @@ MaEstimate<T>::MaEstimate(int est_ma_order, int durbin_ar_order, T* sig_seq,
 
   a_coeffs = new T[durbin_ar_order + 1];
 
-  yw_ptr = new YuleWalker<T>(sig_seq, seq_len, durbin_ar_order, a_coeffs,
-                             &(this->Drv_Noise_Var), &err_stat);
+  yw_ptr = new YuleWalker<T>(sig_seq,
+                             seq_len,
+                             durbin_ar_order,
+                             a_coeffs,
+                             &(this->Drv_Noise_Var),
+                             &err_stat);
 
   delete yw_ptr;
 
@@ -54,8 +60,12 @@ MaEstimate<T>::MaEstimate(int est_ma_order, int durbin_ar_order, T* sig_seq,
   double dummy_var;
   this->B_Coeffs = new T[est_ma_order + 1];
 
-  yw_ptr = new YuleWalker<T>(a_coeffs, durbin_ar_order + 1, est_ma_order,
-                             this->B_Coeffs, &dummy_var, &err_stat);
+  yw_ptr = new YuleWalker<T>(a_coeffs,
+                             durbin_ar_order + 1,
+                             est_ma_order,
+                             this->B_Coeffs,
+                             &dummy_var,
+                             &err_stat);
 
   delete yw_ptr;
   delete[] a_coeffs;

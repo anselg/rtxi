@@ -9,14 +9,14 @@
 #include "matrix_t.h"
 
 //=======================================
-template <class T>
+template<class T>
 class matrix;
-template <class T>
+template<class T>
 class rowvec;
-template <class T>
+template<class T>
 class colvec;
 
-template <class T>
+template<class T>
 class vector
 {
 protected:
@@ -50,7 +50,7 @@ public:
   friend class colvec<T>;
 };
 
-template <class T>
+template<class T>
 class rowvec : public vector<T>
 {
 public:
@@ -76,7 +76,7 @@ public:
 };
 
 //=======================================
-template <class T>
+template<class T>
 class colvec : public vector<T>
 {
 public:
@@ -98,7 +98,8 @@ public:
   // friend colvec<T>& transpose( rowvec<T> &x);
 };
 
-template <class T>
-rowvec<T>* transpose(colvec<T>*);
+template<class T>
+rowvec<T>*
+transpose(colvec<T>*);
 
 #endif

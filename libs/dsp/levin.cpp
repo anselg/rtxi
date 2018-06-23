@@ -12,7 +12,9 @@ extern std::ofstream DebugFile;
 #endif
 
 int
-LevinsonRecursion(double* toeplitz, int ar_order, double* avec,
+LevinsonRecursion(double* toeplitz,
+                  int ar_order,
+                  double* avec,
                   double* ar_drv_var_ret)
 {
   double sum, work, temp;
@@ -51,7 +53,9 @@ LevinsonRecursion(double* toeplitz, int ar_order, double* avec,
 };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int
-LevinsonRecursion(complex* toeplitz, int ar_order, complex* avec,
+LevinsonRecursion(complex* toeplitz,
+                  int ar_order,
+                  complex* avec,
                   double* ar_drv_var_ret)
 {
   complex sum, work, temp;
@@ -95,7 +99,7 @@ LevinsonRecursion(complex* toeplitz, int ar_order, complex* avec,
 };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #ifdef _NOT_DEFINED
-template <class T>
+template<class T>
 int
 LevinsonRecursion(T* toeplitz, int ar_order, T* avec, double* ar_drv_var_ret)
 {
@@ -140,5 +144,5 @@ LevinsonRecursion(T* toeplitz, int ar_order, T* avec, double* ar_drv_var_ret)
 };
 //
 // Force instantiations
-template class LevinsonRecursion <complex>;
+template class LevinsonRecursion<complex>;
 #endif

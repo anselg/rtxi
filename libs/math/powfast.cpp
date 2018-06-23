@@ -67,7 +67,9 @@ powFastSetTable(unsigned int* const pTable, const unsigned int precision)
  * @precision  number of mantissa bits used, >= 0 and <= 18
  */
 inline float
-powFastLookup(const float val, const float ilog2, unsigned int* const pTable,
+powFastLookup(const float val,
+              const float ilog2,
+              unsigned int* const pTable,
               const unsigned int precision)
 
 {

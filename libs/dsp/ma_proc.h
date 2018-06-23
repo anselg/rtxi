@@ -11,7 +11,7 @@
 //#include "cmpx_vec.h"
 //#include "typedefs.h"
 
-template <class T>
+template<class T>
 class MaProcess
 {
 public:

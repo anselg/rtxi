@@ -14,7 +14,9 @@ ScrollBar::ScrollBar(Qt::Orientation o, QWidget* parent)
   init();
 }
 
-ScrollBar::ScrollBar(double minBase, double maxBase, Qt::Orientation o,
+ScrollBar::ScrollBar(double minBase,
+                     double maxBase,
+                     Qt::Orientation o,
                      QWidget* parent)
   : QScrollBar(o, parent)
 {

@@ -4,9 +4,10 @@
 typedef int logical;
 
 // used by learncur.h
-typedef enum {
+typedef enum
+{
   _FALSE,
-  _TRUE 
+  _TRUE
 } LOGICAL_T;
 
 enum typesOfResponse

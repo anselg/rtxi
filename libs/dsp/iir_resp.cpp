@@ -4,12 +4,12 @@
 //  Member functions for class IirFilterResponse
 //
 
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
-#include "iir_resp.h"
 #include "complex.h"
+#include "iir_resp.h"
 #include "misdefs.h"
 #include "typedefs.h"
 #include "unwrap.h"
@@ -25,7 +25,8 @@ extern std::ofstream DebugFile;
 //--------------------------------------------------
 
 IirFilterResponse::IirFilterResponse(IirFilterDesign* filter_design,
-                                     int num_resp_pts, int db_scale_enabled,
+                                     int num_resp_pts,
+                                     int db_scale_enabled,
                                      int normalize_enabled,
                                      char* resp_file_name)
 {
@@ -54,7 +55,8 @@ IirFilterResponse::IirFilterResponse(IirFilterDesign* filter_design,
 // configuration parameters
 //-------------------------------------------------------------------
 IirFilterResponse::IirFilterResponse(IirFilterDesign* filter_design,
-                                     istream& uin, ostream& uout)
+                                     istream& uin,
+                                     ostream& uout)
 {
   logical default_file_ok;
   Filter_Design = filter_design;

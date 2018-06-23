@@ -17,7 +17,8 @@ extern std::ofstream DebugFile;
 //======================================================
 //  constructor
 
-EllipticalTransFunc::EllipticalTransFunc(int order, double passband_ripple,
+EllipticalTransFunc::EllipticalTransFunc(int order,
+                                         double passband_ripple,
                                          double stopband_ripple,
                                          double passband_edge,
                                          double stopband_edge,

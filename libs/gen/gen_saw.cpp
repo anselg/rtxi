@@ -41,7 +41,9 @@ GeneratorSaw::GeneratorSaw()
   index = 0;
 }
 
-GeneratorSaw::GeneratorSaw(double delay, double width, double amplitude,
+GeneratorSaw::GeneratorSaw(double delay,
+                           double width,
+                           double amplitude,
                            double dt)
   : Generator()
 {
@@ -61,9 +63,7 @@ GeneratorSaw::GeneratorSaw(double delay, double width, double amplitude,
   index = 0;
 }
 
-GeneratorSaw::~GeneratorSaw()
-{
-}
+GeneratorSaw::~GeneratorSaw() {}
 
 void
 GeneratorSaw::init(double delay, double width, double amplitude, double dt)

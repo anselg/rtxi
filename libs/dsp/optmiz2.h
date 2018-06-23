@@ -9,9 +9,13 @@
 #include "fs_resp.h"
 #include "fs_spec.h"
 
-void optimize2(FreqSampFilterSpec* filter_spec,
-               FreqSampFilterDesign* filter_design,
-               FreqSampFilterResponse* filter_resp, double y_base_init,
-               double tol, double tweakFactor, double rectComps[]);
+void
+optimize2(FreqSampFilterSpec* filter_spec,
+          FreqSampFilterDesign* filter_design,
+          FreqSampFilterResponse* filter_resp,
+          double y_base_init,
+          double tol,
+          double tweakFactor,
+          double rectComps[]);
 
 #endif

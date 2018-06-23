@@ -30,5 +30,6 @@ private:
   int* Factor_Vector;
 };
 
-PrimeFactorSet* PrimeFactorization(int number);
+PrimeFactorSet*
+PrimeFactorization(int number);
 #endif //_ABSTMATH_H_

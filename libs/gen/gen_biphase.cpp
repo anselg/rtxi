@@ -40,7 +40,9 @@ GeneratorBiphase::GeneratorBiphase()
   index = 0;
 }
 
-GeneratorBiphase::GeneratorBiphase(double delay, double width, double amplitude,
+GeneratorBiphase::GeneratorBiphase(double delay,
+                                   double width,
+                                   double amplitude,
                                    double dt)
   : Generator()
 {
@@ -59,9 +61,7 @@ GeneratorBiphase::GeneratorBiphase(double delay, double width, double amplitude,
   index = 0;
 }
 
-GeneratorBiphase::~GeneratorBiphase()
-{
-}
+GeneratorBiphase::~GeneratorBiphase() {}
 
 void
 GeneratorBiphase::init(double delay, double width, double amplitude, double dt)

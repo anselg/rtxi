@@ -17,7 +17,7 @@ using namespace std;
 //===============================================
 //  ArProcess
 
-template <class T>
+template<class T>
 ArProcess<T>::ArProcess(void)
 {
   A_Coeffs = NULL;
@@ -31,7 +31,7 @@ ArProcess<T>::ArProcess(void)
 //==================================================
 //  Destructor
 
-template <class T>
+template<class T>
 ArProcess<T>::~ArProcess(void)
 {
   delete[] A_Coeffs;
@@ -41,7 +41,7 @@ ArProcess<T>::~ArProcess(void)
 //  Function to dump AR parameters to output
 //  stream indicated by uout
 
-template <class T>
+template<class T>
 void
 ArProcess<T>::DumpParameters(ostream& uout)
 {
@@ -55,7 +55,7 @@ ArProcess<T>::DumpParameters(ostream& uout)
 //  Function to copy AR parameters to array
 //  pointed to by a_coeff
 
-template <class T>
+template<class T>
 void
 ArProcess<T>::GetParameters(int* ar_order, T* a_coeff)
 {
@@ -72,7 +72,7 @@ ArProcess<T>::GetParameters(int* ar_order, T* a_coeff)
 //  for the noise generator.  Otherwise, the stored
 //  value will be used.
 
-template <class T>
+template<class T>
 T*
 ArProcess<T>::OutputSequence(long noise_seed_init, int seq_len)
 {
@@ -110,7 +110,7 @@ ArProcess<T>::OutputSequence(long noise_seed_init, int seq_len)
 }
 //---------------------------------------------------
 
-template <class T>
+template<class T>
 T
 ArProcess<T>::NextSample(long noise_seed_init)
 {
@@ -125,21 +125,21 @@ ArProcess<T>::NextSample(long noise_seed_init)
 }
 
 //---------------------------------------------------
-template <class T>
+template<class T>
 T
 ArProcess<T>::GetMean(void)
 {
   return (Sum_Samps / double(Num_Samps));
 }
 //---------------------------------------------------
-template <class T>
+template<class T>
 double
 ArProcess<T>::GetDrivingVariance(void)
 {
   return (Drv_Noise_Var);
 }
 //---------------------------------------------------
-template <class T>
+template<class T>
 T
 ArProcess<T>::GetVariance(void)
 {
@@ -154,7 +154,7 @@ ArProcess<T>::GetVariance(void)
 }
 //---------------------------------------------------
 
-template <class T>
+template<class T>
 T
 ArProcess<T>::NextSample(void)
 {

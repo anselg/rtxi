@@ -2,8 +2,8 @@
 //  File = arma_est.cpp
 //
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "arma_est.h"
 #include "gausrand.h"
@@ -17,9 +17,12 @@ using namespace std;
 //                 ARMA coefficients must be estimated from
 //                 observed data
 
-template <class T>
-ArmaEstimate<T>::ArmaEstimate(int est_ar_order, int est_ma_order,
-                              int durbin_ar_order, T* sig_seq, int seq_len)
+template<class T>
+ArmaEstimate<T>::ArmaEstimate(int est_ar_order,
+                              int est_ma_order,
+                              int durbin_ar_order,
+                              T* sig_seq,
+                              int seq_len)
   : ArmaProcess<T>()
 {
   int i, j, k, err_stat;
@@ -73,9 +76,12 @@ ArmaEstimate<T>::ArmaEstimate(int est_ar_order, int est_ma_order,
     //  AR portion.
 
     a_coeffs = new T[durbin_ar_order + 1];
-    yw_ptr =
-      new YuleWalker<T>(ar_out_seq, seq_len - est_ar_order, durbin_ar_order,
-                        a_coeffs, &(this->Drv_Noise_Var), &err_stat);
+    yw_ptr = new YuleWalker<T>(ar_out_seq,
+                               seq_len - est_ar_order,
+                               durbin_ar_order,
+                               a_coeffs,
+                               &(this->Drv_Noise_Var),
+                               &err_stat);
 
     delete yw_ptr;
     delete[] ar_out_seq;
@@ -86,8 +92,12 @@ ArmaEstimate<T>::ArmaEstimate(int est_ar_order, int est_ma_order,
 
     double dummy_var;
     this->B_Coeffs = new T[est_ma_order + 1];
-    yw_ptr = new YuleWalker<T>(a_coeffs, durbin_ar_order + 1, est_ma_order,
-                               this->B_Coeffs, &dummy_var, &err_stat);
+    yw_ptr = new YuleWalker<T>(a_coeffs,
+                               durbin_ar_order + 1,
+                               est_ma_order,
+                               this->B_Coeffs,
+                               &dummy_var,
+                               &err_stat);
     std::cout << "B_Coeffs[1] = " << this->B_Coeffs[1] << std::endl;
     std::cout << "B_Coeffs[2] = " << this->B_Coeffs[2] << std::endl;
 

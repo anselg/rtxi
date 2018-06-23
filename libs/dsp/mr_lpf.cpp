@@ -13,8 +13,10 @@ extern std::ofstream DebugFile;
 
 MultirateLowpass::MultirateLowpass(FirFilterDesign* dec_proto_filt,
                                    FirFilterDesign* int_proto_filt,
-                                   int decim_rate, logical quan_enab,
-                                   long input_quan_fact, long coef_quan_fact)
+                                   int decim_rate,
+                                   logical quan_enab,
+                                   long input_quan_fact,
+                                   long coef_quan_fact)
 {
   int poly_filt_len;
   int proto_len;
@@ -43,8 +45,8 @@ MultirateLowpass::MultirateLowpass(FirFilterDesign* dec_proto_filt,
 
   for (rho = 0; rho < Dec_Rate; rho++) {
     dec_proto_filt->ExtractPolyphaseSet(coef_subset, Dec_Rate, rho);
-    Dec_Filt[rho] = new DirectFormFir(poly_filt_len, coef_subset, quan_enab,
-                                      coef_quan_fact, input_quan_fact);
+    Dec_Filt[rho] = new DirectFormFir(
+      poly_filt_len, coef_subset, quan_enab, coef_quan_fact, input_quan_fact);
   }
   //--------------------------------------------------
   // Separate the prototype filter coefficients
@@ -55,8 +57,8 @@ MultirateLowpass::MultirateLowpass(FirFilterDesign* dec_proto_filt,
 
   for (rho = 0; rho < Int_Rate; rho++) {
     int_proto_filt->ExtractPolyphaseSet(coef_subset, Int_Rate, rho);
-    Int_Filt[rho] = new DirectFormFir(poly_filt_len, coef_subset, quan_enab,
-                                      coef_quan_fact, input_quan_fact);
+    Int_Filt[rho] = new DirectFormFir(
+      poly_filt_len, coef_subset, quan_enab, coef_quan_fact, input_quan_fact);
   }
   delete[] coef_subset;
   return;

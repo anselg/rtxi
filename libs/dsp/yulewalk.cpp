@@ -12,9 +12,13 @@
 extern std::ofstream DebugFile;
 #endif
 
-template <class T>
-YuleWalker<T>::YuleWalker(T* signal, int seq_len, int ar_ord, T* a_vec,
-                          double* drv_noise_var, int* err_stat)
+template<class T>
+YuleWalker<T>::YuleWalker(T* signal,
+                          int seq_len,
+                          int ar_ord,
+                          T* a_vec,
+                          double* drv_noise_var,
+                          int* err_stat)
 {
   int idb;
   Matrix<T>* corr_mtx;
@@ -38,9 +42,12 @@ YuleWalker<T>::YuleWalker(T* signal, int seq_len, int ar_ord, T* a_vec,
   return;
 }
 
-template <class T>
-YuleWalker<T>::YuleWalker(T* toep_corr_mtx, int ar_ord, T* a_vec,
-                          double* drv_noise_var, int* err_stat)
+template<class T>
+YuleWalker<T>::YuleWalker(T* toep_corr_mtx,
+                          int ar_ord,
+                          T* a_vec,
+                          double* drv_noise_var,
+                          int* err_stat)
 {
   *err_stat = LevinsonRecursion(toep_corr_mtx, ar_ord, a_vec, drv_noise_var);
   return;

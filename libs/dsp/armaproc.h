@@ -8,7 +8,7 @@
 #include "complex.h"
 #include "typedefs.h"
 
-template <class T>
+template<class T>
 class ArmaProcess
 {
 public:

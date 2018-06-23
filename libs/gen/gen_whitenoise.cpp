@@ -61,9 +61,7 @@ GeneratorWNoise::GeneratorWNoise(double variance)
   gsl_rng_free(r);
 }
 
-GeneratorWNoise::~GeneratorWNoise()
-{
-}
+GeneratorWNoise::~GeneratorWNoise() {}
 
 void
 GeneratorWNoise::init(double variance)

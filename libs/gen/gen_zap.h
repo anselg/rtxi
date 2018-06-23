@@ -26,11 +26,17 @@ class GeneratorZap : public Generator
 public:
   // default constructor
   GeneratorZap();
-  GeneratorZap(double freq, double freq2, double amplitude, double duration,
+  GeneratorZap(double freq,
+               double freq2,
+               double amplitude,
+               double duration,
                double dt);
   ~GeneratorZap();
   // initialize waveform
-  void init(double freq, double freq2, double amplitude, double duration,
+  void init(double freq,
+            double freq2,
+            double amplitude,
+            double duration,
             double dt);
 
 protected:

@@ -6,7 +6,9 @@
 
 #include "complex.h"
 
-void FftDitSino(complex* array, int fft_size);
-void IfftDitSino(complex* array, int fft_size);
+void
+FftDitSino(complex* array, int fft_size);
+void
+IfftDitSino(complex* array, int fft_size);
 
 #endif // _DIT_SINO_H_

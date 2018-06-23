@@ -10,7 +10,9 @@ class ScrollBar : public QScrollBar
 public:
   ScrollBar(QWidget* parent = NULL);
   ScrollBar(Qt::Orientation, QWidget* parent = NULL);
-  ScrollBar(double minBase, double maxBase, Qt::Orientation o,
+  ScrollBar(double minBase,
+            double maxBase,
+            Qt::Orientation o,
             QWidget* parent = NULL);
 
   void setInverted(bool);

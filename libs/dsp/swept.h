@@ -12,8 +12,10 @@
 class SweptResponse
 {
 public:
-  SweptResponse(FilterImplementation* filter_implem, double sampling_interval,
-                std::istream& uin, std::ostream& uout);
+  SweptResponse(FilterImplementation* filter_implem,
+                double sampling_interval,
+                std::istream& uin,
+                std::ostream& uout);
   ~SweptResponse();
   void NormalizeResponse(void);
   void DumpMagResp(void);

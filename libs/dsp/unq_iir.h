@@ -9,8 +9,10 @@
 class UnquantDirectFormIir : public FilterImplementation
 {
 public:
-  UnquantDirectFormIir(int num_numer_coeff, int num_denom_coeff,
-                       double* numer_coeff, double* denom_coeff);
+  UnquantDirectFormIir(int num_numer_coeff,
+                       int num_denom_coeff,
+                       double* numer_coeff,
+                       double* denom_coeff);
   double ProcessSample(double input_val);
   long ProcessSample(long input_val) { return (0); };
   int GetNumNumerCoeff(void);

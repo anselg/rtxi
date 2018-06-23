@@ -14,8 +14,10 @@
 extern std::ofstream DebugFile;
 #endif
 
-template <class T>
-ModYuleWalker<T>::ModYuleWalker(T* signal, int seq_len, int ar_order,
+template<class T>
+ModYuleWalker<T>::ModYuleWalker(T* signal,
+                                int seq_len,
+                                int ar_order,
                                 int ma_order)
 {
   int err_stat;
@@ -31,8 +33,8 @@ ModYuleWalker<T>::ModYuleWalker(T* signal, int seq_len, int ar_order,
     new AutocorrMethCorrMtx<T>(signal, seq_len, ar_order + ma_order + 1);
   Toeplitz_Corr_Matrix = Correl_Matrix->GetCol(1);
 
-  err_stat = GeneralizedLevinson(Toeplitz_Corr_Matrix, ar_order, ma_order,
-                                 epsilon, A_Vec);
+  err_stat = GeneralizedLevinson(
+    Toeplitz_Corr_Matrix, ar_order, ma_order, epsilon, A_Vec);
 #ifdef _DEBUG
   DebugFile << "returned to ModYuleWalker" << std::endl;
   DebugFile << "err_stat = " << err_stat << std::endl;
@@ -43,7 +45,7 @@ ModYuleWalker<T>::ModYuleWalker(T* signal, int seq_len, int ar_order,
   return;
 }
 
-template <class T>
+template<class T>
 ModYuleWalker<T>::~ModYuleWalker(void)
 {
   delete Correl_Matrix;
@@ -52,7 +54,7 @@ ModYuleWalker<T>::~ModYuleWalker(void)
   return;
 }
 
-template <class T>
+template<class T>
 T*
 ModYuleWalker<T>::GetCoeffs(void)
 {
@@ -68,7 +70,7 @@ ModYuleWalker<T>::GetCoeffs(void)
   return (a_vec);
 }
 
-template <class T>
+template<class T>
 double
 ModYuleWalker<T>::GetDrivingVariance(void)
 {

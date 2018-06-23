@@ -7,7 +7,7 @@
 
 #include "complex.h"
 
-template <class T>
+template<class T>
 class ArProcess
 {
 public:

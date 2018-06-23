@@ -10,8 +10,10 @@
 #include <string.h>
 
 WelchPeriodogram::WelchPeriodogram(SignalSource* signal_source,
-                                   double samp_intvl, int num_samps_per_seg,
-                                   int shift_between_segs, int fft_len,
+                                   double samp_intvl,
+                                   int num_samps_per_seg,
+                                   int shift_between_segs,
+                                   int fft_len,
                                    GenericWindow* data_wind,
                                    int num_segs_to_avg)
   : PsdEstimate(num_samps_per_seg, samp_intvl)
@@ -49,8 +51,8 @@ WelchPeriodogram::WelchPeriodogram(SignalSource* signal_source,
   signal_source->GetNextSegment(ovrlap_seg, ovrlap_len);
   for (seg_idx = 0; seg_idx < num_segs_to_avg; seg_idx++) {
     // copy overlap samples down to start of buffer
-    memmove(time_seg, ovrlap_seg,
-            (sizeof(complex) / sizeof(char)) * ovrlap_len);
+    memmove(
+      time_seg, ovrlap_seg, (sizeof(complex) / sizeof(char)) * ovrlap_len);
 
     // get new samples
     signal_source->GetNextSegment(new_seg, shift_between_segs);

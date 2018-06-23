@@ -3,12 +3,12 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
-#include "iirswept.h"
 #include "anlg_rcn.h"
+#include "iirswept.h"
 #include "misdefs.h"
 #include "typedefs.h"
 
@@ -18,8 +18,9 @@ using namespace std;
 // ofstream DigitalOutputFile("digital.txt", ios::out);
 
 IirSweptResponse::IirSweptResponse(FilterImplementation* filter_implem,
-                             double sampling_interval, istream& uin,
-                             ostream& uout)
+                                   double sampling_interval,
+                                   istream& uin,
+                                   ostream& uout)
 {
   int resp_indx;
   double lambda, phase_lag, old_phase_lag;
@@ -112,8 +113,8 @@ IirSweptResponse::IirSweptResponse(FilterImplementation* filter_implem,
     num_holdoff_samps = 2 * samps_per_corr;
 
     num_anlg_samps = anlg_intrp_rate * samps_per_corr;
-    reconst_output = new AnalogReconst(sampling_interval, anlg_intrp_rate,
-                                       num_sidelobes, num_anlg_samps);
+    reconst_output = new AnalogReconst(
+      sampling_interval, anlg_intrp_rate, num_sidelobes, num_anlg_samps);
     for (samp_indx = 0; samp_indx < (samps_per_corr + num_holdoff_samps);
          samp_indx++) {
       input_val = cos(lambda * samp_indx);
@@ -135,7 +136,8 @@ IirSweptResponse::IirSweptResponse(FilterImplementation* filter_implem,
     // look for peak output magnitude
     peak_mag = 0.0;
     for (samp_indx = num_holdoff_samps;
-         samp_indx < (samps_per_corr + num_holdoff_samps); samp_indx++) {
+         samp_indx < (samps_per_corr + num_holdoff_samps);
+         samp_indx++) {
       if (fabs(output_tone[samp_indx]) > peak_mag)
         peak_mag = fabs(output_tone[samp_indx]);
     }
@@ -151,11 +153,12 @@ IirSweptResponse::IirSweptResponse(FilterImplementation* filter_implem,
     max_correl = 0.0;
     num_worsening_phases = 0;
     for (phase_indx = -max_worsening_phases;
-         phase_indx < int(-360. / phase_delta); phase_indx++) {
+         phase_indx < int(-360. / phase_delta);
+         phase_indx++) {
       num_worsening_phases++;
       phase_offset = (old_phase_lag + (phase_indx * phase_delta)) * PI / 180.0;
-      correl_coeff = reconst_output->CosineCorrelate(norm_freq, phase_offset,
-                                                     cycles_per_corr);
+      correl_coeff = reconst_output->CosineCorrelate(
+        norm_freq, phase_offset, cycles_per_corr);
       /*
       sum = 0.0;
       auto_sum = 0.0;

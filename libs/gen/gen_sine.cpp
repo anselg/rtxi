@@ -48,9 +48,7 @@ GeneratorSine::GeneratorSine(double freq, double amplitude, double dt)
   index = 0;
 }
 
-GeneratorSine::~GeneratorSine()
-{
-}
+GeneratorSine::~GeneratorSine() {}
 
 void
 GeneratorSine::init(double freq, double amplitude, double dt)

@@ -6,6 +6,7 @@
 
 #include "complex.h"
 
-void FftDifSino(complex* array, int fft_size);
+void
+FftDifSino(complex* array, int fft_size);
 
 #endif // _DIF_SINO_H_

@@ -3,8 +3,8 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "armaproc.h"
 #include "gausrand.h"
@@ -16,7 +16,7 @@ using namespace std;
 //============================================
 //  default constructor
 
-template <class T>
+template<class T>
 ArmaProcess<T>::ArmaProcess(void)
 {
   Ar_Order = 0;
@@ -27,7 +27,7 @@ ArmaProcess<T>::ArmaProcess(void)
 //====================================
 //  destructor
 
-template <class T>
+template<class T>
 ArmaProcess<T>::~ArmaProcess(void)
 {
   delete A_Coeffs;
@@ -39,7 +39,7 @@ ArmaProcess<T>::~ArmaProcess(void)
 //  Function to dump ARMA parameters to output
 //  stream indicated by uout
 
-template <class T>
+template<class T>
 void
 ArmaProcess<T>::DumpParameters(ostream& uout)
 {
@@ -66,7 +66,7 @@ ArmaProcess<T>::DumpParameters(ostream& uout)
 //  for the noise generator.  Otherwise, the stored
 //  value will be used.
 
-template <class T>
+template<class T>
 T*
 ArmaProcess<T>::OutputSequence(long noise_seed_init, int seq_len)
 {
@@ -106,9 +106,11 @@ ArmaProcess<T>::OutputSequence(long noise_seed_init, int seq_len)
   Noise_Seed = noise_seed;
   return (out_seq);
 }
-template <class T>
+template<class T>
 void
-ArmaProcess<T>::GetParameters(int* ar_order, T* a_coeff, int* ma_order,
+ArmaProcess<T>::GetParameters(int* ar_order,
+                              T* a_coeff,
+                              int* ma_order,
                               T* b_coeff)
 {
   int indx;
@@ -123,7 +125,7 @@ ArmaProcess<T>::GetParameters(int* ar_order, T* a_coeff, int* ma_order,
   return;
 }
 //---------------------------------------------------
-template <class T>
+template<class T>
 double
 ArmaProcess<T>::GetDrivingVariance(void)
 {

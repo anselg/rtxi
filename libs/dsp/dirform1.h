@@ -11,8 +11,11 @@
 class DirectFormFir : public FilterImplementation
 {
 public:
-  DirectFormFir(int num_taps, double* coeff, logical quan_enab,
-                long coeff_quan_factor, long input_quan_factor);
+  DirectFormFir(int num_taps,
+                double* coeff,
+                logical quan_enab,
+                long coeff_quan_factor,
+                long input_quan_factor);
   double ProcessSample(double input_val);
   long ProcessSample(long input_val);
   int GetNumTaps(void);

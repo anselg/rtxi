@@ -23,9 +23,12 @@ using namespace std;
 //  constructor
 //------------------------------------------------------
 
-RemezAlgorithm::RemezAlgorithm(istream& uin, ostream& uout, int filter_length,
+RemezAlgorithm::RemezAlgorithm(istream& uin,
+                               ostream& uout,
+                               int filter_length,
                                double passband_edge_freq,
-                               double stopband_edge_freq, double ripple_ratio,
+                               double stopband_edge_freq,
+                               double ripple_ratio,
                                FirFilterDesign** fir_filter)
 {
   int m, j;

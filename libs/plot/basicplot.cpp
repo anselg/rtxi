@@ -20,7 +20,9 @@ BasicPlot::BasicPlot(QWidget* parent)
   Zoomer* zoomer = new Zoomer(canvas());
   zoomer->setRubberBandPen(QPen(Qt::white, 2, Qt::DotLine));
   zoomer->setTrackerPen(QPen(Qt::white));
-  QObject::connect(this, SIGNAL(setNewBase(QwtScaleDiv*, QwtScaleDiv*)), zoomer,
+  QObject::connect(this,
+                   SIGNAL(setNewBase(QwtScaleDiv*, QwtScaleDiv*)),
+                   zoomer,
                    SLOT(setNewBase(QwtScaleDiv*, QwtScaleDiv*)));
 }
 

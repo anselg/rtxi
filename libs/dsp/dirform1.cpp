@@ -9,8 +9,11 @@
 extern std::ofstream DebugFile;
 #endif
 
-DirectFormFir::DirectFormFir(int num_taps, double* coeff, logical quan_enab,
-                             long coeff_quan_factor, long input_quan_factor)
+DirectFormFir::DirectFormFir(int num_taps,
+                             double* coeff,
+                             logical quan_enab,
+                             long coeff_quan_factor,
+                             long input_quan_factor)
 {
   int n;
   Num_Taps = num_taps;

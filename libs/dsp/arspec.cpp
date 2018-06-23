@@ -3,8 +3,8 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "arspec.h"
 #include "misdefs.h"
@@ -14,8 +14,10 @@ using namespace std;
 //==============================================
 //  constructor
 
-template <class T>
-ArSpectrum<T>::ArSpectrum(int ar_order, T* ar_coeff, double samp_intvl,
+template<class T>
+ArSpectrum<T>::ArSpectrum(int ar_order,
+                          T* ar_coeff,
+                          double samp_intvl,
                           double drv_var)
 {
   double denom, two_pi_f, psd_val;
@@ -49,10 +51,10 @@ ArSpectrum<T>::ArSpectrum(int ar_order, T* ar_coeff, double samp_intvl,
 //------------------------
 // destructor
 
-template <class T>
+template<class T>
 ArSpectrum<T>::~ArSpectrum(void){};
 
-template <class T>
+template<class T>
 void
 ArSpectrum<T>::DumpSpectrum(char* out_file_nam,
                             TheoreticalSpectrum* ref_spectrum,
@@ -83,7 +85,7 @@ ArSpectrum<T>::DumpSpectrum(char* out_file_nam,
   }
   out_file.close();
 }
-template <class T>
+template<class T>
 void
 ArSpectrum<T>::DumpSpectrum(char* out_file_nam, logical db_plot_enab)
 {

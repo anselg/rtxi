@@ -59,6 +59,7 @@ private:
 };
 
 /// default instance
-const PowFast& POWFAST();
+const PowFast&
+POWFAST();
 
 #endif // POWFAST_H

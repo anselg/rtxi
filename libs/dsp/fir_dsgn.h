@@ -5,10 +5,11 @@
 #ifndef _FIR_DSGN_H_
 #define _FIR_DSGN_H_
 
-#include "typedefs.h"
 #include "gen_win.h"
+#include "typedefs.h"
 
-typedef enum {
+typedef enum
+{
   FIR_SYM_NONE,
   FIR_SYM_EVEN_LEFT,
   FIR_SYM_EVEN_RIGHT,

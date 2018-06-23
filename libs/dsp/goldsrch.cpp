@@ -3,17 +3,17 @@
 //
 
 #include <fstream>
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
-#include "misdefs.h"
-#include "typedefs.h"
-#include "goldsrch.h"
-#include "fs_util.h"
 #include "fs_dsgn.h"
-#include "sb_peak.h"
 #include "fs_spec.h"
+#include "fs_util.h"
+#include "goldsrch.h"
+#include "misdefs.h"
+#include "sb_peak.h"
+#include "typedefs.h"
 
 #ifdef _DEBUG
 extern std::ofstream DebugFile;
@@ -22,9 +22,11 @@ extern std::ofstream DebugFile;
 // extern logical PauseEnabled;
 
 double
-GoldenSearch(double tol, FreqSampFilterSpec* filter_spec,
+GoldenSearch(double tol,
+             FreqSampFilterSpec* filter_spec,
              FreqSampFilterDesign* filter_design,
-             FreqSampFilterResponse* filter_resp, long quant_factor,
+             FreqSampFilterResponse* filter_resp,
+             long quant_factor,
              double* fmin)
 {
   double x0, x1, x2, x3, xmin, f0, f1, f2, f3, oldXmin;

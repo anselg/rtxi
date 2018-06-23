@@ -6,13 +6,13 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "typedefs.h"
-#include "misdefs.h"
 #include "fs_dsgn.h"
 #include "fs_spec.h"
 #include "fs_util.h"
 #include "goldsrch.h"
+#include "misdefs.h"
 #include "sb_peak.h"
+#include "typedefs.h"
 
 #ifdef _DEBUG
 extern std::ofstream DebugFile;
@@ -21,10 +21,15 @@ extern std::ofstream DebugFile;
 // extern logical PauseEnabled;
 
 double
-GoldenSearch2(double tol, FreqSampFilterSpec* filter_spec,
+GoldenSearch2(double tol,
+              FreqSampFilterSpec* filter_spec,
               FreqSampFilterDesign* filter_design,
-              FreqSampFilterResponse* filter_resp, double rho_min,
-              double rho_max, double* origins, double* slopes, double* fmin)
+              FreqSampFilterResponse* filter_resp,
+              double rho_min,
+              double rho_max,
+              double* origins,
+              double* slopes,
+              double* fmin)
 {
   double x0, x1, x2, x3, xmin, f0, f1, f2, f3, oldXmin;
   double leftOrd, rightOrd, midOrd, x, xb;
@@ -122,7 +127,8 @@ GoldenSearch2(double tol, FreqSampFilterSpec* filter_spec,
       filter_resp->NormalizeResponse(db_scale);
       f1 = filter_resp->GetStopbandPeak();
       /*
-       * LogFile << "x0= " << x0 << " x1= " << x1 << " x2= " << x2 << " x3= " << x3
+       * LogFile << "x0= " << x0 << " x1= " << x1 << " x2= " << x2 << " x3= " <<
+       * x3
        *         << std::endl;
        * LogFile << "f1 = " << f1 << std::endl;
        */
@@ -139,7 +145,8 @@ GoldenSearch2(double tol, FreqSampFilterSpec* filter_spec,
       f2 = filter_resp->GetStopbandPeak();
       /*
        * LogFile << "f2 = " << f2 << std::endl;
-       * LogFile << "x0= " << x0 << " x1= " << x1 << " x2= " << x2 << " x3= " << x3
+       * LogFile << "x0= " << x0 << " x1= " << x1 << " x2= " << x2 << " x3= " <<
+       * x3
        *         << std::endl;
        */
     }

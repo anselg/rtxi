@@ -9,8 +9,11 @@
 class DirectFormIir : public FilterImplementation
 {
 public:
-  DirectFormIir(int num_numer_coeff, int num_denom_coeff, double* numer_coeff,
-                double* denom_coeff, long coeff_quan_factor,
+  DirectFormIir(int num_numer_coeff,
+                int num_denom_coeff,
+                double* numer_coeff,
+                double* denom_coeff,
+                long coeff_quan_factor,
                 long input_quan_factor);
   double ProcessSample(double input_val);
   long ProcessSample(long input_val);

@@ -3,14 +3,14 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "autometh.h"
 #include "complex.h"
 #include "overload.h"
 
-template <class T>
+template<class T>
 AutocorrMethCorrMtx<T>::AutocorrMethCorrMtx(T* signal, int seq_len, int max_lag)
 {
   int j, k;
@@ -36,7 +36,7 @@ AutocorrMethCorrMtx<T>::AutocorrMethCorrMtx(T* signal, int seq_len, int max_lag)
   }
   return;
 }
-template <class T>
+template<class T>
 AutocorrMethCorrMtx<T>::~AutocorrMethCorrMtx()
 {
   delete[] this->Herm_Toep_Col_1;

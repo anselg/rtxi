@@ -10,8 +10,10 @@
 class IirSweptResponse
 {
 public:
-  IirSweptResponse(FilterImplementation* filter_implem, double sampling_interval,
-                std::istream& uin, std::ostream& uout);
+  IirSweptResponse(FilterImplementation* filter_implem,
+                   double sampling_interval,
+                   std::istream& uin,
+                   std::ostream& uout);
   ~IirSweptResponse();
   void NormalizeResponse(void);
   void DumpMagResp(void);

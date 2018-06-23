@@ -4,12 +4,12 @@
 //
 //
 
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
-#include "impresp.h"
 #include "complex.h"
+#include "impresp.h"
 
 #ifdef _DEBUG
 extern std::ofstream DebugFile;
@@ -18,7 +18,8 @@ extern std::ofstream DebugFile;
 //===========================================================
 //  constructors
 
-ImpulseResponse::ImpulseResponse(FilterTransFunc* trans_func, int num_resp_pts,
+ImpulseResponse::ImpulseResponse(FilterTransFunc* trans_func,
+                                 int num_resp_pts,
                                  double delta_time)
 {
   complex k_sub_r_denom, k_sub_r_numer, s_sub_r;

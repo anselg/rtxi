@@ -8,7 +8,7 @@
 #include "complex.h"
 #include "matrix.h"
 
-template <class T>
+template<class T>
 class ToeplitzMatrix : public Matrix<T>
 {
 public:

@@ -13,9 +13,13 @@ using namespace std;
 //==============================================
 //  constructor
 
-template <class T>
-ArmaSpectrum<T>::ArmaSpectrum(int ar_order, T* ar_coeff, int ma_order,
-                              T* ma_coeff, double samp_intvl, double drv_var)
+template<class T>
+ArmaSpectrum<T>::ArmaSpectrum(int ar_order,
+                              T* ar_coeff,
+                              int ma_order,
+                              T* ma_coeff,
+                              double samp_intvl,
+                              double drv_var)
 {
   double numer, denom, two_pi_f;
   double psd_val;
@@ -53,10 +57,10 @@ ArmaSpectrum<T>::ArmaSpectrum(int ar_order, T* ar_coeff, int ma_order,
   return;
 }
 
-template <class T>
+template<class T>
 ArmaSpectrum<T>::~ArmaSpectrum(void){};
 
-template <class T>
+template<class T>
 void
 ArmaSpectrum<T>::DumpSpectrum(char* out_file_nam,
                               TheoreticalSpectrum* ref_spectrum,

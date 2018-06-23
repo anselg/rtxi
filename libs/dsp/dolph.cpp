@@ -6,8 +6,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "dolph.h"
 #include "acosh.h"
+#include "dolph.h"
 #include "misdefs.h"
 
 DolphChebyWindow::DolphChebyWindow(int length, double atten)

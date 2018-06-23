@@ -11,11 +11,23 @@
 extern std::ofstream DebugFile;
 #endif
 
-LmsFilter::LmsFilter(int num_taps, double* coeff, double mu, logical quan_enab,
-                     long coeff_quan_factor, long input_quan_factor,
-                     int tap_for_trans, int secondary_tap, int transient_len)
-  : AdaptiveFir(num_taps, coeff, quan_enab, coeff_quan_factor,
-                input_quan_factor, tap_for_trans, secondary_tap, transient_len)
+LmsFilter::LmsFilter(int num_taps,
+                     double* coeff,
+                     double mu,
+                     logical quan_enab,
+                     long coeff_quan_factor,
+                     long input_quan_factor,
+                     int tap_for_trans,
+                     int secondary_tap,
+                     int transient_len)
+  : AdaptiveFir(num_taps,
+                coeff,
+                quan_enab,
+                coeff_quan_factor,
+                input_quan_factor,
+                tap_for_trans,
+                secondary_tap,
+                transient_len)
 {
   Two_Mu = 2.0 * mu;
 #ifdef _DEBUG
@@ -37,7 +49,8 @@ LmsFilter::ResetTaps(void)
   Trial_Count++;
 }
 double
-LmsFilter::UpdateTaps(double true_samp, double estim_samp,
+LmsFilter::UpdateTaps(double true_samp,
+                      double estim_samp,
                       logical trans_save_enabled)
 {
   double err_samp;

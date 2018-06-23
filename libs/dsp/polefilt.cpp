@@ -16,7 +16,8 @@ extern std::ofstream DebugFile;
 //  constructor that actually initializes filter model
 //------------------------------------------------------
 
-AnalogAllPoleFilt::AnalogAllPoleFilt(Polynomial denom_poly, double h_sub_zero,
+AnalogAllPoleFilt::AnalogAllPoleFilt(Polynomial denom_poly,
+                                     double h_sub_zero,
                                      double delta_t)
 //                 : AnalogFilter()
 {

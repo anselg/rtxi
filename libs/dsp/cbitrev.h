@@ -7,6 +7,7 @@
 
 #include "complex.h"
 
-void ComplexBitReverse(complex* array, int size);
+void
+ComplexBitReverse(complex* array, int size);
 
 #endif //_CBITREV_H

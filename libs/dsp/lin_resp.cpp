@@ -2,13 +2,13 @@
 //  File = lin_resp.cpp
 //
 
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
+#include "lin_resp.h"
 #include "misdefs.h"
 #include "typedefs.h"
-#include "lin_resp.h"
 
 using namespace std;
 
@@ -20,13 +20,19 @@ extern std::ofstream DebugFile;
 // constructor with interactive setting of configuration parameters
 //------------------------------------------------------------------
 LinearPhaseFirResponse::LinearPhaseFirResponse(
-  LinearPhaseFirDesign* filter_design, istream& uin, ostream& uout,
-  int num_resp_pts, int db_scale_enabled, int normalize_enabled,
+  LinearPhaseFirDesign* filter_design,
+  istream& uin,
+  ostream& uout,
+  int num_resp_pts,
+  int db_scale_enabled,
+  int normalize_enabled,
   char* resp_file_name)
-  : FirFilterResponse(filter_design, num_resp_pts, db_scale_enabled,
-                      normalize_enabled, resp_file_name)
-{
-}
+  : FirFilterResponse(filter_design,
+                      num_resp_pts,
+                      db_scale_enabled,
+                      normalize_enabled,
+                      resp_file_name)
+{}
 
 //=========================================================
 //  method to compute magnitude response

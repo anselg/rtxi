@@ -5,15 +5,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "misdefs.h"
 #include "fs_dsgn.h"
+#include "misdefs.h"
 
-FreqSampFilterDesign::FreqSampFilterDesign()
-{
-}
+FreqSampFilterDesign::FreqSampFilterDesign() {}
 
-FreqSampFilterDesign::FreqSampFilterDesign(int band_config, int fir_type,
-                                           int num_taps, double* imp_resp_coeff)
+FreqSampFilterDesign::FreqSampFilterDesign(int band_config,
+                                           int fir_type,
+                                           int num_taps,
+                                           double* imp_resp_coeff)
 {
   Band_Config = band_config;
   Fir_Type = fir_type;

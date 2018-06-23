@@ -15,8 +15,10 @@ public:
   // constructor with all configuration parameters
   // passed as input arguments
 
-  IirFilterResponse(IirFilterDesign* filter_design, int num_resp_pts,
-                    int db_scale_enabled, int normalize_enabled,
+  IirFilterResponse(IirFilterDesign* filter_design,
+                    int num_resp_pts,
+                    int db_scale_enabled,
+                    int normalize_enabled,
                     char* resp_file_name);
 
   //--------------------------------------------------
@@ -24,7 +26,8 @@ public:
   //  parameters obtained interactively through
   //  streams uin and uout
 
-  IirFilterResponse(IirFilterDesign* filter_design, std::istream& uin,
+  IirFilterResponse(IirFilterDesign* filter_design,
+                    std::istream& uin,
                     std::ostream& uout);
 
   //--------------------------------------

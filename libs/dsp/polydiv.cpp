@@ -19,7 +19,11 @@ extern std::ofstream DebugFile;
 #endif
 
 void
-polydiv(complex* dvnd, int dvnd_deg, complex* dvsr, int dvsr_deg, complex* quot,
+polydiv(complex* dvnd,
+        int dvnd_deg,
+        complex* dvsr,
+        int dvsr_deg,
+        complex* quot,
         complex* remndr)
 {
   int k, j;

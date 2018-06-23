@@ -5,11 +5,11 @@
 //  Arbitrary All-Pole Filter Response
 //
 
-#include <math.h>
 #include <iostream>
+#include <math.h>
 
-#include "polefunc.h"
 #include "misdefs.h"
+#include "polefunc.h"
 
 using namespace std;
 

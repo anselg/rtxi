@@ -2,17 +2,17 @@
 //  File = ar_src.cpp
 //
 
-#include <fstream>
-#include <stdlib.h>
 #include "ar_src.h"
 #include "sig_type.h"
+#include <fstream>
+#include <stdlib.h>
 
 //======================================================
 //  ArSource - subclass of ArProcess for the case where
 //             AR coefficients are known or assumed and
 //             are provided as input parameters
 
-template <class T>
+template<class T>
 ArSource<T>::ArSource(int ar_order, T* a_coeffs, double drv_noise_var)
   : ArProcess<T>()
 {
@@ -29,7 +29,7 @@ ArSource<T>::ArSource(int ar_order, T* a_coeffs, double drv_noise_var)
   for (i = 0; i < ar_order; i++)
     this->Old_Output[i] = 0.0;
 }
-template <class T>
+template<class T>
 ArSource<T>::~ArSource(void){};
 //---------------------------
 // Explicit instantiations

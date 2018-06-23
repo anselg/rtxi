@@ -10,9 +10,13 @@
 // extern std::ofstream LogFile;
 
 void
-optimize2(FreqSampFilterSpec* filter_spec, FreqSampFilterDesign* filter_design,
-          FreqSampFilterResponse* filter_resp, double y_base_init, double tol,
-          double tweak_factor, double rectComps[])
+optimize2(FreqSampFilterSpec* filter_spec,
+          FreqSampFilterDesign* filter_design,
+          FreqSampFilterResponse* filter_resp,
+          double y_base_init,
+          double tol,
+          double tweak_factor,
+          double rectComps[])
 {
   double x1, x2, x3, y3, min_func_val;
   double slopes[5], origins[5];
@@ -34,8 +38,15 @@ optimize2(FreqSampFilterSpec* filter_spec, FreqSampFilterDesign* filter_design,
     rho_min = 0.0;
     rho_max = 1.0;
 
-    x1 = GoldenSearch2(tol, filter_spec, filter_design, filter_resp, rho_min,
-                       rho_max, origins, slopes, &min_func_val);
+    x1 = GoldenSearch2(tol,
+                       filter_spec,
+                       filter_design,
+                       filter_resp,
+                       rho_min,
+                       rho_max,
+                       origins,
+                       slopes,
+                       &min_func_val);
     std::cout << "x1 = " << x1 << std::endl;
     // std::cout << "y3 = " << y3 << std::endl;
     std::cout << "min = " << min_func_val << std::endl;
@@ -47,8 +58,15 @@ optimize2(FreqSampFilterSpec* filter_spec, FreqSampFilterDesign* filter_design,
 
     origins[2] = y_base * tweak_factor;
 
-    x2 = GoldenSearch2(tol, filter_spec, filter_design, filter_resp, rho_min,
-                       rho_max, origins, slopes, &min_func_val);
+    x2 = GoldenSearch2(tol,
+                       filter_spec,
+                       filter_design,
+                       filter_resp,
+                       rho_min,
+                       rho_max,
+                       origins,
+                       slopes,
+                       &min_func_val);
 
     /*-------------------------------------*/
     /* define line of steepest descent     */
@@ -66,8 +84,15 @@ optimize2(FreqSampFilterSpec* filter_spec, FreqSampFilterDesign* filter_design,
     std::cout << "min = " << min_func_val << std::endl;
     pause(TRUE);
 
-    x3 = GoldenSearch2(tol, filter_spec, filter_design, filter_resp, rho_min,
-                       x_max, origins, slopes, &min_func_val);
+    x3 = GoldenSearch2(tol,
+                       filter_spec,
+                       filter_design,
+                       filter_resp,
+                       rho_min,
+                       x_max,
+                       origins,
+                       slopes,
+                       &min_func_val);
     y3 = origins[2] + x3 * slopes[2];
 
     /*---------------------------------------------------------------*/

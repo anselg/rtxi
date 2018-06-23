@@ -13,7 +13,8 @@
 //======================================================
 //  constructor
 
-ChebyshevTransFunc::ChebyshevTransFunc(int order, double ripple,
+ChebyshevTransFunc::ChebyshevTransFunc(int order,
+                                       double ripple,
                                        int ripple_bw_norm)
   : FilterTransFunc(order)
 {

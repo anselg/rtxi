@@ -13,8 +13,10 @@ class FirFilterResponse
 public:
   // constructor with all configuration parameters
 
-  FirFilterResponse(FirFilterDesign* filter_design, int num_resp_pts,
-                    int db_scale_enabled, int normalize_enabled,
+  FirFilterResponse(FirFilterDesign* filter_design,
+                    int num_resp_pts,
+                    int db_scale_enabled,
+                    int normalize_enabled,
                     char* resp_file_name);
 
   //--------------------------------------

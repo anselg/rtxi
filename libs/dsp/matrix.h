@@ -5,7 +5,7 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
-template <class T>
+template<class T>
 class Matrix
 {
 public:

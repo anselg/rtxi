@@ -8,9 +8,13 @@
 #include "fs_spec.h"
 #include "typedefs.h"
 
-void DumpRectangCompon(double* origins, double* slopes, int num_trans_samps,
-                       double x);
+void
+DumpRectangCompon(double* origins,
+                  double* slopes,
+                  int num_trans_samps,
+                  double x);
 
-void pause(logical pause_enabled);
+void
+pause(logical pause_enabled);
 
 #endif

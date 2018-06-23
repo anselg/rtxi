@@ -12,11 +12,11 @@
 extern std::ofstream DebugFile;
 #endif
 
-template <class T>
+template<class T>
 class vector;
 //------------------------------------------
 //  constructor for row vector
-template <class T>
+template<class T>
 rowvec<T>::rowvec(void)
   : vector<T>()
 {
@@ -27,7 +27,7 @@ rowvec<T>::rowvec(void)
 }
 
 //------------------------------------------
-template <class T>
+template<class T>
 rowvec<T>::rowvec(int origin, int size)
   : vector<T>(origin, size)
 {
@@ -38,7 +38,7 @@ rowvec<T>::rowvec(int origin, int size)
 }
 //------------------------------------------------
 // transpose operator
-template <class T>
+template<class T>
 rowvec<T>& colvec<T>::operator!(void)
 {
   // rowvec<T> *rv = new rowvec<T>(p->orig_indx,p->length);
@@ -63,7 +63,7 @@ rowvec<T>& colvec<T>::operator!(void)
 
 //------------------------------------------------
 // transpose operator
-template <class T>
+template<class T>
 colvec<T>& rowvec<T>::operator!(void)
 {
   colvec<T>* cv = new colvec<T>(this->p->orig_indx, this->p->length);
@@ -86,7 +86,7 @@ colvec<T>& rowvec<T>::operator!(void)
 
 //---------------------------------------------------
 //  row vector times column vector
-template <class T>
+template<class T>
 T& rowvec<T>::operator*(colvec<T>& v2)
 {
   // get origin and length of row vector
@@ -129,7 +129,7 @@ T& rowvec<T>::operator*(colvec<T>& v2)
 }
 //---------------------------------------------------
 //  method to multiply row vector times matrix
-template <class T>
+template<class T>
 rowvec<T>& rowvec<T>::operator*(matrix<T>& m2)
 {
   // check dimensions
@@ -158,7 +158,8 @@ rowvec<T>& rowvec<T>::operator*(matrix<T>& m2)
   for (int j = 0; j < ncols; j++) {
     sum = 0.0;
     for (int i = 0; i < nrows; i++) {
-      sum += ((this->p->f[i]) * (((m2._p->f[i - (m2._p->orig_indx)])->p)->f[j]));
+      sum +=
+        ((this->p->f[i]) * (((m2._p->f[i - (m2._p->orig_indx)])->p)->f[j]));
     }
     (v_res->p)->f[j] = sum;
   }
@@ -180,7 +181,7 @@ rowvec<T>& rowvec<T>::operator*(matrix<T>& m2)
 }
 //------------------------------------------
 //  constructor for column vector
-template <class T>
+template<class T>
 colvec<T>::colvec(void)
   : vector<T>()
 {
@@ -192,7 +193,7 @@ colvec<T>::colvec(void)
 
 //------------------------------------------
 //  constructor for column vector
-template <class T>
+template<class T>
 colvec<T>::colvec(int origin, int size)
   : vector<T>(origin, size)
 {
@@ -204,7 +205,7 @@ colvec<T>::colvec(int origin, int size)
 
 //---------------------------------------------------
 //  method to multiply column vector times row vector
-template <class T>
+template<class T>
 matrix<T>& colvec<T>::operator*(rowvec<T>& v2)
 {
   // get origin and length of column vector
@@ -243,7 +244,7 @@ matrix<T>& colvec<T>::operator*(rowvec<T>& v2)
   return (*m_res);
 };
 //------------------------------------------
-template <class T>
+template<class T>
 vector<T>::vector(void)
 {
 #ifdef _VEC_DEBUG
@@ -255,7 +256,7 @@ vector<T>::vector(void)
 };
 
 //------------------------------------------
-template <class T>
+template<class T>
 void
 vector<T>::PurgeData(void)
 {
@@ -273,7 +274,7 @@ vector<T>::PurgeData(void)
   }
 };
 //------------------------------------------
-template <class T>
+template<class T>
 vector<T>::vector(int origin, int size)
 {
 #ifdef _VEC_DEBUG
@@ -298,7 +299,7 @@ vector<T>::vector(int origin, int size)
 
 //-----------------------------------------
 // destructor
-template <class T>
+template<class T>
 rowvec<T>::~rowvec()
 {
 #ifdef _VEC_DEBUG
@@ -308,7 +309,7 @@ rowvec<T>::~rowvec()
 };
 //-----------------------------------------
 // destructor
-template <class T>
+template<class T>
 colvec<T>::~colvec()
 {
 #ifdef _VEC_DEBUG
@@ -318,7 +319,7 @@ colvec<T>::~colvec()
 };
 //-----------------------------------------
 // destructor
-template <class T>
+template<class T>
 vector<T>::~vector()
 {
 #ifdef _VEC_DEBUG
@@ -344,7 +345,7 @@ vector<T>::~vector()
 };
 //-----------------------------------------------
 // convert vector into regular array
-template <class T>
+template<class T>
 T*
 vector<T>::array(void)
 {
@@ -370,7 +371,7 @@ vector<T>::array(void)
 }
 //------------------------------------------------
 // "copy" constructor
-template <class T>
+template<class T>
 vector<T>::vector(vector<T>& x)
 {
 #ifdef _VEC_DEBUG
@@ -382,7 +383,7 @@ vector<T>::vector(vector<T>& x)
 
 //----------------------------------------------
 // divide vector elements by a scalar
-template <class T>
+template<class T>
 vector<T>&
 vector<T>::operator/(T denom)
 {
@@ -411,7 +412,7 @@ vector<T>::operator/(T denom)
 }
 //----------------------------------------------
 // assignment x = y
-template <class T>
+template<class T>
 vector<T>&
 vector<T>::operator=(vector<T>& vec)
 {
@@ -441,7 +442,7 @@ vector<T>::operator=(vector<T>& vec)
 
 //----------------------------------------------
 // assignment x = y
-template <class T>
+template<class T>
 rowvec<T>&
 rowvec<T>::operator=(vector<T>& vec)
 {
@@ -471,7 +472,7 @@ rowvec<T>::operator=(vector<T>& vec)
 
 //----------------------------------------------
 // assignment x = y
-template <class T>
+template<class T>
 colvec<T>&
 colvec<T>::operator=(vector<T>& vec)
 {
@@ -501,7 +502,7 @@ colvec<T>::operator=(vector<T>& vec)
 //-------------------------------------------------
 //  assignment x = complex(2.0, 3.0)
 
-template <class T>
+template<class T>
 vector<T>&
 vector<T>::operator=(T x)
 {
@@ -524,7 +525,7 @@ vector<T>::operator=(T x)
   return *this;
 }
 
-template <class T>
+template<class T>
 T& vector<T>::operator[](int i)
 {
   return p->f[(
@@ -532,7 +533,7 @@ T& vector<T>::operator[](int i)
 }
 //-----------------------------------------------------
 //  pre-multiply matrix by a row vector
-template <class T>
+template<class T>
 vector<T>& vector<T>::operator*(matrix<T>& m2)
 {
   // check dimensions
@@ -587,4 +588,5 @@ template class colvec<double>;
 template class vector<complex>;
 template class rowvec<complex>;
 template class colvec<complex>;
-rowvec<double>* transpose( colvec<double>* );
+rowvec<double>*
+transpose(colvec<double>*);

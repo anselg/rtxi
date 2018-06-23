@@ -3,8 +3,8 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "burg.h"
 #include "complex.h"
@@ -16,7 +16,7 @@ using namespace std;
 
 //==============================================
 
-template <class T>
+template<class T>
 BurgMethod<T>::BurgMethod(int est_order, T* x, int sig_len)
 {
   int i, j, k, n;
@@ -86,13 +86,13 @@ BurgMethod<T>::BurgMethod(int est_order, T* x, int sig_len)
   return;
 };
 
-template <class T>
+template<class T>
 BurgMethod<T>::~BurgMethod(void){};
 //==================================================
 //  Function to dump AR parameters to output
 //  stream indicated by uout
 
-template <class T>
+template<class T>
 void
 BurgMethod<T>::DumpParameters(ostream& uout)
 {
@@ -106,7 +106,7 @@ BurgMethod<T>::DumpParameters(ostream& uout)
 //  Function to copy AR parameters to array
 //  pointed to by a_coeff
 
-template <class T>
+template<class T>
 void
 BurgMethod<T>::GetParameters(int* ar_order, T* a_coeff)
 {
@@ -117,7 +117,7 @@ BurgMethod<T>::GetParameters(int* ar_order, T* a_coeff)
   return;
 };
 //---------------------------------------------------
-template <class T>
+template<class T>
 double
 BurgMethod<T>::GetDrivingVariance(void)
 {

@@ -11,8 +11,12 @@
 class CpfskSource : public SignalSource
 {
 public:
-  CpfskSource(double sampling_interval, double freq_dev, int samps_per_symb,
-              long prn_seed, int num_samps_per_seg, int samps_initial_delay);
+  CpfskSource(double sampling_interval,
+              double freq_dev,
+              int samps_per_symb,
+              long prn_seed,
+              int num_samps_per_seg,
+              int samps_initial_delay);
 
   ~CpfskSource();
 

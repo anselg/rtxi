@@ -13,8 +13,12 @@
 class WelchPeriodogram : public PsdEstimate
 {
 public:
-  WelchPeriodogram(SignalSource* signal_source, double samp_intvl,
-                   int num_samps_per_seg, int shift_between_segs, int fft_len,
-                   GenericWindow* data_wind, int num_segs_to_avg);
+  WelchPeriodogram(SignalSource* signal_source,
+                   double samp_intvl,
+                   int num_samps_per_seg,
+                   int shift_between_segs,
+                   int fft_len,
+                   GenericWindow* data_wind,
+                   int num_segs_to_avg);
 };
 #endif // _WELCPDGM_H_

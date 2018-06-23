@@ -3,11 +3,11 @@
 //
 
 #include <fstream>
-#include <math.h>
 #include <iostream>
+#include <math.h>
 
-#include "sd_theor.h"
 #include "misdefs.h"
+#include "sd_theor.h"
 
 using namespace std;
 
@@ -16,8 +16,11 @@ extern std::ofstream DebugFile;
 #endif
 
 void
-SteepestDescentTheoretic(double start_pt_0, double start_pt_1, double mu,
-                         int num_pts, double min_dist)
+SteepestDescentTheoretic(double start_pt_0,
+                         double start_pt_1,
+                         double mu,
+                         int num_pts,
+                         double min_dist)
 {
   int n;
   double w0, w1, old_w0, old_w1, grad_0, grad_1;

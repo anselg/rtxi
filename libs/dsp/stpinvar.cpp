@@ -5,8 +5,14 @@
 #include "stpinvar.h"
 
 void
-StepInvar(complex* pole, int num_poles, complex* zero, int num_zeros,
-          double h_sub_zero, double big_t, complex* a, complex* b)
+StepInvar(complex* pole,
+          int num_poles,
+          complex* zero,
+          int num_zeros,
+          double h_sub_zero,
+          double big_t,
+          complex* a,
+          complex* b)
 {
   int k, n, j, max_coef;
   complex *delta, *big_a;

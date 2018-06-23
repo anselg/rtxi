@@ -50,18 +50,15 @@ private:
 inline complex::complex(double _r, double _i)
   : re(_r)
   , im(_i)
-{
-}
+{}
 inline complex::complex(float _r, float _i)
   : re((double)_r)
   , im((double)_i)
-{
-}
+{}
 inline complex::complex()
   : re(0.0)
   , im(0.0)
-{
-}
+{}
 inline void
 complex::operator+=(const complex _z)
 {
@@ -198,8 +195,10 @@ inline complex operator*(const complex value1, const complex value2)
 
 #include <iostream>
 
-std::ostream& operator<<(std::ostream&, const complex&);
-std::istream& operator>>(std::istream&, complex&);
+std::ostream&
+operator<<(std::ostream&, const complex&);
+std::istream&
+operator>>(std::istream&, complex&);
 
 static const complex complex_zero(0.0, 0.0);
 

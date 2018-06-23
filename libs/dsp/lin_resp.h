@@ -20,8 +20,13 @@ public:
   //  alternate constructor that provides interactive
   //  setting of configuration parameters
 
-  LinearPhaseFirResponse(LinearPhaseFirDesign *, std::istream&, std::ostream&,
-                         int, int, int, char*);
+  LinearPhaseFirResponse(LinearPhaseFirDesign*,
+                         std::istream&,
+                         std::ostream&,
+                         int,
+                         int,
+                         int,
+                         char*);
 
   //----------------------------------------
   // method to compute magnitude response

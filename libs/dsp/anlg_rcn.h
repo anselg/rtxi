@@ -14,8 +14,10 @@ public:
   //---------------------
   // default constructor
 
-  AnalogReconst(double samp_intvl, int anlg_intrp_rate,
-                int num_signif_sidelobes, int num_analog_samps);
+  AnalogReconst(double samp_intvl,
+                int anlg_intrp_rate,
+                int num_signif_sidelobes,
+                int num_analog_samps);
 
   ~AnalogReconst(void);
 
@@ -29,7 +31,8 @@ public:
 
   double FindPeakMag(void);
 
-  double CosineCorrelate(double norm_freq, double phase_offset,
+  double CosineCorrelate(double norm_freq,
+                         double phase_offset,
                          double cycles_per_correl);
 
 private:

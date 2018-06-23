@@ -8,14 +8,21 @@
 #include "complex.h"
 #include "typedefs.h"
 
-template <class T>
+template<class T>
 class YuleWalker
 {
 public:
-  YuleWalker(T* signal, int seq_len, int ar_ord, T* a_vec,
-             double* drv_noise_var, int* err_stat);
+  YuleWalker(T* signal,
+             int seq_len,
+             int ar_ord,
+             T* a_vec,
+             double* drv_noise_var,
+             int* err_stat);
 
-  YuleWalker(T* toep_corr_mtx, int ar_ord, T* a_vec, double* drv_noise_var,
+  YuleWalker(T* toep_corr_mtx,
+             int ar_ord,
+             T* a_vec,
+             double* drv_noise_var,
              int* err_stat);
 };
 

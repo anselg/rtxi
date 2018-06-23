@@ -18,7 +18,8 @@ using namespace std;
 //--------------------------------------------------
 
 FirFilterResponse::FirFilterResponse(FirFilterDesign* filter_design,
-                                     int num_resp_pts, int db_scale_enabled,
+                                     int num_resp_pts,
+                                     int db_scale_enabled,
                                      int normalize_enabled,
                                      char* resp_file_name)
 {

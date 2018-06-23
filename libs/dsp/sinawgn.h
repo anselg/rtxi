@@ -13,8 +13,13 @@ class SinesInAwgn : public SignalSource
 public:
   SinesInAwgn(double sampling_interval, std::istream& uin, std::ostream& uout);
 
-  SinesInAwgn(double sampling_interval, int num_sines, double* freq,
-              double* phase, double* ampl, double agn_sigma, long agn_seed);
+  SinesInAwgn(double sampling_interval,
+              int num_sines,
+              double* freq,
+              double* phase,
+              double* ampl,
+              double agn_sigma,
+              long agn_seed);
 
   void ResetSource(void);
 

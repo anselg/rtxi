@@ -45,7 +45,8 @@ public:
   void appendData(double x,
                   double y); // draws data point with default symbol style
   void appendData(
-    double x, double y,
+    double x,
+    double y,
     QwtSymbol::Style s); // draws data point with specified symbol style
   void appendData(double* x, double* y, int size); // draws multiple data points
   void appendData(double* x, double* y, int size, QwtSymbol::Style s);
@@ -58,7 +59,8 @@ public:
   void nextSymbol();     // sets symbol to the next QwtSymbol style
 
 public slots:
-  void appendLine(double* x, double* y,
+  void appendLine(double* x,
+                  double* y,
                   int size); // draws a line through given points
 
 private:

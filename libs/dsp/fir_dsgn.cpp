@@ -6,9 +6,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "misdefs.h"
 #include "fir_dsgn.h"
 #include "fir_resp.h"
+#include "misdefs.h"
 
 // default constructor
 
@@ -37,7 +37,8 @@ FirFilterDesign::FirFilterDesign(int num_taps, double* imp_resp_coeff)
   return;
 }
 
-FirFilterDesign::FirFilterDesign(int num_taps, FIR_SYM_T symmetry,
+FirFilterDesign::FirFilterDesign(int num_taps,
+                                 FIR_SYM_T symmetry,
                                  double* input_coeff)
 {
   int last_left, first_right, n;

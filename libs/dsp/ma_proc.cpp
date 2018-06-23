@@ -3,11 +3,11 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
-#include "ma_proc.h"
 #include "gausrand.h"
+#include "ma_proc.h"
 #include "sig_type.h"
 #include "yulewalk.h"
 
@@ -20,7 +20,7 @@ extern std::ofstream DebugFile;
 //=============================================
 //  default constructor
 
-template <class T>
+template<class T>
 MaProcess<T>::MaProcess(void)
 {
   B_Coeffs = NULL;
@@ -29,7 +29,7 @@ MaProcess<T>::MaProcess(void)
 //=============================================
 //  destructor
 
-template <class T>
+template<class T>
 MaProcess<T>::~MaProcess(void)
 {
   delete B_Coeffs;
@@ -40,7 +40,7 @@ MaProcess<T>::~MaProcess(void)
 //  Function to dump MA parameters to output
 //  stream indicated by uout
 
-template <class T>
+template<class T>
 void
 MaProcess<T>::DumpParameters(ostream& uout)
 {
@@ -58,7 +58,7 @@ MaProcess<T>::DumpParameters(ostream& uout)
 //  for the noise generator.  Otherwise, the stored
 //  value will be used.
 
-template <class T>
+template<class T>
 T*
 MaProcess<T>::OutputSequence(long noise_seed_init, int seq_len)
 {

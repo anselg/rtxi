@@ -17,8 +17,11 @@ extern std::ofstream DebugFile;
 #endif
 
 int
-LaguerreMethod(CmplxPolynomial* poly, complex* root_ptr, double epsilon,
-               double epsilon2, int max_iter)
+LaguerreMethod(CmplxPolynomial* poly,
+               complex* root_ptr,
+               double epsilon,
+               double epsilon2,
+               int max_iter)
 {
   int iter, j, order;
   complex p_eval, p_prime, p_double_prime;

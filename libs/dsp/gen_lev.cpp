@@ -9,7 +9,10 @@
 #include <fstream>
 
 int
-GeneralizedLevinson(double* acf, int ar_ord, int ma_ord, double epsilon,
+GeneralizedLevinson(double* acf,
+                    int ar_ord,
+                    int ma_ord,
+                    double epsilon,
                     double* a_vec)
 {
   matrix<double> ax(1, ar_ord, 1, ar_ord);
@@ -89,7 +92,10 @@ GeneralizedLevinson(double* acf, int ar_ord, int ma_ord, double epsilon,
 };
 //================================================
 int
-GeneralizedLevinson(complex* acf, int ar_ord, int ma_ord, double epsilon,
+GeneralizedLevinson(complex* acf,
+                    int ar_ord,
+                    int ma_ord,
+                    double epsilon,
                     complex* a_vec)
 {
   matrix<complex> ax(1, ar_ord, 1, ar_ord);

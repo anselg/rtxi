@@ -7,8 +7,10 @@
 #include <iostream>
 #include <math.h>
 
-FreqSampFilterSpec::FreqSampFilterSpec(int band_config, int fir_type,
-                                       int num_taps, double* des_mag_resp)
+FreqSampFilterSpec::FreqSampFilterSpec(int band_config,
+                                       int fir_type,
+                                       int num_taps,
+                                       double* des_mag_resp)
 {
   int fold_indx, n;
 

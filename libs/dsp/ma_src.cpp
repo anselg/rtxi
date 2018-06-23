@@ -3,8 +3,8 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "ma_src.h"
 #include "sig_type.h" //selects signal type for template
@@ -19,7 +19,7 @@ extern std::ofstream DebugFile;
 //             the AR coefficients are known or assumed
 //             and are provided as input parameters
 
-template <class T>
+template<class T>
 MaSource<T>::MaSource(int ma_order, T* b_coeffs, double drv_noise_var)
   : MaProcess<T>()
 {
@@ -37,10 +37,9 @@ MaSource<T>::MaSource(int ma_order, T* b_coeffs, double drv_noise_var)
     this->Old_Input[i] = 0.0;
 }
 
-template <class T>
+template<class T>
 MaSource<T>::~MaSource(void)
-{
-}
+{}
 
 //-----------------------------------------------
 //  Explicit instantiations

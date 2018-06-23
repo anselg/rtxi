@@ -12,7 +12,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-FirIdealFilter::FirIdealFilter(int num_taps, double lambda1, double lambda2,
+FirIdealFilter::FirIdealFilter(int num_taps,
+                               double lambda1,
+                               double lambda2,
                                int filtertype)
   : LinearPhaseFirDesign(num_taps)
 {
@@ -24,7 +26,9 @@ FirIdealFilter::FirIdealFilter(int num_taps, double lambda1, double lambda2,
 }
 
 void
-FirIdealFilter::DefineFilter(int num_taps, double lambda1, double lambda2,
+FirIdealFilter::DefineFilter(int num_taps,
+                             double lambda1,
+                             double lambda2,
                              int band_config)
 {
   if (num_taps % 2) {

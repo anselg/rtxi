@@ -19,7 +19,10 @@ extern std::ofstream DebugFile;
 #endif
 
 void
-ArSignalSource(istream& uin, ostream& uout, double* ret_samp_intvl, int seq_len,
+ArSignalSource(istream& uin,
+               ostream& uout,
+               double* ret_samp_intvl,
+               int seq_len,
                complex* signal)
 {
   int i;

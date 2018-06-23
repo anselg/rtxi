@@ -26,9 +26,7 @@ Generator::Generator()
   wave.push_back(0);
 }
 
-Generator::~Generator()
-{
-}
+Generator::~Generator() {}
 
 void
 Generator::clear()

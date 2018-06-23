@@ -8,12 +8,12 @@
 #include <stdlib.h>
 extern std::ofstream DebugFile;
 
-FreqSampFilterResponse::FreqSampFilterResponse()
-{
-}
+FreqSampFilterResponse::FreqSampFilterResponse() {}
 
 FreqSampFilterResponse::FreqSampFilterResponse(
-  FreqSampFilterDesign* filter_design, int num_resp_pts, int db_scale)
+  FreqSampFilterDesign* filter_design,
+  int num_resp_pts,
+  int db_scale)
 {
   Band_Config = (filter_design->Filter_Spec)->GetBandConfig();
   N1 = filter_design->Filter_Spec->GetN1();

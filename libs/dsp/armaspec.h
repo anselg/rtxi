@@ -9,15 +9,20 @@
 #include "thy_spec.h"
 #include "typedefs.h"
 
-template <class T>
+template<class T>
 class ArmaSpectrum
 {
 public:
-  ArmaSpectrum(int ar_order, T* ar_coeff, int ma_order, T* ma_coeff,
-               double samp_invl, double drv_variance);
+  ArmaSpectrum(int ar_order,
+               T* ar_coeff,
+               int ma_order,
+               T* ma_coeff,
+               double samp_invl,
+               double drv_variance);
 
   ~ArmaSpectrum(void);
-  void DumpSpectrum(char* out_file_nam, TheoreticalSpectrum* ref_spectrum,
+  void DumpSpectrum(char* out_file_nam,
+                    TheoreticalSpectrum* ref_spectrum,
                     logical db_plot_enab);
 
 private:

@@ -19,7 +19,9 @@ public:
 
   FreqSampFilterSpec();
   FreqSampFilterSpec(const FreqSampFilterSpec& filter_spec);
-  FreqSampFilterSpec(int band_config, int fir_type, int num_taps,
+  FreqSampFilterSpec(int band_config,
+                     int fir_type,
+                     int num_taps,
                      double* des_mag_resp);
 
   FreqSampFilterSpec(std::istream& uin, ostream& uout);

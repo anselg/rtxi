@@ -7,7 +7,7 @@
 
 #include "ar_proc.h"
 
-template <class T>
+template<class T>
 class ArSource : public ArProcess<T>
 {
 public:

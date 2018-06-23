@@ -2,13 +2,13 @@
 #define _MATRIX_T_H_
 
 #include "vector_t.h"
-template <class T>
+template<class T>
 class rowvec;
-template <class T>
+template<class T>
 class colvec;
-template <class T>
+template<class T>
 class vector;
-template <class T>
+template<class T>
 class matrix
 {
 protected:

@@ -5,9 +5,12 @@
 #ifndef _OVERLOAD_H_
 #define _OVERLOAD_H_
 
-double conj(const double);
-double mag(const double);
-double mag_sqrd(const double);
+double
+conj(const double);
+double
+mag(const double);
+double
+mag_sqrd(const double);
 
 inline double
 conj(const double _z)

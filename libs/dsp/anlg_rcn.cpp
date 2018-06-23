@@ -15,8 +15,10 @@ using namespace std;
 // default constructor
 //-----------------------------------------
 
-AnalogReconst::AnalogReconst(double samp_intvl, int analog_interp_rate,
-                             int num_signif_sidelobes, int num_analog_samps)
+AnalogReconst::AnalogReconst(double samp_intvl,
+                             int analog_interp_rate,
+                             int num_signif_sidelobes,
+                             int num_analog_samps)
 {
   int i;
   Num_Analog_Samps = num_analog_samps;
@@ -120,7 +122,8 @@ AnalogReconst::FindPeakMag(void)
 }
 //------------------------------------------------------------
 double
-AnalogReconst::CosineCorrelate(double norm_freq, double phase_offset,
+AnalogReconst::CosineCorrelate(double norm_freq,
+                               double phase_offset,
                                double cycles_per_corr)
 {
   double sum, auto_sum;

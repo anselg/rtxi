@@ -2,12 +2,12 @@
 //  File = sinawgn.cpp
 //
 
-#include <stdlib.h>
 #include "sinawgn.h"
 #include "complex.h"
-#include "uni_rand.h"
 #include "gausrand.h"
 #include "misdefs.h"
+#include "uni_rand.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -16,8 +16,12 @@ using namespace std;
 //             passed in call
 //------------------------------------------
 
-SinesInAwgn::SinesInAwgn(double samp_intvl, int num_sines, double* freq,
-                         double* phase, double* ampl, double agn_sigma,
+SinesInAwgn::SinesInAwgn(double samp_intvl,
+                         int num_sines,
+                         double* freq,
+                         double* phase,
+                         double* ampl,
+                         double agn_sigma,
                          long agn_seed)
 {
   Samp_Intvl = samp_intvl;
@@ -84,9 +88,7 @@ SinesInAwgn::ResetSource(void)
 // destructor
 //------------------------------------------
 
-SinesInAwgn::~SinesInAwgn()
-{
-}
+SinesInAwgn::~SinesInAwgn() {}
 //++++++++++++++++++++++++++++++++++++++++++
 
 //====================================================

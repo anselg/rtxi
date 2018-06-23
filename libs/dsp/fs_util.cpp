@@ -6,7 +6,9 @@
 #include <iostream>
 
 void
-DumpRectangCompon(double* origins, double* slopes, int num_trans_samps,
+DumpRectangCompon(double* origins,
+                  double* slopes,
+                  int num_trans_samps,
                   double x)
 {
   double rect_comp;

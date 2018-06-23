@@ -15,7 +15,8 @@
 class ImpulseResponse
 {
 public:
-  ImpulseResponse(FilterTransFunc* trans_func, int num_resp_pts,
+  ImpulseResponse(FilterTransFunc* trans_func,
+                  int num_resp_pts,
                   double delta_t);
   void GenerateResponse(void);
   double ComputeSample(double time);

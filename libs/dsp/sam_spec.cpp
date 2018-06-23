@@ -8,7 +8,8 @@
 #include <iostream>
 #include <stdlib.h>
 
-SampleSpectrum::SampleSpectrum(complex* time_signal, double samp_intvl,
+SampleSpectrum::SampleSpectrum(complex* time_signal,
+                               double samp_intvl,
                                int num_samps)
   : PsdEstimate(num_samps, samp_intvl)
 {

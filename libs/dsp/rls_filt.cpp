@@ -3,24 +3,36 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
-#include "rls_filt.h"
 #include "adap_fir.h"
 #include "matrix_t.h"
+#include "rls_filt.h"
 
 #ifdef _DEBUG
 //#define _RLS_DEBUG 1
 extern std::ofstream DebugFile;
 #endif
 
-RlsFilter::RlsFilter(int num_taps, double* coeff, double delta, double lambda,
-                     logical quan_enab, long coeff_quan_factor,
-                     long input_quan_factor, int tap_for_trans,
-                     int secondary_tap, int transient_len)
-  : AdaptiveFir(num_taps, coeff, quan_enab, coeff_quan_factor,
-                input_quan_factor, tap_for_trans, secondary_tap, transient_len)
+RlsFilter::RlsFilter(int num_taps,
+                     double* coeff,
+                     double delta,
+                     double lambda,
+                     logical quan_enab,
+                     long coeff_quan_factor,
+                     long input_quan_factor,
+                     int tap_for_trans,
+                     int secondary_tap,
+                     int transient_len)
+  : AdaptiveFir(num_taps,
+                coeff,
+                quan_enab,
+                coeff_quan_factor,
+                input_quan_factor,
+                tap_for_trans,
+                secondary_tap,
+                transient_len)
 {
   // double delta=0.01;
   Delta = delta;
@@ -63,13 +75,14 @@ RlsFilter::ResetTaps(void)
   Trial_Count++;
 }
 double
-RlsFilter::UpdateTaps(double true_samp, double estim_samp,
+RlsFilter::UpdateTaps(double true_samp,
+                      double estim_samp,
                       logical trans_save_enab)
 {
   double err_samp;
   int row_idx, tap_idx;
   double denom;
-  colvec<double> *u_vec, *cv_work, *k_vec;
+  colvec<double>*u_vec, *cv_work, *k_vec;
   rowvec<double>* rv_work;
   int read_idx, read_idx_init;
   double* test_ptr;

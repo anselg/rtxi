@@ -11,8 +11,12 @@
 class DaniellPeriodogram : public PsdEstimate
 {
 public:
-  DaniellPeriodogram(complex* big_x, double samp_intvl, int big_n, int fft_len,
-                     GenericWindow* data_wind, int big_p);
+  DaniellPeriodogram(complex* big_x,
+                     double samp_intvl,
+                     int big_n,
+                     int fft_len,
+                     GenericWindow* data_wind,
+                     int big_p);
   // DumpNumeric( std::ofstream *out_stream );
   // DumpDecibels( std::ofstream *out_stream );
 };

@@ -13,8 +13,7 @@ public:
     : scrollBar(NULL)
     , position(ScrollZoomer::OppositeToScale)
     , mode(Qt::ScrollBarAsNeeded)
-  {
-  }
+  {}
 
   ~ScrollData() { delete scrollBar; }
 
@@ -107,7 +106,8 @@ ScrollZoomer::scrollBar(Qt::Orientation orientation)
   if (sb == NULL) {
     sb = new ScrollBar(orientation, canvas());
     sb->hide();
-    connect(sb, SIGNAL(valueChanged(Qt::Orientation, double, double)),
+    connect(sb,
+            SIGNAL(valueChanged(Qt::Orientation, double, double)),
             SLOT(scrollBarMoved(Qt::Orientation, double, double)));
   }
   return sb;
@@ -408,8 +408,8 @@ ScrollZoomer::layoutScrollBars(const QRect& rect)
   if (hScrollBar && hScrollBar->isVisible() && vScrollBar &&
       vScrollBar->isVisible()) {
     if (d_cornerWidget) {
-      QRect cornerRect(vScrollBar->pos().x(), hScrollBar->pos().y(), vdim,
-                       hdim);
+      QRect cornerRect(
+        vScrollBar->pos().x(), hScrollBar->pos().y(), vdim, hdim);
       d_cornerWidget->setGeometry(cornerRect);
     }
   }

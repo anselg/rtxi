@@ -37,7 +37,9 @@ GeneratorMono::GeneratorMono()
   index = 0;
 }
 
-GeneratorMono::GeneratorMono(double delay, double width, double amplitude,
+GeneratorMono::GeneratorMono(double delay,
+                             double width,
+                             double amplitude,
                              double dt)
   : Generator()
 {
@@ -53,9 +55,7 @@ GeneratorMono::GeneratorMono(double delay, double width, double amplitude,
   index = 0;
 }
 
-GeneratorMono::~GeneratorMono()
-{
-}
+GeneratorMono::~GeneratorMono() {}
 
 void
 GeneratorMono::init(double delay, double width, double amplitude, double dt)

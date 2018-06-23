@@ -18,7 +18,9 @@ public:
 
   FirIdealFilter(int num_taps, double lambda1, double lambda2, int filtertype);
 
-  void DefineFilter(int num_taps, double lambda1, double lambda2,
+  void DefineFilter(int num_taps,
+                    double lambda1,
+                    double lambda2,
                     int band_config);
 
 private:

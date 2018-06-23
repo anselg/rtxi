@@ -13,7 +13,8 @@ public:
   // constructors
 
   FreqSampFilterResponse();
-  FreqSampFilterResponse(FreqSampFilterDesign* filter_design, int num_resp_pts,
+  FreqSampFilterResponse(FreqSampFilterDesign* filter_design,
+                         int num_resp_pts,
                          int db_scale);
 
   // destructor

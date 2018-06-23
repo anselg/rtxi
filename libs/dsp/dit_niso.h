@@ -6,6 +6,7 @@
 
 #include "complex.h"
 
-void FftDitNiso(complex* array, int fft_size);
+void
+FftDitNiso(complex* array, int fft_size);
 
 #endif // _DIT_NISO_H_

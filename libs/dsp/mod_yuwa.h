@@ -10,7 +10,7 @@
 #include "toeplitz.h"
 #include "typedefs.h"
 
-template <class T>
+template<class T>
 class ModYuleWalker
 {
 public:

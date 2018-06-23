@@ -49,8 +49,10 @@ IirFilterDesign::IirFilterDesign(int num_numer_coeffs, int num_denom_coeffs)
 // input array *imp_resp_coeff
 //----------------------------------------------------------
 
-IirFilterDesign::IirFilterDesign(int num_numer_coeffs, int num_denom_coeffs,
-                                 double* numer_coeffs, double* denom_coeffs)
+IirFilterDesign::IirFilterDesign(int num_numer_coeffs,
+                                 int num_denom_coeffs,
+                                 double* numer_coeffs,
+                                 double* denom_coeffs)
 {
   int n;
   Num_Numer_Coeffs = num_numer_coeffs;

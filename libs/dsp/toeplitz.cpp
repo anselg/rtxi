@@ -3,18 +3,18 @@
 //
 
 #include <fstream>
-#include <stdlib.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "toeplitz.h"
 
-template <class T>
+template<class T>
 ToeplitzMatrix<T>::ToeplitzMatrix(void)
 {
   return;
 }
 
-template <class T>
+template<class T>
 T*
 ToeplitzMatrix<T>::GetCol(int col_indx)
 {

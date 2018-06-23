@@ -16,7 +16,8 @@
 
 AnalogPoleZeroFilter::AnalogPoleZeroFilter(Polynomial numer_poly,
                                            Polynomial denom_poly,
-                                           double h_sub_zero, double delta_t)
+                                           double h_sub_zero,
+                                           double delta_t)
 //                    : AnalogFilter()
 {
   int k, order;

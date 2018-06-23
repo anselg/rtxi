@@ -17,7 +17,9 @@ public:
   // constructors
 
   FreqSampFilterDesign();
-  FreqSampFilterDesign(int band_config, int fir_type, int num_taps,
+  FreqSampFilterDesign(int band_config,
+                       int fir_type,
+                       int num_taps,
                        double* imp_resp_coeff);
 
   FreqSampFilterDesign(FreqSampFilterSpec& filter_spec);

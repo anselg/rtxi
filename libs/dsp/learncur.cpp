@@ -2,8 +2,8 @@
 //  File = learncur.cpp
 //
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <stdlib.h>
 
 #include "learncur.h"
@@ -28,7 +28,8 @@ LearningCurve::LearningCurve(int num_samps, int num_trials, double min_mse)
   }
 }
 void
-LearningCurve::AddSample(int samp_idx, double err_samp,
+LearningCurve::AddSample(int samp_idx,
+                         double err_samp,
                          LOGICAL_T save_this_trial)
 {
   double sqr_err;

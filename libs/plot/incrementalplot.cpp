@@ -8,8 +8,7 @@
 
 CurveData::CurveData()
   : d_count(0)
-{
-}
+{}
 
 void
 CurveData::append(double* x, double* y, int count)
@@ -146,8 +145,12 @@ IncrementalPlot::appendData(double* x, double* y, int size)
   QPainter painter;
   QwtScaleMap xMap = plotCanvas->plot()->canvasMap(d_curve->xAxis());
   QwtScaleMap yMap = plotCanvas->plot()->canvasMap(d_curve->yAxis());
-  d_curve->drawSeries(&painter, xMap, yMap, (d_curve->paintRect(xMap, yMap)),
-                      d_curve->dataSize() - size, d_curve->dataSize() - 1);
+  d_curve->drawSeries(&painter,
+                      xMap,
+                      yMap,
+                      (d_curve->paintRect(xMap, yMap)),
+                      d_curve->dataSize() - size,
+                      d_curve->dataSize() - 1);
   plotCanvas->setPaintAttribute(QwtPlotCanvas::BackingStore, cacheMode);
 
 #if QT_VERSION >= 0x040000 && defined(Q_WS_X11)
@@ -193,8 +196,12 @@ IncrementalPlot::appendData(double* x, double* y, int size, QwtSymbol::Style s)
   QPainter painter;
   QwtScaleMap xMap = plotCanvas->plot()->canvasMap(d_curve->xAxis());
   QwtScaleMap yMap = plotCanvas->plot()->canvasMap(d_curve->yAxis());
-  d_curve->drawSeries(&painter, xMap, yMap, (d_curve->paintRect(xMap, yMap)),
-                      d_curve->dataSize() - size, d_curve->dataSize() - 1);
+  d_curve->drawSeries(&painter,
+                      xMap,
+                      yMap,
+                      (d_curve->paintRect(xMap, yMap)),
+                      d_curve->dataSize() - size,
+                      d_curve->dataSize() - 1);
   plotCanvas->setPaintAttribute(QwtPlotCanvas::BackingStore, cacheMode);
 
 #if QT_VERSION >= 0x040000 && defined(Q_WS_X11)
@@ -242,8 +249,12 @@ IncrementalPlot::appendLine(double* x, double* y, int size)
   QPainter painter;
   QwtScaleMap xMap = plotCanvas->plot()->canvasMap(l_curve->xAxis());
   QwtScaleMap yMap = plotCanvas->plot()->canvasMap(l_curve->yAxis());
-  l_curve->drawSeries(&painter, xMap, yMap, (l_curve->paintRect(xMap, yMap)),
-                      l_curve->dataSize() - size, l_curve->dataSize() - 1);
+  l_curve->drawSeries(&painter,
+                      xMap,
+                      yMap,
+                      (l_curve->paintRect(xMap, yMap)),
+                      l_curve->dataSize() - size,
+                      l_curve->dataSize() - 1);
   plotCanvas->setPaintAttribute(QwtPlotCanvas::BackingStore, cacheMode);
 
 #if QT_VERSION >= 0x040000 && defined(Q_WS_X11)
@@ -273,6 +284,6 @@ IncrementalPlot::nextSymbol()
   if (n > 14)
     n = 0;
 
-  d_curve->setSymbol(new QwtSymbol((QwtSymbol::Style)n, QBrush(Qt::white),
-                                   QPen(Qt::white), QSize(6, 6)));
+  d_curve->setSymbol(new QwtSymbol(
+    (QwtSymbol::Style)n, QBrush(Qt::white), QPen(Qt::white), QSize(6, 6)));
 }

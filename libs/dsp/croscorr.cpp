@@ -8,8 +8,12 @@
 extern std::ofstream DebugFile;
 
 void
-CrossCorrelation(int seg_len, double* input_segment, double* output_segment,
-                 double* gain, double* phase_delta, int* indx_of_peak)
+CrossCorrelation(int seg_len,
+                 double* input_segment,
+                 double* output_segment,
+                 double* gain,
+                 double* phase_delta,
+                 int* indx_of_peak)
 {
   double input_peak, output_peak;
   int indx_of_input_peak, indx_of_output_peak;
@@ -35,10 +39,10 @@ CrossCorrelation(int seg_len, double* input_segment, double* output_segment,
     }
   }
 
-//-----------------------------------------
-// Find first rising zero-crossing.
-// Then find next falling zero crossing
-// followed by next rising zero-crossing.
+  //-----------------------------------------
+  // Find first rising zero-crossing.
+  // Then find next falling zero crossing
+  // followed by next rising zero-crossing.
 
 #ifdef NOT_DEFINED
   for (i = 10; i < seg_len; i++) {

@@ -12,8 +12,10 @@ class AnalogPoleZeroFilter : public AnalogFilter
 {
 public:
   //  constructors
-  AnalogPoleZeroFilter(Polynomial numer_poly, Polynomial denom_poly,
-                       double h_sub_zero, double delta_t);
+  AnalogPoleZeroFilter(Polynomial numer_poly,
+                       Polynomial denom_poly,
+                       double h_sub_zero,
+                       double delta_t);
 
   double Run(double input);
 

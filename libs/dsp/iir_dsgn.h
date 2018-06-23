@@ -37,8 +37,10 @@ public:
   // input arrays *numer_coeffs and
   // *denom_coeffs
 
-  IirFilterDesign(int num_numer_coeffs, int num_denom_coeffs,
-                  double* numer_coeffs, double* denom_coeffs);
+  IirFilterDesign(int num_numer_coeffs,
+                  int num_denom_coeffs,
+                  double* numer_coeffs,
+                  double* denom_coeffs);
 
   //------------------------------------------
   // allocate coefficient array *Imp_Resp_Coeff

@@ -4,9 +4,9 @@
 //
 //
 
+#include <iostream>
 #include <math.h>
 #include <stdlib.h>
-#include <iostream>
 
 #include "complex.h"
 #include "stepresp.h"
@@ -20,7 +20,8 @@ extern std::ofstream DebugFile;
 //===========================================================
 //  constructors
 
-StepResponse::StepResponse(FilterTransFunc* trans_func, int num_resp_pts,
+StepResponse::StepResponse(FilterTransFunc* trans_func,
+                           int num_resp_pts,
                            double delta_time)
 {
   Delta_Time = delta_time;

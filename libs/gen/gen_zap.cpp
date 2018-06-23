@@ -51,8 +51,11 @@ GeneratorZap::GeneratorZap()
   index = 0;
 }
 
-GeneratorZap::GeneratorZap(double freq, double freq2, double amplitude,
-                           double duration, double dt)
+GeneratorZap::GeneratorZap(double freq,
+                           double freq2,
+                           double amplitude,
+                           double duration,
+                           double dt)
   : Generator()
 {
   numsamples = floor(duration / dt);
@@ -65,12 +68,13 @@ GeneratorZap::GeneratorZap(double freq, double freq2, double amplitude,
   index = 0;
 }
 
-GeneratorZap::~GeneratorZap()
-{
-}
+GeneratorZap::~GeneratorZap() {}
 
 void
-GeneratorZap::init(double freq, double freq2, double amplitude, double duration,
+GeneratorZap::init(double freq,
+                   double freq2,
+                   double amplitude,
+                   double duration,
                    double dt)
 {
   numsamples = floor(duration / dt);

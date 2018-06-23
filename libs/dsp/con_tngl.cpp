@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <math.h>
-#include <iostream>
 
 #include "con_tngl.h"
 #include "misdefs.h"

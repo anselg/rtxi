@@ -13,7 +13,7 @@ extern std::ofstream DebugFile;
 
 //---------------------------------------------
 //  constructor
-template <class T>
+template<class T>
 matrix<T>::matrix(int row_orig, int nrows, int col_orig, int ncols)
 {
   if ((nrows <= 0) || (ncols <= 0))
@@ -38,10 +38,10 @@ matrix<T>::matrix(int row_orig, int nrows, int col_orig, int ncols)
 }
 
 //----------------------------------------------
-template <class T>
+template<class T>
 matrix<T>::~matrix(void)
 {
-// rowvec<T> *row_ptr;
+  // rowvec<T> *row_ptr;
 
 #ifdef _MTX_DEBUG
   DebugFile << "\ndtor for matrix at " << (void*)this << std::endl;
@@ -59,7 +59,7 @@ matrix<T>::~matrix(void)
 }
 //----------------------------------------------
 // row extraction
-template <class T>
+template<class T>
 rowvec<T>& matrix<T>::operator[](int i)
 {
   return *(_p->f[(((i >= (_p->orig_indx)) && (i <= _p->max_indx))
@@ -69,7 +69,7 @@ rowvec<T>& matrix<T>::operator[](int i)
 
 //--------------------------------------------------
 //  post-multiply matrix by a column vector
-template <class T>
+template<class T>
 colvec<T>& matrix<T>::operator*(colvec<T>& v2)
 {
   // check dimensions
@@ -120,7 +120,7 @@ colvec<T>& matrix<T>::operator*(colvec<T>& v2)
 }
 //--------------------------------------------------
 //  do element-by-element subtraction
-template <class T>
+template<class T>
 matrix<T>&
 matrix<T>::operator-=(matrix<T>& m2)
 {

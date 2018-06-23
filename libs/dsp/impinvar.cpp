@@ -5,8 +5,14 @@
 #include "impinvar.h"
 
 void
-ImpulseInvar(complex* pole, int num_poles, complex* zero, int num_zeros,
-             double h_sub_zero, double big_t, complex* a, complex* b)
+ImpulseInvar(complex* pole,
+             int num_poles,
+             complex* zero,
+             int num_zeros,
+             double h_sub_zero,
+             double big_t,
+             complex* a,
+             complex* b)
 {
   int k, n, j, maxCoef;
   complex *delta, *big_a;
