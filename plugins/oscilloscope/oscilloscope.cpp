@@ -16,7 +16,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
+/*
  * This class creates and controls the drawing parameters.
  *
  * A control panel is instantiated for all the active channels/modules and user

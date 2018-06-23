@@ -40,16 +40,16 @@ PRINT_BACKTRACE(void)
 
 #define ERROR_MSG(fmt, args...)                                                \
   do {                                                                         \
-   fprintf(stderr, "%s:%d:", __FILE__, __LINE__);                             \
-   fprintf(stderr, fmt, ##args);                                              \
+    fprintf(stderr, "%s:%d:", __FILE__, __LINE__);                             \
+    fprintf(stderr, fmt, ##args);                                              \
   } while (0)
 
 #ifdef DEBUG
 
 #define DEBUG_MSG(fmt, args...)                                                \
   do {                                                                         \
-   fprintf(stderr, "%s:%d:", __FILE__, __LINE__);                             \
-   fprintf(stderr, fmt, ##args);                                              \
+    fprintf(stderr, "%s:%d:", __FILE__, __LINE__);                             \
+    fprintf(stderr, fmt, ##args);                                              \
   } while (0)
 
 #else /* !DEBUG */
@@ -60,7 +60,7 @@ PRINT_BACKTRACE(void)
  */
 #define DEBUG_MSG(fmt, args...)                                                \
   do {                                                                         \
-   ;                                                                          \
+    ;                                                                          \
   } while (0)
 
 #endif /* DEBUG */

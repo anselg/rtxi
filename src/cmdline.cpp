@@ -32,23 +32,23 @@ CmdLine::CmdLine(void)
   pipe(fds);
 
   if (!(child = fork())) {
-   size_t size;
+    size_t size;
 
-   read(fds[0], &size, sizeof(size));
-   while (size) {
-     int retval;
-     char cmd[size];
+    read(fds[0], &size, sizeof(size));
+    while (size) {
+      int retval;
+      char cmd[size];
 
-     read(fds[0], cmd, size);
-     DEBUG_MSG("executing : \"%s\"\n", cmd);
-     retval = system(cmd);
+      read(fds[0], cmd, size);
+      DEBUG_MSG("executing : \"%s\"\n", cmd);
+      retval = system(cmd);
 
-     write(fdm[1], &retval, sizeof(retval));
+      write(fdm[1], &retval, sizeof(retval));
 
-     read(fds[0], &size, sizeof(size));
-   }
+      read(fds[0], &size, sizeof(size));
+    }
 
-   _exit(0);
+    _exit(0);
   }
 }
 
@@ -80,12 +80,12 @@ CmdLine*
 CmdLine::getInstance(void)
 {
   if (instance)
-   return instance;
+    return instance;
 
   Mutex::Locker lock(&::mutex);
   if (!instance) {
-   static CmdLine cmdline;
-   instance = &cmdline;
+    static CmdLine cmdline;
+    instance = &cmdline;
   }
 
   return instance;

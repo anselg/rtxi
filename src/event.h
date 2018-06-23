@@ -142,8 +142,8 @@ private:
   size_t nparams;
   struct
   {
-   const char* name;
-   void* value;
+    const char* name;
+    void* value;
   } params[MAX_PARAMS];
 
 }; // class Object
@@ -163,36 +163,36 @@ class Manager
 
 public:
   /*!
-  * Manager is a Singleton, which means that there can only be
-  * one instance. This function returns a pointer to that
-  * single instance.
-  *
-  * \return The instance of Manager.
-  */
+   * Manager is a Singleton, which means that there can only be
+   * one instance. This function returns a pointer to that
+   * single instance.
+   *
+   * \return The instance of Manager.
+   */
   static Manager* getInstance(void);
 
   /*!
-  * Function for posting an event to be signaled. This function
-  * should only be called from non-realtime, and blocks until
-  * it is been dispatched to all handlers.
-  *
-  * \param event The event to be posted.
-  *
-  * \sa Event::Handler
-  * \sa Event::Object
-  */
+   * Function for posting an event to be signaled. This function
+   * should only be called from non-realtime, and blocks until
+   * it is been dispatched to all handlers.
+   *
+   * \param event The event to be posted.
+   *
+   * \sa Event::Handler
+   * \sa Event::Object
+   */
   void postEvent(const Object* event);
 
   /*!
-  * Function for posting an event to be signaled. This function
-  * should only be called from realtime, and blocks until
-  * it is been dispatched to all handlers.
-  *
-  * \param event The event to be posted.
-  *
-  * \sa Event::RTHandler
-  * \sa Event::Object
-  */
+   * Function for posting an event to be signaled. This function
+   * should only be called from realtime, and blocks until
+   * it is been dispatched to all handlers.
+   *
+   * \param event The event to be posted.
+   *
+   * \sa Event::RTHandler
+   * \sa Event::Object
+   */
   void postEventRT(const Object* event);
 
 private:
@@ -228,14 +228,14 @@ public:
   virtual ~Handler(void);
 
   /*!
-  * Function that is called in non-realtime everytime an non-realtime
-  *  event is posted.
-  *
-  * \param event The the event being posted.
-  *
-  * \sa Event::Object
-  * \sa Event::Manager::postEvent()
-  */
+   * Function that is called in non-realtime everytime an non-realtime
+   *  event is posted.
+   *
+   * \param event The the event being posted.
+   *
+   * \sa Event::Object
+   * \sa Event::Manager::postEvent()
+   */
   virtual void receiveEvent(const Object* event);
 
 }; // class Handler
@@ -253,14 +253,14 @@ public:
   virtual ~RTHandler(void);
 
   /*!
-  * Function that is called in realtime everytime a realtime
-  *  event is posted.
-  *
-  * \param name The the event being posted.
-  *
-  * \sa Event::Object
-  * \sa Event::Manager::postEventRT()
-  */
+   * Function that is called in realtime everytime a realtime
+   *  event is posted.
+   *
+   * \param name The the event being posted.
+   *
+   * \sa Event::Object
+   * \sa Event::Manager::postEventRT()
+   */
   virtual void receiveEventRT(const Object* event);
 
 }; // class RTHandler

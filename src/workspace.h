@@ -78,121 +78,121 @@ class Instance : public IO::Block
 
 public:
   /*!
-  * The constructor needs to be provided with a specification of the variables
-  *   that will be embedded in this workspace in the variables parameter.
-  *   Fields that are not of type INPUT, OUTPUT, PARAMETER, or STATE will be
-  *   safely ignored. Size should be the number of total fields in the
-  * variables parameter, regardless of type.
-  *
-  * \param name The name of the workspace.
-  * \param variables The variable specification for this workspace.
-  * \param size The number of variables in the specification.
-  *
-  * \sa Workspace::variable_t
-  */
+   * The constructor needs to be provided with a specification of the variables
+   *   that will be embedded in this workspace in the variables parameter.
+   *   Fields that are not of type INPUT, OUTPUT, PARAMETER, or STATE will be
+   *   safely ignored. Size should be the number of total fields in the
+   * variables parameter, regardless of type.
+   *
+   * \param name The name of the workspace.
+   * \param variables The variable specification for this workspace.
+   * \param size The number of variables in the specification.
+   *
+   * \sa Workspace::variable_t
+   */
   Instance(std::string name, variable_t* variables, size_t size);
   virtual ~Instance(void);
 
   /*!
-  * Get the number of variables of the specified type.
-  *
-  * \param type The type of variable to be probed.
-  * \return The number of variables of the specified type.
-  *
-  * \sa IO::Block::getCount()
-  */
+   * Get the number of variables of the specified type.
+   *
+   * \param type The type of variable to be probed.
+   * \return The number of variables of the specified type.
+   *
+   * \sa IO::Block::getCount()
+   */
   size_t getCount(IO::flags_t type) const;
   /*!
-  * Get the name of the specified variable.
-  *
-  * \param type The type of the variable.
-  * \param index The variable's index.
-  * \return The variable's name.
-  *
-  * \sa IO::Block::getName()
-  */
+   * Get the name of the specified variable.
+   *
+   * \param type The type of the variable.
+   * \param index The variable's index.
+   * \return The variable's name.
+   *
+   * \sa IO::Block::getName()
+   */
   std::string getName(IO::flags_t type, size_t index) const;
   /*!
-  * Get the description of the specified variable.
-  *
-  * \param type The type of the variable.
-  * \param index The variable's index.
-  * \return The variable's description.
-  *
-  * \sa IO::Block::getDescription()
-  */
+   * Get the description of the specified variable.
+   *
+   * \param type The type of the variable.
+   * \param index The variable's index.
+   * \return The variable's description.
+   *
+   * \sa IO::Block::getDescription()
+   */
   std::string getDescription(IO::flags_t type, size_t index) const;
   /*!
-  * Get the value of the specified EVENT, PARAMETER or STATE variable.
-  *
-  * \param type The type of the specified variable.
-  * \param index The variable's index.
-  * \return The variable's value.
-  *
-  * \sa IO::Block::getValue()
-  * \sa Workspace::setData()
-  */
+   * Get the value of the specified EVENT, PARAMETER or STATE variable.
+   *
+   * \param type The type of the specified variable.
+   * \param index The variable's index.
+   * \return The variable's value.
+   *
+   * \sa IO::Block::getValue()
+   * \sa Workspace::setData()
+   */
   double getValue(IO::flags_t type, size_t index) const;
   /*!
-  * Get the value of the specified EVENT, PARAMETER, STATE,
-  *   or COMMENT variable in string form.
-  *
-  * \param type The type of the specified variable.
-  * \param index The variable's index.
-  * \return The variable's value.
-  *
-  * \sa Workspace::getValue()
-  */
+   * Get the value of the specified EVENT, PARAMETER, STATE,
+   *   or COMMENT variable in string form.
+   *
+   * \param type The type of the specified variable.
+   * \param index The variable's index.
+   * \return The variable's value.
+   *
+   * \sa Workspace::getValue()
+   */
   std::string getValueString(IO::flags_t type, size_t index) const;
 
   /*!
-  * Set the value of a PARAMETER type variable.
-  *
-  * \param index The variable's index.
-  * \param value The variable's new value.
-  *
-  * \sa Workspace::PARAMETER
-  */
+   * Set the value of a PARAMETER type variable.
+   *
+   * \param index The variable's index.
+   * \param value The variable's new value.
+   *
+   * \sa Workspace::PARAMETER
+   */
   void setValue(size_t index, double value);
   /*!
-  * Set the value of a COMMENT type variable
-  *
-  * \param index The variable's index.
-  * \param value The variable's new value.
-  *
-  * \sa Workspace::COMMENT
-  */
+   * Set the value of a COMMENT type variable
+   *
+   * \param index The variable's index.
+   * \param value The variable's new value.
+   *
+   * \sa Workspace::COMMENT
+   */
   void setComment(size_t index, std::string comment);
 
 protected:
   /*!
-  * Get the internal reference of the variable, for STATE types.
-  *
-  * \param type The variable's type.
-  * \param index The variable's index.
-  * \return The variable's storage location.
-  *
-  * \sa Workspace::STATE
-  */
+   * Get the internal reference of the variable, for STATE types.
+   *
+   * \param type The variable's type.
+   * \param index The variable's index.
+   * \return The variable's storage location.
+   *
+   * \sa Workspace::STATE
+   */
   double* getData(IO::flags_t type, size_t index);
 
   /*!
-  * Set the internal reference of the variable, for STATE types.
-  *
-  * \param type The variable's type.
-  * \param index The variable's index.
-  * \param value The variable's storage location.
-  *
-  * \sa Workspace::STATE
-  */
+   * Set the internal reference of the variable, for STATE types.
+   *
+   * \param type The variable's type.
+   * \param index The variable's index.
+   * \param value The variable's storage location.
+   *
+   * \sa Workspace::STATE
+   */
   void setData(IO::flags_t type, size_t index, double* value);
 
 private:
   typedef struct
   {
-   std::string name;
-   std::string description;
-   double* data;
+    std::string name;
+    std::string description;
+    double* data;
   } var_t;
 
   std::vector<var_t> parameter;
@@ -201,9 +201,9 @@ private:
 
   typedef struct
   {
-   std::string name;
-   std::string description;
-   std::string comment;
+    std::string name;
+    std::string description;
+    std::string comment;
   } comment_t;
 
   std::vector<comment_t> comment;
@@ -223,32 +223,32 @@ class Manager
 
 public:
   /*!
-  * Manager is a Singleton, which means that there can only be one instance.
-  *   This function returns a pointer to that single instance.
-  *
-  * \return The instance of Manager.
-  */
+   * Manager is a Singleton, which means that there can only be one instance.
+   *   This function returns a pointer to that single instance.
+   *
+   * \return The instance of Manager.
+   */
   static Manager* getInstance(void);
 
   /*!
-  * Loop through each Instance and execute a callback.
-  * The callback takes two parameters, an Instance pointer and param,
-  *   the second parameter to foreachWorkspace.
-  *
-  * \param callback The callback function.
-  * \param param A parameter to the callback function.
-  * \sa Workspace::Instance
-  */
+   * Loop through each Instance and execute a callback.
+   * The callback takes two parameters, an Instance pointer and param,
+   *   the second parameter to foreachWorkspace.
+   *
+   * \param callback The callback function.
+   * \param param A parameter to the callback function.
+   * \sa Workspace::Instance
+   */
   void foreachWorkspace(void (*callback)(Instance*, void*), void* param);
 
 private:
   /*****************************************************************
-  * The constructor, destructor, and assignment operator are made *
-  *   private to control instantiation of the class.              *
-  *****************************************************************/
+   * The constructor, destructor, and assignment operator are made *
+   *   private to control instantiation of the class.              *
+   *****************************************************************/
 
   Manager(void)
-   : mutex(Mutex::RECURSIVE){};
+    : mutex(Mutex::RECURSIVE){};
   ~Manager(void){};
   Manager(const Manager&){};
   Manager& operator=(const Manager&) { return *getInstance(); };

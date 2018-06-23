@@ -80,10 +80,10 @@ public:
   virtual ~Event(void);
 
   /*!
-  * Function called by the realtime task in System::postEvent()
-  *
-  * \sa RT::System::postEvent()
-  */
+   * Function called by the realtime task in System::postEvent()
+   *
+   * \sa RT::System::postEvent()
+   */
   virtual int callback(void) = 0;
 
 private:
@@ -106,44 +106,44 @@ public:
   {
 
   public:
-   iterator(void)
-     : current(0){};
-   iterator(T* x)
-     : current(static_cast<Node*>(x)){};
-   iterator(const iterator& x)
-     : current(x.current){};
+    iterator(void)
+      : current(0){};
+    iterator(T* x)
+      : current(static_cast<Node*>(x)){};
+    iterator(const iterator& x)
+      : current(x.current){};
 
-   bool operator==(const iterator& x) const { return current == x.current; };
-   bool operator!=(const iterator& x) const { return current != x.current; };
+    bool operator==(const iterator& x) const { return current == x.current; };
+    bool operator!=(const iterator& x) const { return current != x.current; };
 
-   T& operator*(void)const { return *static_cast<T*>(current); };
-   T* operator->(void)const { return static_cast<T*>(current); };
+    T& operator*(void)const { return *static_cast<T*>(current); };
+    T* operator->(void)const { return static_cast<T*>(current); };
 
-   iterator& operator++(void)
-   {
-     current = current->next;
-     return *this;
-   };
-   iterator operator++(int)
-   {
-     typename RT::List<T>::iterator tmp = *this;
-     current = current->next;
-     return tmp;
-   };
-   iterator& operator--(void)
-   {
-     current = current->prev;
-     return *this;
-   };
-   iterator operator--(int)
-   {
-     typename RT::List<T>::iterator tmp = *this;
-     current = current->prev;
-     return tmp;
-   };
+    iterator& operator++(void)
+    {
+      current = current->next;
+      return *this;
+    };
+    iterator operator++(int)
+    {
+      typename RT::List<T>::iterator tmp = *this;
+      current = current->next;
+      return tmp;
+    };
+    iterator& operator--(void)
+    {
+      current = current->prev;
+      return *this;
+    };
+    iterator operator--(int)
+    {
+      typename RT::List<T>::iterator tmp = *this;
+      current = current->prev;
+      return tmp;
+    };
 
   private:
-   Node* current;
+    Node* current;
 
   }; // class iterator
 
@@ -151,85 +151,85 @@ public:
   {
 
   public:
-   const_iterator(void)
-     : current(0){};
-   const_iterator(const T* x)
-     : current(static_cast<const Node*>(x)){};
-   const_iterator(const const_iterator& x)
-     : current(x.current){};
+    const_iterator(void)
+      : current(0){};
+    const_iterator(const T* x)
+      : current(static_cast<const Node*>(x)){};
+    const_iterator(const const_iterator& x)
+      : current(x.current){};
 
-   bool operator==(const const_iterator& x) const
-   {
-     return current == x.current;
-   };
-   bool operator!=(const const_iterator& x) const
-   {
-     return current != x.current;
-   };
+    bool operator==(const const_iterator& x) const
+    {
+      return current == x.current;
+    };
+    bool operator!=(const const_iterator& x) const
+    {
+      return current != x.current;
+    };
 
-   const T& operator*(void)const { return *static_cast<const T*>(current); };
-   const T* operator->(void)const { return static_cast<const T*>(current); };
+    const T& operator*(void)const { return *static_cast<const T*>(current); };
+    const T* operator->(void)const { return static_cast<const T*>(current); };
 
-   const_iterator& operator++(void)
-   {
-     current = current->next;
-     return *this;
-   };
-   const_iterator operator++(int)
-   {
-     typename RT::List<T>::const_iterator tmp = *this;
-     current = current->next;
-     return tmp;
-   };
-   const_iterator& operator--(void)
-   {
-     current = current->prev;
-     return *this;
-   };
-   const_iterator operator--(int)
-   {
-     typename RT::List<T>::const_iterator tmp = *this;
-     current = current->prev;
-     return tmp;
-   };
+    const_iterator& operator++(void)
+    {
+      current = current->next;
+      return *this;
+    };
+    const_iterator operator++(int)
+    {
+      typename RT::List<T>::const_iterator tmp = *this;
+      current = current->next;
+      return tmp;
+    };
+    const_iterator& operator--(void)
+    {
+      current = current->prev;
+      return *this;
+    };
+    const_iterator operator--(int)
+    {
+      typename RT::List<T>::const_iterator tmp = *this;
+      current = current->prev;
+      return tmp;
+    };
 
   private:
-   const Node* current;
+    const Node* current;
 
   }; // class const_iterator
 
   class Node
   {
 
-   friend class List<T>;
-   friend class List<T>::iterator;
-   friend class List<T>::const_iterator;
+    friend class List<T>;
+    friend class List<T>::iterator;
+    friend class List<T>::const_iterator;
 
   public:
-   Node(void)
-     : next(0)
-     , prev(0){};
-   virtual ~Node(void){};
+    Node(void)
+      : next(0)
+      , prev(0){};
+    virtual ~Node(void){};
 
-   bool operator==(const Node& x) const
-   {
-     return next == x.next && prev == x.prev;
-   };
+    bool operator==(const Node& x) const
+    {
+      return next == x.next && prev == x.prev;
+    };
 
   private:
-   Node *next, *prev;
+    Node *next, *prev;
 
   }; // class Node
 
   List(void)
-   : count(0)
-   , head(&tail)
-   , tail(){};
+    : count(0)
+    , head(&tail)
+    , tail(){};
   virtual ~List(void)
   {
 #ifdef DEBUG
-   if (tail.next)
-     ERROR_MSG("RT::List::~List : end of list overwritten\n");
+    if (tail.next)
+      ERROR_MSG("RT::List::~List : end of list overwritten\n");
 #endif
   };
 
@@ -241,41 +241,41 @@ public:
 
   const_iterator begin(void) const
   {
-   return const_iterator(static_cast<const T*>(head));
+    return const_iterator(static_cast<const T*>(head));
   };
   const_iterator end(void) const
   {
-   return const_iterator(static_cast<const T*>(&tail));
+    return const_iterator(static_cast<const T*>(&tail));
   };
 
   void insert(iterator, T&);
   void insertRT(iterator position, T& node)
   {
-   Node* object = static_cast<Node*>(&node);
+    Node* object = static_cast<Node*>(&node);
 
-   object->next = &(*position);
-   object->prev = object->next->prev;
-   if (object->next == head)
-     head = object;
-   else
-     position->prev->next = object;
-   position->prev = object;
-   count++;
+    object->next = &(*position);
+    object->prev = object->next->prev;
+    if (object->next == head)
+      head = object;
+    else
+      position->prev->next = object;
+    position->prev = object;
+    count++;
   };
 
   void remove(T&);
   void removeRT(T& node)
   {
-   Node* object = static_cast<Node*>(&node);
+    Node* object = static_cast<Node*>(&node);
 
-   if (object == &tail)
-     return;
-   if (object == head)
-     head = object->next;
-   else if (object->prev)
-     object->prev->next = object->next;
-   object->next->prev = object->prev;
-   count--;
+    if (object == &tail)
+      return;
+    if (object == head)
+      head = object->next;
+    else if (object->prev)
+      object->prev->next = object->next;
+    object->next->prev = object->prev;
+    count--;
   };
 
 private:
@@ -283,20 +283,20 @@ private:
   {
 
   public:
-   InsertListNodeEvent(List<T>* l, iterator i, T* n)
-     : list(l)
-     , iter(i)
-     , node(n){};
-   int callback(void)
-   {
-     list->insertRT(iter, *node);
-     return 0;
-   };
+    InsertListNodeEvent(List<T>* l, iterator i, T* n)
+      : list(l)
+      , iter(i)
+      , node(n){};
+    int callback(void)
+    {
+      list->insertRT(iter, *node);
+      return 0;
+    };
 
   private:
-   List<T>* list;
-   typename List<T>::iterator iter;
-   T* node;
+    List<T>* list;
+    typename List<T>::iterator iter;
+    T* node;
 
   }; // class InsertListNodeEvent;
 
@@ -304,18 +304,18 @@ private:
   {
 
   public:
-   RemoveListNodeEvent(List<T>* l, T* n)
-     : list(l)
-     , node(n){};
-   int callback(void)
-   {
-     list->removeRT(*node);
-     return 0;
-   };
+    RemoveListNodeEvent(List<T>* l, T* n)
+      : list(l)
+      , node(n){};
+    int callback(void)
+    {
+      list->removeRT(*node);
+      return 0;
+    };
 
   private:
-   List<T>* list;
-   T* node;
+    List<T>* list;
+    T* node;
 
   }; // class RemoveListNodeEvnet;
 
@@ -339,82 +339,82 @@ class System
 
 public:
   /*!
-  * System is a Singleton, which means that there can only be one instance.
-  *   This function returns a pointer to that single instance.
-  *
-  * \return The instance of System.
-  */
+   * System is a Singleton, which means that there can only be one instance.
+   *   This function returns a pointer to that single instance.
+   *
+   * \return The instance of System.
+   */
   static System* getInstance(void);
 
   /*!
-  * Get the current period of the System in nanoseconds.
-  *
-  * \return The current period
-  */
+   * Get the current period of the System in nanoseconds.
+   *
+   * \return The current period
+   */
   long long getPeriod(void) const { return period; };
   /*!
-  * Set a new period for the System in nanoseconds.
-  *
-  * \param period The new desired period.
-  * \return 0 on success, A negative value upon failure.
-  */
+   * Set a new period for the System in nanoseconds.
+   *
+   * \param period The new desired period.
+   * \return 0 on success, A negative value upon failure.
+   */
   int setPeriod(long long period);
 
   /*!
-  * Loop through each Device and executes a callback.
-  * The callback takes two parameters, a Device pointer and param,
-  *   the second parameter to foreachDevice.
-  *
-  * \param callback The callback function.
-  * \param param A parameter to the callback function.
-  * \sa RT::Device
-  */
+   * Loop through each Device and executes a callback.
+   * The callback takes two parameters, a Device pointer and param,
+   *   the second parameter to foreachDevice.
+   *
+   * \param callback The callback function.
+   * \param param A parameter to the callback function.
+   * \sa RT::Device
+   */
   void foreachDevice(void (*callback)(Device*, void*), void* param);
   /*!
-  * Loop through each Thread and executes a callback.
-  * The callback takes two parameters, a Thread pointer and param,
-  *   the second parameter to foreachThread.
-  *
-  * \param callback The callback function
-  * \param param A parameter to the callback function
-  * \sa RT::Thread
-  */
+   * Loop through each Thread and executes a callback.
+   * The callback takes two parameters, a Thread pointer and param,
+   *   the second parameter to foreachThread.
+   *
+   * \param callback The callback function
+   * \param param A parameter to the callback function
+   * \sa RT::Thread
+   */
   void foreachThread(void (*callback)(Thread*, void*), void* param);
 
   /*!
-  * Post an Event for execution by the realtime task, this acts as a
-  *   mechanism to synchronizing with the realtime task.
-  *
-  * \param event The event to be posted.
-  * \param blocking If true the call to postEvent is blocking.
-  * \return The value returned from event->callback()
-  * \sa RT:Event
-  */
+   * Post an Event for execution by the realtime task, this acts as a
+   *   mechanism to synchronizing with the realtime task.
+   *
+   * \param event The event to be posted.
+   * \param blocking If true the call to postEvent is blocking.
+   * \return The value returned from event->callback()
+   * \sa RT:Event
+   */
   int postEvent(Event* event, bool blocking = true);
 
 private:
   /******************************************************************
-  * The constructors, destructor, and assignment operator are made *
-  *   private to control instantiation of the class.               *
-  ******************************************************************/
+   * The constructors, destructor, and assignment operator are made *
+   *   private to control instantiation of the class.               *
+   ******************************************************************/
 
   System(void);
   ~System(void);
   System(const System&)
-   : eventFifo(0){};
+    : eventFifo(0){};
   System& operator=(const System&) { return *getInstance(); };
 
   class SetPeriodEvent : public RT::Event
   {
 
   public:
-   SetPeriodEvent(long long);
-   ~SetPeriodEvent(void);
+    SetPeriodEvent(long long);
+    ~SetPeriodEvent(void);
 
-   int callback(void);
+    int callback(void);
 
   private:
-   long long period;
+    long long period;
 
   }; // class SetPeriodEvent
 
@@ -456,20 +456,20 @@ public:
   virtual ~Device(void);
 
   /*! \fn virtual void read(void)
-  * Function called by the realtime task at the beginning of each period.
-  *
-  * \sa RT::System
-  */
+   * Function called by the realtime task at the beginning of each period.
+   *
+   * \sa RT::System
+   */
   /*! \fn virtual void write(void)
-  * Function called by the realtime task at the end of each period.
-  *
-  * \sa RT::System
-  */
+   * Function called by the realtime task at the end of each period.
+   *
+   * \sa RT::System
+   */
 
   /**********************************************************
-  * read & write must not be pure virtual because they can *
-  *    be called during construction and destruction.      *
-  **********************************************************/
+   * read & write must not be pure virtual because they can *
+   *    be called during construction and destruction.      *
+   **********************************************************/
 
   virtual void read(void){};
   virtual void write(void){};
@@ -501,24 +501,24 @@ public:
   virtual ~Thread(void);
 
   /*!
-  * Returns the priority of the thread. The higher the
-  *   priority the sooner the thread is called in the
-  *   timestep.
-  *
-  * \return The priority of the thread.
-  */
+   * Returns the priority of the thread. The higher the
+   *   priority the sooner the thread is called in the
+   *   timestep.
+   *
+   * \return The priority of the thread.
+   */
   Priority getPriority(void) const { return priority; };
 
   /*! \fn virtual void execute(void)
-  * Function called periodically by the realtime task.
-  *
-  * \sa RT::System
-  */
+   * Function called periodically by the realtime task.
+   *
+   * \sa RT::System
+   */
 
   /**********************************************************
-  * execute must not be pure virtual because it can be     *
-  *   called during construction and destruction.          *
-  **********************************************************/
+   * execute must not be pure virtual because it can be     *
+   *   called during construction and destruction.          *
+   **********************************************************/
 
   virtual void execute(void){};
 

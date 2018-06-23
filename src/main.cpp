@@ -72,23 +72,23 @@ main(int argc, char* argv[])
   /* Handle Command-Line Options */
   cli_options_t cli_options;
   if (!parse_cli_options(argc, argv, &cli_options))
-   return -EINVAL;
+    return -EINVAL;
 
   /* Find Configuration File */
   std::string config_file;
   if (cli_options.config_file.length())
-   config_file = cli_options.config_file;
+    config_file = cli_options.config_file;
   else if (getenv("RTXI_CONF"))
-   config_file = getenv("RTXI_CONF");
+    config_file = getenv("RTXI_CONF");
   else
-   config_file = "/usr/local/share/rtxi/rtxi.conf";
+    config_file = "/usr/local/share/rtxi/rtxi.conf";
 
   /************************************************************
-  * Create Main System Components                            *
-  *                                                          *
-  *  These need to be created early because they should have *
-  *  Settings::IDs of 0 and 1.                               *
-  ************************************************************/
+   * Create Main System Components                            *
+   *                                                          *
+   *  These need to be created early because they should have *
+   *  Settings::IDs of 0 and 1.                               *
+   ************************************************************/
 
   /* Create GUI Objects */
   QApplication::setDesktopSettingsAware(false);
@@ -131,31 +131,31 @@ parse_cli_options(int argc, char* argv[], cli_options_t* cli_options)
   int opt, index;
 
   struct option options[] = { { "help", no_argument, 0, 'h' },
-                             { "config-file", required_argument, 0, 'c' },
-                             { "plugins-path", required_argument, 0, 'p' },
-                             { "models-path", required_argument, 0, 'm' },
-                             { 0, 0, 0, 0 } };
+                              { "config-file", required_argument, 0, 'c' },
+                              { "plugins-path", required_argument, 0, 'p' },
+                              { "models-path", required_argument, 0, 'm' },
+                              { 0, 0, 0, 0 } };
 
   for (;;) {
-   opt = getopt_long(argc, argv, "hc:p:m:", options, &index);
+    opt = getopt_long(argc, argv, "hc:p:m:", options, &index);
 
-   if (opt < 0)
-     break;
+    if (opt < 0)
+      break;
 
-   switch (opt) {
-     case 'c':
-       cli_options->config_file = optarg;
-       break;
-     case 'h':
-       help_msg(argv[0]);
-       return false;
-     case 'p':
-       cli_options->plugins_path = optarg;
-       break;
-     default:
-       error_msg(argv[0]);
-       return false;
-   }
+    switch (opt) {
+      case 'c':
+        cli_options->config_file = optarg;
+        break;
+      case 'h':
+        help_msg(argv[0]);
+        return false;
+      case 'p':
+        cli_options->plugins_path = optarg;
+        break;
+      default:
+        error_msg(argv[0]);
+        return false;
+    }
   }
 
   return true;
@@ -168,13 +168,13 @@ signal_handler(int signum)
 
   /* Only handler handle signals in the parent */
   if (getpid() != parentThread)
-   return;
+    return;
 
   DEBUG_MSG("signal_handler : signal received\n");
   PRINT_BACKTRACE();
 
   if (count++)
-   _exit(-EFAULT);
+    _exit(-EFAULT);
 
   DEBUG_MSG("signal_handler : finished\n");
   exit(0);

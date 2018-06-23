@@ -16,7 +16,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* 
+/*
  * This class instantiates a single scope instance. This includes the painting
  * director, the canvass, and the functions necessary for modifying those
  * scopes. Multiple scope objects can be instantiated, and each instance will

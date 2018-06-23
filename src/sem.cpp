@@ -31,15 +31,15 @@ Semaphore::down(void)
 {
 #ifdef DEBUG
   if (RT::OS::isRealtime()) {
-   ERROR_MSG("Detected unsafe down attempt in RT thread\n");
-   PRINT_BACKTRACE();
-   return;
+    ERROR_MSG("Detected unsafe down attempt in RT thread\n");
+    PRINT_BACKTRACE();
+    return;
   }
 #endif // DEBUG
 
   --count;
   while (count < 0)
-   usleep(1000);
+    usleep(1000);
 }
 
 void

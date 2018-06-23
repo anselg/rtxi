@@ -29,9 +29,9 @@ public:
 
 private:
   /*****************************************************************
-  * The constructor, destructor, and assignment operator are made *
-  *   private to control instantiation of the class.              *
-  *****************************************************************/
+   * The constructor, destructor, and assignment operator are made *
+   *   private to control instantiation of the class.              *
+   *****************************************************************/
 
   CmdLine(void);
   ~CmdLine(void);

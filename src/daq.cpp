@@ -46,21 +46,21 @@ DAQ::Manager::foreachDevice(void (*callback)(DAQ::Device*, void*), void* param)
 {
   Mutex::Locker lock(&mutex);
   for (std::list<Device*>::iterator i = devices.begin(); i != devices.end();
-      ++i) {
-   callback(*i, param);
+       ++i) {
+    callback(*i, param);
   }
 }
 
 DAQ::Device*
 DAQ::Manager::loadDevice(const std::string& name,
-                        const std::list<std::string>& args)
+                         const std::list<std::string>& args)
 {
   Mutex::Locker lock(&mutex);
 
   if (driverMap.find(name) == driverMap.end()) {
-   ERROR_MSG("DAQ::Manager::loadDevice : Driver %s does not exist\n",
-             name.c_str());
-   return 0;
+    ERROR_MSG("DAQ::Manager::loadDevice : Driver %s does not exist\n",
+              name.c_str());
+    return 0;
   }
 
   DAQ::Device* device = driverMap[name]->createDevice(args);
@@ -71,15 +71,15 @@ void
 DAQ::Manager::insertDevice(DAQ::Device* device)
 {
   if (!device) {
-   ERROR_MSG("DAQ::Manager::insertDevice : Invalid device\n");
-   return;
+    ERROR_MSG("DAQ::Manager::insertDevice : Invalid device\n");
+    return;
   }
 
   Mutex::Locker lock(&mutex);
 
   if (std::find(devices.begin(), devices.end(), device) != devices.end()) {
-   ERROR_MSG("DAQ::Device::insertDevice : Device already present\n");
-   return;
+    ERROR_MSG("DAQ::Device::insertDevice : Device already present\n");
+    return;
   }
 
   devices.push_back(device);
@@ -89,8 +89,8 @@ void
 DAQ::Manager::removeDevice(DAQ::Device* device)
 {
   if (!device) {
-   ERROR_MSG("DAQ::Manager::removeDevice : Invalid device\n");
-   return;
+    ERROR_MSG("DAQ::Manager::removeDevice : Invalid device\n");
+    return;
   }
 
   Mutex::Locker lock(&mutex);
@@ -101,14 +101,14 @@ void
 DAQ::Manager::registerDriver(Driver* driver, const std::string& name)
 {
   if (!driver) {
-   ERROR_MSG("DAQ::Manager::registerDriver : Invalid driver\n");
-   return;
+    ERROR_MSG("DAQ::Manager::registerDriver : Invalid driver\n");
+    return;
   }
   Mutex::Locker lock(&mutex);
 
   if (driverMap.find(name) != driverMap.end()) {
-   ERROR_MSG("DAQ::Manager::registerDriver : Driver already registered\n");
-   return;
+    ERROR_MSG("DAQ::Manager::registerDriver : Driver already registered\n");
+    return;
   }
   driverMap[name] = driver;
 }
@@ -119,8 +119,8 @@ DAQ::Manager::unregisterDriver(const std::string& name)
   Mutex::Locker lock(&mutex);
 
   if (driverMap.find(name) == driverMap.end()) {
-   ERROR_MSG("DAQ::Manager::unregisterDriver : Driver not registered\n");
-   return;
+    ERROR_MSG("DAQ::Manager::unregisterDriver : Driver not registered\n");
+    return;
   }
   driverMap.erase(name);
 }
@@ -132,17 +132,17 @@ DAQ::Manager*
 DAQ::Manager::getInstance(void)
 {
   if (instance)
-   return instance;
+    return instance;
 
   /*************************************************************************
-  * Seems like alot of hoops to jump through, but static allocation isn't *
-  *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
-  *************************************************************************/
+   * Seems like alot of hoops to jump through, but static allocation isn't *
+   *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
+   *************************************************************************/
 
   Mutex::Locker lock(&::mutex);
   if (!instance) {
-   static Manager manager;
-   instance = &manager;
+    static Manager manager;
+    instance = &manager;
   }
 
   return instance;

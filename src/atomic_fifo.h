@@ -38,26 +38,26 @@ public:
   ~AtomicFifo(void);
 
   /*!
-  * Function for writing data to atomic FIFO
-  *
-  * \param buffer Memory destination
-  * \param itemSize Size of memory chunk to be copied
-  */
+   * Function for writing data to atomic FIFO
+   *
+   * \param buffer Memory destination
+   * \param itemSize Size of memory chunk to be copied
+   */
   bool write(const void* buffer, size_t itemSize);
 
   /*!
-  * Function for reading data from atomic FIFO
-  *
-  * \param buffer Memory source
-  * \param itemSize Size of memory chunk to be copied into fifo
-  */
+   * Function for reading data from atomic FIFO
+   *
+   * \param buffer Memory source
+   * \param itemSize Size of memory chunk to be copied into fifo
+   */
   bool read(void* buffer, size_t itemSize);
 
   /*!
-  *
-  * Function to check if FIFO is truly atomic for the hardware architecture
-  *
-  */
+   *
+   * Function to check if FIFO is truly atomic for the hardware architecture
+   *
+   */
   bool isLockFree() const;
 
 private:

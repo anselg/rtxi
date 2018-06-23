@@ -32,7 +32,7 @@ AtomicFifo::AtomicFifo(size_t s)
 AtomicFifo::~AtomicFifo(void)
 {
   if (data)
-   delete[] data;
+    delete[] data;
 }
 
 bool
@@ -45,22 +45,22 @@ AtomicFifo::write(
   const auto current_tail = tail.load(std::memory_order_seq_cst);
 
   if (itemSize >= fifoSize - ((fifoSize + current_tail -
-                              head.load(std::memory_order_seq_cst)) %
-                             fifoSize)) {
-   ERROR_MSG("AtomicFifo::write : fifo full, data lost\n");
-   return false;
+                               head.load(std::memory_order_seq_cst)) %
+                              fifoSize)) {
+    ERROR_MSG("AtomicFifo::write : fifo full, data lost\n");
+    return false;
   }
 
   if (itemSize > fifoSize - current_tail) // If needed, data is split between
-                                         // end and beginning of fifo
+                                          // end and beginning of fifo
   {
-   size_t m = fifoSize - current_tail;
-   memcpy(data + current_tail, buffer, m); // Copy first part of data
-   memcpy(data,
-          reinterpret_cast<const char*>(buffer) + m,
-          itemSize - m); // Copy last part of data
+    size_t m = fifoSize - current_tail;
+    memcpy(data + current_tail, buffer, m); // Copy first part of data
+    memcpy(data,
+           reinterpret_cast<const char*>(buffer) + m,
+           itemSize - m); // Copy last part of data
   } else
-   memcpy(data + current_tail, buffer, itemSize);
+    memcpy(data + current_tail, buffer, itemSize);
 
   tail.store(increment(current_tail, itemSize));
 
@@ -79,21 +79,21 @@ AtomicFifo::read(
   // Check if there is data to be read, and it is at least as large as item size
   // Left side of logical returns number of bytes available to be read
   if (((fifoSize + tail.load(std::memory_order_seq_cst) - current_head) %
-      fifoSize) < itemSize) {
-   return false; // no data to be read
+       fifoSize) < itemSize) {
+    return false; // no data to be read
   }
 
   // Copy data from fifo to buffer
   if (fifoSize - current_head <
-     itemSize) // If data is split between end and beginning of fifo
+      itemSize) // If data is split between end and beginning of fifo
   {
-   size_t m = fifoSize - current_head;
-   memcpy(buffer, data + current_head, m); // Retrieve first part of data
-   memcpy(reinterpret_cast<char*>(buffer) + m,
-          data,
-          itemSize - m); // Retrieve last part of data
+    size_t m = fifoSize - current_head;
+    memcpy(buffer, data + current_head, m); // Retrieve first part of data
+    memcpy(reinterpret_cast<char*>(buffer) + m,
+           data,
+           itemSize - m); // Retrieve last part of data
   } else
-   memcpy(buffer, data + current_head, itemSize);
+    memcpy(buffer, data + current_head, itemSize);
 
   head.store(increment(current_head, itemSize));
 

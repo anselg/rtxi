@@ -42,118 +42,118 @@ public:
   virtual ~MainWindow(void);
 
   /*!
-  * MainWindow is a Singleton, which means that there can only be one
-  *   instance. This function returns a pointer to that single instance.
-  *
-  * \return The instance of MainWindow.
-  */
+   * MainWindow is a Singleton, which means that there can only be one
+   *   instance. This function returns a pointer to that single instance.
+   *
+   * \return The instance of MainWindow.
+   */
 
   static MainWindow* getInstance(void);
 
   /*!
-  * Add an item to the File menu.
-  *
-  * \param label The text that will appear in the menu.
-  * \param handler The object that will handle signals from the menu.
-  * \param slot The slot in the handler that the signal will activate.
-  * \return The index of the new menu item.
-  */
+   * Add an item to the File menu.
+   *
+   * \param label The text that will appear in the menu.
+   * \param handler The object that will handle signals from the menu.
+   * \param slot The slot in the handler that the signal will activate.
+   * \return The index of the new menu item.
+   */
 
   QAction* createFileMenuItem(
-   const QString& label); //, const QObject *handler, const char *slot);
+    const QString& label); //, const QObject *handler, const char *slot);
 
   /*!
-  * Clears the File menu.
-  */
+   * Clears the File menu.
+   */
 
   void clearFileMenu(void);
 
   /*!
-  * Insert separator
-  */
+   * Insert separator
+   */
   QAction* insertModuleMenuSeparator(void);
 
   /*!
-  * Add an item to the Modules menu.
-  *
-  * \param label The text that will appear in the menu.
-  *
-  * \param handler The object that will handle signals from the menu.
-  * \param slot The slot in the handler that the signal will activate.
-  * \return The index of the new menu item.
-  */
+   * Add an item to the Modules menu.
+   *
+   * \param label The text that will appear in the menu.
+   *
+   * \param handler The object that will handle signals from the menu.
+   * \param slot The slot in the handler that the signal will activate.
+   * \return The index of the new menu item.
+   */
 
   QAction* createModuleMenuItem(const QString& text);
   QAction* createModuleMenuItem(const QString& text,
-                               const QObject* handler,
-                               const char* slot);
+                                const QObject* handler,
+                                const char* slot);
 
   /*!
-  * Sets the parameter value of a menu item in the Modules menu.
-  *
-  * \param menuid The index of the item to be removed.
-  * \param parameter The parameter value to set.
-  */
+   * Sets the parameter value of a menu item in the Modules menu.
+   *
+   * \param menuid The index of the item to be removed.
+   * \param parameter The parameter value to set.
+   */
 
   void setModuleMenuItemParameter(QAction* action, int parameter);
 
   /*!
-  * Clears the Modules menu.
-  */
+   * Clears the Modules menu.
+   */
 
   void clearModuleMenu(void);
 
   /*!
-  * Change the text associated with the Modules menu item.
-  *
-  * \param id The index of the item to change.
-  * \param text The next text to assign to that menu item.
-  */
+   * Change the text associated with the Modules menu item.
+   *
+   * \param id The index of the item to change.
+   * \param text The next text to assign to that menu item.
+   */
 
   void changeModuleMenuItem(QAction* action, QString text);
 
   /*!
-  * Remove an item from the Modules menu.
-  *
-  * \param index The index of the item to be removed.
-  */
+   * Remove an item from the Modules menu.
+   *
+   * \param index The index of the item to be removed.
+   */
 
   void removeModuleMenuItem(QAction* action);
 
   /*!
-  * Add an item to the Utilities menu.
-  *
-  * \param label The text that will appear in the menu.
-  * \param handler The object that will handle signals from the menu.
-  * \param slot The slot in the handler that the signal will activate.
-  * \return The index of the new menu item.
-  */
+   * Add an item to the Utilities menu.
+   *
+   * \param label The text that will appear in the menu.
+   * \param handler The object that will handle signals from the menu.
+   * \param slot The slot in the handler that the signal will activate.
+   * \return The index of the new menu item.
+   */
 
   QAction* createUtilMenuItem(const QString& label,
-                             const QObject* handler,
-                             const char* slot);
+                              const QObject* handler,
+                              const char* slot);
 
   /*!
-  * Add an item to the System menu.
-  *
-  * \param label The text that will appear in the menu.
-  * \param handler The object that will handle signals from the menu.
-  * \param slot The slot in the handler that the signal will activate.
-  * \return The index of the new menu item.
-  */
+   * Add an item to the System menu.
+   *
+   * \param label The text that will appear in the menu.
+   * \param handler The object that will handle signals from the menu.
+   * \param slot The slot in the handler that the signal will activate.
+   * \return The index of the new menu item.
+   */
 
   QAction* createSystemMenuItem(const QString& label,
-                               const QObject* handler,
-                               const char* slot);
+                                const QObject* handler,
+                                const char* slot);
 
   /*
-  * Create a window for the widget in the main window
-  */
+   * Create a window for the widget in the main window
+   */
   void createMdi(QMdiSubWindow*);
 
   /*!
-  * Load window geometry based upon previously stored settings
-  */
+   * Load window geometry based upon previously stored settings
+   */
   void loadWindow(void);
 
 private slots:
@@ -175,9 +175,9 @@ private slots:
 
 private:
   /****************************************************************
-  * The constructor, destrutos, and assignment operator are made *
-  *   private to control instantiation of the class.             *
-  ****************************************************************/
+   * The constructor, destrutos, and assignment operator are made *
+   *   private to control instantiation of the class.             *
+   ****************************************************************/
 
   MainWindow(void);
   MainWindow(const MainWindow&){};

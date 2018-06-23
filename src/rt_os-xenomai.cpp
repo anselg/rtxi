@@ -55,9 +55,9 @@ static const char* sigdebug_reasons[] = {
   [SIGDEBUG_MIGRATE_FAULT] = "triggered fault",
   [SIGDEBUG_MIGRATE_PRIOINV] = "affected by priority inversion",
   [SIGDEBUG_NOMLOCK] = "Xenomai: process memory not locked "
-                      "(missing mlockall?)",
+                       "(missing mlockall?)",
   [SIGDEBUG_WATCHDOG] = "Xenomai: watchdog triggered "
-                       "(period too short?)",
+                        "(period too short?)",
 };
 
 void
@@ -70,20 +70,20 @@ sigdebug_handler(int sig, siginfo_t* si, void* context)
   unsigned int n;
 
   if (reason > SIGDEBUG_WATCHDOG)
-   reason = SIGDEBUG_UNDEFINED;
+    reason = SIGDEBUG_UNDEFINED;
 
   switch (reason) {
-   case SIGDEBUG_UNDEFINED:
-     n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
-     write(STDERR_FILENO, buffer, n);
-   case SIGDEBUG_MIGRATE_SIGNAL:
-     n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
-     write(STDERR_FILENO, buffer, n);
-   case SIGDEBUG_WATCHDOG:
-     /* These errors are lethal, something went really wrong. */
-     n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
-     write(STDERR_FILENO, buffer, n);
-     exit(EXIT_FAILURE);
+    case SIGDEBUG_UNDEFINED:
+      n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
+      write(STDERR_FILENO, buffer, n);
+    case SIGDEBUG_MIGRATE_SIGNAL:
+      n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
+      write(STDERR_FILENO, buffer, n);
+    case SIGDEBUG_WATCHDOG:
+      /* These errors are lethal, something went really wrong. */
+      n = snprintf(buffer, sizeof(buffer), "%s\n", sigdebug_reasons[reason]);
+      write(STDERR_FILENO, buffer, n);
+      exit(EXIT_FAILURE);
   }
 
   /* Retrieve the current backtrace, and decode it to stdout. */
@@ -106,8 +106,8 @@ RT::OS::initiate(void)
   setrlimit(RLIMIT_MEMLOCK, &rlim);
 
   if (mlockall(MCL_CURRENT | MCL_FUTURE)) {
-   ERROR_MSG("RTOS:Xenomai::initiate : failed to lock memory.\n");
-   return -EPERM;
+    ERROR_MSG("RTOS:Xenomai::initiate : failed to lock memory.\n");
+    return -EPERM;
   }
 
   pthread_key_create(&is_rt_key, 0);
@@ -124,9 +124,9 @@ RT::OS::shutdown(void)
 
 int
 RT::OS::createTask(RT::OS::Task* task,
-                  void* (*entry)(void*),
-                  void* arg,
-                  int prio)
+                   void* (*entry)(void*),
+                   void* arg,
+                   int prio)
 {
   int retval = 0;
   xenomai_task_t* t = new xenomai_task_t;
@@ -144,11 +144,11 @@ RT::OS::createTask(RT::OS::Task* task,
 
   // Invert priority, default prio=0 but max priority for xenomai task is 99
   if ((prio >= 0) && (prio <= 99))
-   priority -= prio;
+    priority -= prio;
 
   if ((retval = rt_task_create(&t->task, "RTXI RT Thread", 0, priority, 0))) {
-   ERROR_MSG("RT::OS::createTask : failed to create task\n");
-   return retval;
+    ERROR_MSG("RT::OS::createTask : failed to create task\n");
+    return retval;
   }
 
   t->period = -1;
@@ -157,9 +157,9 @@ RT::OS::createTask(RT::OS::Task* task,
   pthread_setspecific(is_rt_key, reinterpret_cast<const void*>(t));
 
   if ((retval = rt_task_start(
-        &t->task, reinterpret_cast<void (*)(void*)>(entry), arg))) {
-   ERROR_MSG("RT::OS::createTask : failed to start task\n");
-   return retval;
+         &t->task, reinterpret_cast<void (*)(void*)>(entry), arg))) {
+    ERROR_MSG("RT::OS::createTask : failed to start task\n");
+    return retval;
   }
 
   return 0;
@@ -176,7 +176,7 @@ bool
 RT::OS::isRealtime(void)
 {
   if (init_rt && pthread_getspecific(is_rt_key))
-   return true;
+    return true;
   return false;
 }
 
@@ -198,9 +198,9 @@ RT::OS::setPeriod(RT::OS::Task task, long long period)
 
   // Set wake up limits
   if (period / 10 > 50000ll)
-   t->wakeup_t = rt_timer_ns2ticks(50000ll);
+    t->wakeup_t = rt_timer_ns2ticks(50000ll);
   else
-   t->wakeup_t = rt_timer_ns2ticks(period / 10);
+    t->wakeup_t = rt_timer_ns2ticks(period / 10);
 
   // Setup timing bounds for oneshot operation
   t->period = rt_timer_ns2ticks(period);

@@ -47,7 +47,7 @@ class RTXIEvent : public QEvent
 
 public:
   RTXIEvent()
-   : QEvent((QEvent::Type)CloseEvent)
+    : QEvent((QEvent::Type)CloseEvent)
   {}
   void* data;
 };
@@ -64,62 +64,62 @@ class Manager : public QObject
 
 public:
   /*!
-  * Manager is a Singleton, which means that there can only be one instance.
-  *   This function returns a pointer to that single instance.
-  *
-  * \return The instance of Manager.
-  */
+   * Manager is a Singleton, which means that there can only be one instance.
+   *   This function returns a pointer to that single instance.
+   *
+   * \return The instance of Manager.
+   */
   static Manager* getInstance(void);
 
   /*!
-  * Function for loading a Plugin::Object from a shared library file.
-  *
-  * \param library The file name of a shared library.
-  * \return A pointer to the newly created Plugin::Object.
-  *
-  * \sa Plugin::Object
-  */
+   * Function for loading a Plugin::Object from a shared library file.
+   *
+   * \param library The file name of a shared library.
+   * \return A pointer to the newly created Plugin::Object.
+   *
+   * \sa Plugin::Object
+   */
   Object* load(const QString& library);
 
   /*!
-  * Function for unloading a single Plugin::Object in the system.
-  *
-  * \param object The plugin object to be unloaded.
-  */
+   * Function for unloading a single Plugin::Object in the system.
+   *
+   * \param object The plugin object to be unloaded.
+   */
   void unload(Object* object);
 
   /*!
-  * Function for unloading all Plugin::Object's in the system.
-  */
+   * Function for unloading all Plugin::Object's in the system.
+   */
   void unloadAll(void);
 
   /*!
-  * Loop through each Plugin and execute a callback.
-  * The callback takes two parameters, a Plugin pointer and param,
-  *   the second parameter to foreachPlugin.
-  *
-  * \param callback The callback function.
-  * \param param A parameter to the callback function.
-  *
-  * \sa Plugin::Object
-  */
+   * Loop through each Plugin and execute a callback.
+   * The callback takes two parameters, a Plugin pointer and param,
+   *   the second parameter to foreachPlugin.
+   *
+   * \param callback The callback function.
+   * \param param A parameter to the callback function.
+   *
+   * \sa Plugin::Object
+   */
   void foreachPlugin(void (*callback)(Plugin::Object*, void*), void* param);
 
 public slots:
 
   /*!
-  *
-  */
+   *
+   */
   void customEvent(QEvent*);
 
 private:
   /*****************************************************************
-  * The constructor, destructor, and assignment operator are made *
-  *   private to control instantiation of the class.              *
-  *****************************************************************/
+   * The constructor, destructor, and assignment operator are made *
+   *   private to control instantiation of the class.              *
+   *****************************************************************/
 
   Manager(void)
-   : mutex(Mutex::RECURSIVE){};
+    : mutex(Mutex::RECURSIVE){};
   ~Manager(void){};
   Manager(const Manager&){};
   Manager& operator=(const Manager&) { return *getInstance(); };
@@ -149,16 +149,16 @@ public:
   virtual ~Object(void);
 
   /*!
-  * Get the name of the library from which the object was loaded.
-  *
-  * \return The library file the object from which the object was created.
-  */
+   * Get the name of the library from which the object was loaded.
+   *
+   * \return The library file the object from which the object was created.
+   */
   std::string getLibrary(void) const;
 
   /*!
-  * A mechanism which an object can use to unload itself. Should only be
-  *   called from within the GUI thread.
-  */
+   * A mechanism which an object can use to unload itself. Should only be
+   *   called from within the GUI thread.
+   */
   void unload(void);
 
 private:

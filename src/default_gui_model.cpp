@@ -32,7 +32,7 @@ DefaultGUILineEdit::DefaultGUILineEdit(QWidget* parent)
   : QLineEdit(parent)
 {
   QObject::connect(
-   this, SIGNAL(textChanged(const QString&)), this, SLOT(redden(void)));
+    this, SIGNAL(textChanged(const QString&)), this, SLOT(redden(void)));
 }
 
 DefaultGUILineEdit::~DefaultGUILineEdit(void) {}
@@ -41,7 +41,7 @@ void
 DefaultGUILineEdit::blacken(void)
 {
   palette.setBrush(this->foregroundRole(),
-                  QApplication::palette().color(QPalette::WindowText));
+                   QApplication::palette().color(QPalette::WindowText));
   this->setPalette(palette);
   setModified(false);
 }
@@ -50,14 +50,14 @@ void
 DefaultGUILineEdit::redden(void)
 {
   if (isModified()) {
-   palette.setBrush(this->foregroundRole(), Qt::red);
-   this->setPalette(palette);
+    palette.setBrush(this->foregroundRole(), Qt::red);
+    this->setPalette(palette);
   }
 }
 
 DefaultGUIModel::DefaultGUIModel(std::string name,
-                                DefaultGUIModel::variable_t* var,
-                                size_t size)
+                                 DefaultGUIModel::variable_t* var,
+                                 size_t size)
   : QWidget(MainWindow::getInstance()->centralWidget())
   , Workspace::Instance(name, var, size)
   , myname(name)
@@ -79,10 +79,10 @@ DefaultGUIModel::~DefaultGUIModel(void)
   RT::System::getInstance()->postEvent(&event);
 
   for (std::map<QString, param_t>::iterator i = parameter.begin();
-      i != parameter.end();
-      ++i)
-   if (i->second.type & PARAMETER)
-     delete i->second.str_value;
+       i != parameter.end();
+       ++i)
+    if (i->second.type & PARAMETER)
+      delete i->second.str_value;
 }
 
 void
@@ -94,8 +94,8 @@ DefaultGUIModel::createGUI(DefaultGUIModel::variable_t* var, int size)
   subWindow->setAttribute(Qt::WA_DeleteOnClose);
   subWindow->setWindowIcon(QIcon("/usr/local/share/rtxi/RTXI-widget-icon.png"));
   subWindow->setWindowFlags(Qt::CustomizeWindowHint |
-                           Qt::WindowCloseButtonHint |
-                           Qt::WindowMinimizeButtonHint);
+                            Qt::WindowCloseButtonHint |
+                            Qt::WindowMinimizeButtonHint);
   subWindow->setOption(QMdiSubWindow::RubberBandResize, true);
   subWindow->setOption(QMdiSubWindow::RubberBandMove, true);
   MainWindow::getInstance()->createMdi(subWindow);
@@ -113,49 +113,49 @@ DefaultGUIModel::createGUI(DefaultGUIModel::variable_t* var, int size)
 
   size_t nstate = 0, nparam = 0, nevent = 0, ncomment = 0;
   for (size_t i = 0; i < size; i++) {
-   if (var[i].flags & (PARAMETER | STATE | EVENT | COMMENT)) {
-     param_t param;
+    if (var[i].flags & (PARAMETER | STATE | EVENT | COMMENT)) {
+      param_t param;
 
-     param.label = new QLabel(QString::fromStdString(var[i].name), gridBox);
-     gridLayout->addWidget(param.label, parameter.size(), 0);
-     param.edit = new DefaultGUILineEdit(gridBox);
-     gridLayout->addWidget(param.edit, parameter.size(), 1);
+      param.label = new QLabel(QString::fromStdString(var[i].name), gridBox);
+      gridLayout->addWidget(param.label, parameter.size(), 0);
+      param.edit = new DefaultGUILineEdit(gridBox);
+      gridLayout->addWidget(param.edit, parameter.size(), 1);
 
-     param.label->setToolTip(QString::fromStdString(var[i].description));
-     param.edit->setToolTip(QString::fromStdString(var[i].description));
+      param.label->setToolTip(QString::fromStdString(var[i].description));
+      param.edit->setToolTip(QString::fromStdString(var[i].description));
 
-     if (var[i].flags & PARAMETER) {
-       if (var[i].flags & DOUBLE) {
-         param.edit->setValidator(new QDoubleValidator(param.edit));
-         param.type = PARAMETER | DOUBLE;
-       } else if (var[i].flags & UINTEGER) {
-         QIntValidator* validator = new QIntValidator(param.edit);
-         param.edit->setValidator(validator);
-         validator->setBottom(0);
-         param.type = PARAMETER | UINTEGER;
-       } else if (var[i].flags & INTEGER) {
-         param.edit->setValidator(new QIntValidator(param.edit));
-         param.type = PARAMETER | INTEGER;
-       } else
-         param.type = PARAMETER;
-       param.index = nparam++;
-       param.str_value = new QString;
-     } else if (var[i].flags & STATE) {
-       param.edit->setReadOnly(true);
-       palette.setBrush(param.edit->foregroundRole(), Qt::darkGray);
-       param.edit->setPalette(palette);
-       param.type = STATE;
-       param.index = nstate++;
-     } else if (var[i].flags & EVENT) {
-       param.edit->setReadOnly(true);
-       param.type = EVENT;
-       param.index = nevent++;
-     } else if (var[i].flags & COMMENT) {
-       param.type = COMMENT;
-       param.index = ncomment++;
-     }
-     parameter[QString::fromStdString(var[i].name)] = param;
-   }
+      if (var[i].flags & PARAMETER) {
+        if (var[i].flags & DOUBLE) {
+          param.edit->setValidator(new QDoubleValidator(param.edit));
+          param.type = PARAMETER | DOUBLE;
+        } else if (var[i].flags & UINTEGER) {
+          QIntValidator* validator = new QIntValidator(param.edit);
+          param.edit->setValidator(validator);
+          validator->setBottom(0);
+          param.type = PARAMETER | UINTEGER;
+        } else if (var[i].flags & INTEGER) {
+          param.edit->setValidator(new QIntValidator(param.edit));
+          param.type = PARAMETER | INTEGER;
+        } else
+          param.type = PARAMETER;
+        param.index = nparam++;
+        param.str_value = new QString;
+      } else if (var[i].flags & STATE) {
+        param.edit->setReadOnly(true);
+        palette.setBrush(param.edit->foregroundRole(), Qt::darkGray);
+        param.edit->setPalette(palette);
+        param.type = STATE;
+        param.index = nstate++;
+      } else if (var[i].flags & EVENT) {
+        param.edit->setReadOnly(true);
+        param.type = EVENT;
+        param.index = nevent++;
+      } else if (var[i].flags & COMMENT) {
+        param.type = COMMENT;
+        param.index = ncomment++;
+      }
+      parameter[QString::fromStdString(var[i].name)] = param;
+    }
   }
 
   // Create child widget
@@ -170,7 +170,7 @@ DefaultGUIModel::createGUI(DefaultGUIModel::variable_t* var, int size)
 
   modifyButton = new QPushButton("Modify", this);
   QObject::connect(
-   modifyButton, SIGNAL(clicked(void)), this, SLOT(modify(void)));
+    modifyButton, SIGNAL(clicked(void)), this, SLOT(modify(void)));
   buttonLayout->addWidget(modifyButton);
 
   unloadButton = new QPushButton("Unload", this);
@@ -219,22 +219,22 @@ void
 DefaultGUIModel::refresh(void)
 {
   for (std::map<QString, param_t>::iterator i = parameter.begin();
-      i != parameter.end();
-      ++i) {
-   if (i->second.type & (STATE | EVENT)) {
-     i->second.edit->setText(
-       QString::number(getValue(i->second.type, i->second.index)));
-     palette.setBrush(i->second.edit->foregroundRole(), Qt::darkGray);
-     i->second.edit->setPalette(palette);
-   } else if ((i->second.type & PARAMETER) && !i->second.edit->isModified() &&
-              i->second.edit->text() != *i->second.str_value) {
-     i->second.edit->setText(*i->second.str_value);
-   } else if ((i->second.type & COMMENT) && !i->second.edit->isModified() &&
-              i->second.edit->text() != QString::fromStdString(getValueString(
-                                          COMMENT, i->second.index))) {
-     i->second.edit->setText(
-       QString::fromStdString(getValueString(COMMENT, i->second.index)));
-   }
+       i != parameter.end();
+       ++i) {
+    if (i->second.type & (STATE | EVENT)) {
+      i->second.edit->setText(
+        QString::number(getValue(i->second.type, i->second.index)));
+      palette.setBrush(i->second.edit->foregroundRole(), Qt::darkGray);
+      i->second.edit->setPalette(palette);
+    } else if ((i->second.type & PARAMETER) && !i->second.edit->isModified() &&
+               i->second.edit->text() != *i->second.str_value) {
+      i->second.edit->setText(*i->second.str_value);
+    } else if ((i->second.type & COMMENT) && !i->second.edit->isModified() &&
+               i->second.edit->text() != QString::fromStdString(getValueString(
+                                           COMMENT, i->second.index))) {
+      i->second.edit->setText(
+        QString::fromStdString(getValueString(COMMENT, i->second.index)));
+    }
   }
   pauseButton->setChecked(!getActive());
 }
@@ -250,21 +250,21 @@ DefaultGUIModel::modify(void)
   RT::System::getInstance()->postEvent(&event);
 
   for (std::map<QString, param_t>::iterator i = parameter.begin();
-      i != parameter.end();
-      ++i)
-   if (i->second.type & COMMENT) {
-     QByteArray textData = i->second.edit->text().toLatin1();
-     const char* text = textData.constData();
-     Workspace::Instance::setComment(i->second.index, text);
-   }
+       i != parameter.end();
+       ++i)
+    if (i->second.type & COMMENT) {
+      QByteArray textData = i->second.edit->text().toLatin1();
+      const char* text = textData.constData();
+      Workspace::Instance::setComment(i->second.index, text);
+    }
 
   update(MODIFY);
   setActive(active);
 
   for (std::map<QString, param_t>::iterator i = parameter.begin();
-      i != parameter.end();
-      ++i)
-   i->second.edit->blacken();
+       i != parameter.end();
+       ++i)
+    i->second.edit->blacken();
 }
 
 QString
@@ -272,7 +272,7 @@ DefaultGUIModel::getComment(const QString& name)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if (n != parameter.end() && (n->second.type & COMMENT))
-   return QString::fromStdString(getValueString(COMMENT, n->second.index));
+    return QString::fromStdString(getValueString(COMMENT, n->second.index));
   return "";
 }
 
@@ -281,10 +281,10 @@ DefaultGUIModel::setComment(const QString& name, QString comment)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if (n != parameter.end() && (n->second.type & COMMENT)) {
-   n->second.edit->setText(comment);
-   QByteArray textData = comment.toLatin1();
-   const char* text = textData.constData();
-   Workspace::Instance::setComment(n->second.index, text);
+    n->second.edit->setText(comment);
+    QByteArray textData = comment.toLatin1();
+    const char* text = textData.constData();
+    Workspace::Instance::setComment(n->second.index, text);
   }
 }
 
@@ -293,9 +293,9 @@ DefaultGUIModel::getParameter(const QString& name)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if ((n != parameter.end()) && (n->second.type & PARAMETER)) {
-   *n->second.str_value = n->second.edit->text();
-   setValue(n->second.index, n->second.edit->text().toDouble());
-   return n->second.edit->text();
+    *n->second.str_value = n->second.edit->text();
+    setValue(n->second.index, n->second.edit->text().toDouble());
+    return n->second.edit->text();
   }
   return "";
 }
@@ -305,9 +305,9 @@ DefaultGUIModel::setParameter(const QString& name, double value)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if ((n != parameter.end()) && (n->second.type & PARAMETER)) {
-   n->second.edit->setText(QString::number(value));
-   *n->second.str_value = n->second.edit->text();
-   setValue(n->second.index, n->second.edit->text().toDouble());
+    n->second.edit->setText(QString::number(value));
+    *n->second.str_value = n->second.edit->text();
+    setValue(n->second.index, n->second.edit->text().toDouble());
   }
 }
 
@@ -316,9 +316,9 @@ DefaultGUIModel::setParameter(const QString& name, const QString value)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if ((n != parameter.end()) && (n->second.type & PARAMETER)) {
-   n->second.edit->setText(value);
-   *n->second.str_value = n->second.edit->text();
-   setValue(n->second.index, n->second.edit->text().toDouble());
+    n->second.edit->setText(value);
+    *n->second.str_value = n->second.edit->text();
+    setValue(n->second.index, n->second.edit->text().toDouble());
   }
 }
 
@@ -327,8 +327,8 @@ DefaultGUIModel::setState(const QString& name, double& ref)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if ((n != parameter.end()) && (n->second.type & STATE)) {
-   setData(Workspace::STATE, n->second.index, &ref);
-   n->second.edit->setText(QString::number(ref));
+    setData(Workspace::STATE, n->second.index, &ref);
+    n->second.edit->setText(QString::number(ref));
   }
 }
 
@@ -337,8 +337,8 @@ DefaultGUIModel::setEvent(const QString& name, double& ref)
 {
   std::map<QString, param_t>::iterator n = parameter.find(name);
   if ((n != parameter.end()) && (n->second.type & EVENT)) {
-   setData(Workspace::EVENT, n->second.index, &ref);
-   n->second.edit->setText(QString::number(ref));
+    setData(Workspace::EVENT, n->second.index, &ref);
+    n->second.edit->setText(QString::number(ref));
   }
 }
 
@@ -346,38 +346,38 @@ void
 DefaultGUIModel::pause(bool p)
 {
   if (pauseButton->isChecked() != p)
-   pauseButton->setDown(p);
+    pauseButton->setDown(p);
 
   setActive(!p);
   if (p)
-   update(PAUSE);
+    update(PAUSE);
   else
-   update(UNPAUSE);
+    update(UNPAUSE);
 }
 
 void
 DefaultGUIModel::doDeferred(const Settings::Object::State&)
 {
   setWindowTitle(QString::number(getID()) + " " +
-                QString::fromStdString(myname));
+                 QString::fromStdString(myname));
 }
 
 void
 DefaultGUIModel::doLoad(const Settings::Object::State& s)
 {
   for (std::map<QString, param_t>::iterator i = parameter.begin();
-      i != parameter.end();
-      ++i)
-   i->second.edit->setText(
-     QString::fromStdString(s.loadString((i->first).toStdString())));
+       i != parameter.end();
+       ++i)
+    i->second.edit->setText(
+      QString::fromStdString(s.loadString((i->first).toStdString())));
   if (s.loadInteger("Maximized"))
-   showMaximized();
+    showMaximized();
   else if (s.loadInteger("Minimized"))
-   showMinimized();
+    showMinimized();
   // this only exists in RTXI versions >1.3
   if (s.loadInteger("W") != NULL) {
-   resize(s.loadInteger("W"), s.loadInteger("H"));
-   parentWidget()->move(s.loadInteger("X"), s.loadInteger("Y"));
+    resize(s.loadInteger("W"), s.loadInteger("H"));
+    parentWidget()->move(s.loadInteger("X"), s.loadInteger("Y"));
   }
 
   pauseButton->setChecked(s.loadInteger("paused"));
@@ -389,9 +389,9 @@ DefaultGUIModel::doSave(Settings::Object::State& s) const
 {
   s.saveInteger("paused", pauseButton->isChecked());
   if (isMaximized())
-   s.saveInteger("Maximized", 1);
+    s.saveInteger("Maximized", 1);
   else if (isMinimized())
-   s.saveInteger("Minimized", 1);
+    s.saveInteger("Minimized", 1);
 
   QPoint pos = parentWidget()->pos();
   s.saveInteger("X", pos.x());
@@ -400,25 +400,25 @@ DefaultGUIModel::doSave(Settings::Object::State& s) const
   s.saveInteger("H", height());
 
   for (std::map<QString, param_t>::const_iterator i = parameter.begin();
-      i != parameter.end();
-      ++i)
-   s.saveString((i->first).toStdString(),
-                (i->second.edit->text()).toStdString());
+       i != parameter.end();
+       ++i)
+    s.saveString((i->first).toStdString(),
+                 (i->second.edit->text()).toStdString());
 }
 
 void
 DefaultGUIModel::receiveEvent(const Event::Object* event)
 {
   if (event->getName() == Event::RT_PREPERIOD_EVENT) {
-   periodEventPaused = getActive();
-   setActive(false);
+    periodEventPaused = getActive();
+    setActive(false);
   } else if (event->getName() == Event::RT_POSTPERIOD_EVENT) {
 #ifdef DEBUG
-   if (getActive())
-     ERROR_MSG("DefaultGUIModel::receiveEvent : model unpaused during a "
-               "period update\n");
+    if (getActive())
+      ERROR_MSG("DefaultGUIModel::receiveEvent : model unpaused during a "
+                "period update\n");
 #endif
-   update(PERIOD);
-   setActive(periodEventPaused);
+    update(PERIOD);
+    setActive(periodEventPaused);
   }
 }

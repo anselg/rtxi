@@ -68,8 +68,8 @@ Settings::Object::State::loadDouble(const std::string& name) const
 
   n = paramMap.find(name);
   if (n != paramMap.end()) {
-   s.str(n->second);
-   s >> value;
+    s.str(n->second);
+    s >> value;
   }
 
   return value;
@@ -84,8 +84,8 @@ Settings::Object::State::loadInteger(const std::string& name) const
 
   n = paramMap.find(name);
   if (n != paramMap.end()) {
-   s.str(n->second);
-   s >> value;
+    s.str(n->second);
+    s >> value;
   }
 
   return value;
@@ -99,7 +99,7 @@ Settings::Object::State::loadString(const std::string& name) const
 
   n = paramMap.find(name);
   if (n != paramMap.end())
-   value = n->second;
+    value = n->second;
 
   return value;
 }
@@ -122,7 +122,7 @@ Settings::Object::State::saveInteger(const std::string& name, int value)
 
 void
 Settings::Object::State::saveString(const std::string& name,
-                                   const std::string& value)
+                                    const std::string& value)
 {
   paramMap[name] = value;
 }
@@ -135,14 +135,14 @@ Settings::Object::State::loadState(const std::string& name) const
 
   n = stateMap.find(const_cast<std::string&>(name));
   if (n != stateMap.end())
-   value = n->second;
+    value = n->second;
 
   return value;
 }
 
 void
 Settings::Object::State::saveState(const std::string& name,
-                                  const Settings::Object::State& value)
+                                   const Settings::Object::State& value)
 {
   stateMap[name] = value;
 }
@@ -154,22 +154,22 @@ Settings::Object::State::xml(QDomDocument& doc) const
   e.setAttribute("id", QString::number(id));
 
   for (std::map<std::string, std::string>::const_iterator i = paramMap.begin();
-      i != paramMap.end();
-      ++i) {
-   QDomElement e1 = doc.createElement("PARAM");
-   e1.setAttribute("name", QString::fromStdString(i->first));
-   e.appendChild(e1);
+       i != paramMap.end();
+       ++i) {
+    QDomElement e1 = doc.createElement("PARAM");
+    e1.setAttribute("name", QString::fromStdString(i->first));
+    e.appendChild(e1);
 
-   QDomText t = doc.createTextNode(QString::fromStdString(i->second));
-   e1.appendChild(t);
+    QDomText t = doc.createTextNode(QString::fromStdString(i->second));
+    e1.appendChild(t);
   }
 
   for (std::map<std::string, State>::const_iterator i = stateMap.begin();
-      i != stateMap.end();
-      ++i) {
-   QDomElement e1 = i->second.xml(doc);
-   e1.setAttribute("name", QString::fromStdString(i->first));
-   e.appendChild(e1);
+       i != stateMap.end();
+       ++i) {
+    QDomElement e1 = i->second.xml(doc);
+    e1.setAttribute("name", QString::fromStdString(i->first));
+    e.appendChild(e1);
   }
 
   return e;
@@ -182,20 +182,20 @@ Settings::Object::State::xml(const QDomElement& e1)
   stateMap.clear();
 
   if (e1.tagName().toUpper() != "OBJECT") {
-   ERROR_MSG("Settings::Object::State::xml : invalid element\n");
-   return;
+    ERROR_MSG("Settings::Object::State::xml : invalid element\n");
+    return;
   }
   id = e1.attribute("id", "0").toULong();
 
   // Load XML map into memory
   for (QDomElement e2 = e1.firstChild().toElement(); !e2.isNull();
-      e2 = e2.nextSibling().toElement()) {
-   if (e2.tagName().toUpper() == "PARAM" &&
-       e2.attribute("name") != QString::null)
-     paramMap[e2.attribute("name").toStdString()] = e2.text().toStdString();
-   else if (e2.tagName().toUpper() == "OBJECT" &&
-            e2.attribute("name") != QString::null)
-     stateMap[e2.attribute("name").toStdString()].xml(e2);
+       e2 = e2.nextSibling().toElement()) {
+    if (e2.tagName().toUpper() == "PARAM" &&
+        e2.attribute("name") != QString::null)
+      paramMap[e2.attribute("name").toStdString()] = e2.text().toStdString();
+    else if (e2.tagName().toUpper() == "OBJECT" &&
+             e2.attribute("name") != QString::null)
+      stateMap[e2.attribute("name").toStdString()].xml(e2);
   }
 }
 
@@ -211,9 +211,9 @@ void
 Settings::Object::load(const Settings::Object::State& s)
 {
   if (id != s.id) {
-   Mutex::Locker lock(&Manager::getInstance()->mutex);
-   Manager::getInstance()->releaseID(this);
-   Manager::getInstance()->acquireID(this, s.id);
+    Mutex::Locker lock(&Manager::getInstance()->mutex);
+    Manager::getInstance()->releaseID(this);
+    Manager::getInstance()->acquireID(this, s.id);
   }
 
   doLoad(s);
@@ -232,9 +232,9 @@ Settings::Manager::getObject(Settings::Object::ID id) const
 
   std::map<Object::ID, Object*>::const_iterator i = objectMap.find(id);
   if (i != objectMap.end())
-   return i->second;
+    return i->second;
   else
-   return 0;
+    return 0;
 }
 
 void
@@ -242,10 +242,10 @@ Settings::Manager::foreachObject(void (*callback)(Object*, void*), void* param)
 {
   Mutex::Locker lock(&mutex);
   for (std::list<Object*>::iterator i = objectList.begin(),
-                                   end = objectList.end();
-      i != end;
-      ++i)
-   callback(*i, param);
+                                    end = objectList.end();
+       i != end;
+       ++i)
+    callback(*i, param);
 }
 
 int
@@ -253,9 +253,9 @@ Settings::Manager::load(const std::string& filename)
 {
   QFile file(QString::fromStdString(filename));
   if (!file.open(QIODevice::ReadOnly)) {
-   ERROR_MSG("Settings::Manager::load : failed to open %s for reading\n",
-             filename.c_str());
-   return -EPERM;
+    ERROR_MSG("Settings::Manager::load : failed to open %s for reading\n",
+              filename.c_str());
+    return -EPERM;
   }
 
   QDomDocument doc;
@@ -263,19 +263,19 @@ Settings::Manager::load(const std::string& filename)
   int errorLine, errorColumn;
 
   if (!doc.setContent(&file, false, &errorMsg, &errorLine, &errorColumn)) {
-   ERROR_MSG("Settings::Manager::load : %s:%d:%d: %s\n",
-             filename.c_str(),
-             errorLine,
-             errorColumn,
-             errorMsg.toStdString().c_str());
-   return -EINVAL;
+    ERROR_MSG("Settings::Manager::load : %s:%d:%d: %s\n",
+              filename.c_str(),
+              errorLine,
+              errorColumn,
+              errorMsg.toStdString().c_str());
+    return -EINVAL;
   }
 
   QDomElement e1 = doc.documentElement();
 
   if (e1.tagName() != "RTXI" || e1.attribute("class") != "settings") {
-   ERROR_MSG("Settings::Manager::load : invalid document element\n");
-   return -EINVAL;
+    ERROR_MSG("Settings::Manager::load : invalid document element\n");
+    return -EINVAL;
   }
 
   // Return RTXI to a startup like state.
@@ -291,45 +291,45 @@ Settings::Manager::load(const std::string& filename)
   Plugin::Object* plugin;
   std::list<defer_t> deferList;
   for (QDomElement e2 = e1.firstChild().toElement(); !e2.isNull();
-      e2 = e2.nextSibling().toElement()) {
-   if (e2.tagName() != "OBJECT" || e2.attribute("component") == QString::null)
-     continue;
+       e2 = e2.nextSibling().toElement()) {
+    if (e2.tagName() != "OBJECT" || e2.attribute("component") == QString::null)
+      continue;
 
-   s.xml(e2);
-   // Load plugin info
-   if (e2.attribute("component") == "plugin") {
-     if ((plugin =
-            Plugin::Manager::getInstance()->load(e2.attribute("library")))) {
-       defer_t defer = { plugin, s };
-       deferList.push_back(defer);
-       plugin->load(s);
-     }
-   }
-   // Load RT info
-   else if (e2.attribute("component") == "rt") {
-     period = strtoll(s.loadString("Period").c_str(), 0, 10);
-     // Legacy case, period is stored as a double in scientific notation
-     if (period < 1000)
-       period = s.loadDouble("Period");
-   } // Load IO info
-   else if (e2.attribute("component") == "io") {
-     defer_t defer = { IO::Connector::getInstance(), s };
-     deferList.push_back(defer);
-   }
+    s.xml(e2);
+    // Load plugin info
+    if (e2.attribute("component") == "plugin") {
+      if ((plugin =
+             Plugin::Manager::getInstance()->load(e2.attribute("library")))) {
+        defer_t defer = { plugin, s };
+        deferList.push_back(defer);
+        plugin->load(s);
+      }
+    }
+    // Load RT info
+    else if (e2.attribute("component") == "rt") {
+      period = strtoll(s.loadString("Period").c_str(), 0, 10);
+      // Legacy case, period is stored as a double in scientific notation
+      if (period < 1000)
+        period = s.loadDouble("Period");
+    } // Load IO info
+    else if (e2.attribute("component") == "io") {
+      defer_t defer = { IO::Connector::getInstance(), s };
+      deferList.push_back(defer);
+    }
   }
   for (std::list<defer_t>::iterator i = deferList.begin(),
-                                   end = deferList.end();
-      i != end;
-      ++i)
-   i->object->deferred(i->s);
+                                    end = deferList.end();
+       i != end;
+       ++i)
+    i->object->deferred(i->s);
 
   if (period)
-   RT::System::getInstance()->setPeriod(period);
+    RT::System::getInstance()->setPeriod(period);
 
   // create QSettings
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
 
   int oldestsetting = userprefs.value("/recentSettingsList/start").toInt();
   int num_settings = userprefs.value("/recentSettingsList/num").toInt();
@@ -342,30 +342,30 @@ Settings::Manager::load(const std::string& filename)
   bool doesnotexist = true;
 
   for (int i = 0; i < numRecentFiles; ++i) {
-   listsetting =
-     userprefs.value("/recentSettingsList/" + entries[i]).toString();
-   if (QString::fromStdString(filename) == listsetting)
-     doesnotexist = false;
+    listsetting =
+      userprefs.value("/recentSettingsList/" + entries[i]).toString();
+    if (QString::fromStdString(filename) == listsetting)
+      doesnotexist = false;
   }
 
   if (filename == "/usr/local/share/rtxi/rtxi.conf")
-   doesnotexist = false;
+    doesnotexist = false;
 
   if (doesnotexist) {
-   if (num_settings == 10) {
-     userprefs.setValue("/recentSettingsList/" +
-                          QString::number(oldestsetting),
-                        QVariant(QString::fromStdString(filename)));
-     oldestsetting++;
-     if (oldestsetting == 10)
-       oldestsetting = 0;
-     userprefs.setValue("/recentSettingsList/start", oldestsetting);
-   } else {
-     userprefs.setValue("/recentSettingsList/" +
-                          QString::number(num_settings++),
-                        QVariant(QString::fromStdString(filename)));
-     userprefs.setValue("/recentSettingsList/num", num_settings);
-   }
+    if (num_settings == 10) {
+      userprefs.setValue("/recentSettingsList/" +
+                           QString::number(oldestsetting),
+                         QVariant(QString::fromStdString(filename)));
+      oldestsetting++;
+      if (oldestsetting == 10)
+        oldestsetting = 0;
+      userprefs.setValue("/recentSettingsList/start", oldestsetting);
+    } else {
+      userprefs.setValue("/recentSettingsList/" +
+                           QString::number(num_settings++),
+                         QVariant(QString::fromStdString(filename)));
+      userprefs.setValue("/recentSettingsList/num", num_settings);
+    }
   }
 
   return 0;
@@ -393,8 +393,8 @@ Settings::Manager::save(const std::string& filename)
   doc.documentElement().setAttribute("version", QString(VERSION));
 
   /*
-  * Save RT System period
-  */
+   * Save RT System period
+   */
   Object::State s;
   char buffer[256];
   snprintf(buffer, 256, "%lld", RT::System::getInstance()->getPeriod());
@@ -404,22 +404,22 @@ Settings::Manager::save(const std::string& filename)
   doc.documentElement().appendChild(e);
 
   /*
-  * Save IO Connection information
-  */
+   * Save IO Connection information
+   */
   e = IO::Connector::getInstance()->save().xml(doc);
   e.setAttribute("component", "io");
   doc.documentElement().appendChild(e);
 
   /*
-  * Save Plugin Settings information
-  */
+   * Save Plugin Settings information
+   */
   Plugin::Manager::getInstance()->foreachPlugin(saveState, &doc);
 
   QFile file(QString::fromStdString(filename));
   if (!file.open(QIODevice::WriteOnly)) {
-   ERROR_MSG("Settings::Manager::save : failed to open %s for writing\n",
-             filename.c_str());
-   return -EPERM;
+    ERROR_MSG("Settings::Manager::save : failed to open %s for writing\n",
+              filename.c_str());
+    return -EPERM;
   }
 
   QTextStream stream(&file);
@@ -428,7 +428,7 @@ Settings::Manager::save(const std::string& filename)
   // create QSettings
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
 
   int oldestsetting = userprefs.value("/recentSettingsList/start").toInt();
   int num_settings = userprefs.value("/recentSettingsList/num").toInt();
@@ -441,30 +441,30 @@ Settings::Manager::save(const std::string& filename)
   bool doesnotexist = true;
 
   for (int i = 0; i < numRecentFiles; ++i) {
-   listsetting =
-     userprefs.value("/recentSettingsList/" + entries[i]).toString();
-   if (QString::fromStdString(filename) == listsetting)
-     doesnotexist = false;
+    listsetting =
+      userprefs.value("/recentSettingsList/" + entries[i]).toString();
+    if (QString::fromStdString(filename) == listsetting)
+      doesnotexist = false;
   }
 
   if (filename == "/usr/local/share/rtxi/rtxi.conf")
-   doesnotexist = false;
+    doesnotexist = false;
 
   if (doesnotexist) {
-   if (num_settings == 10) {
-     userprefs.setValue("/recentSettingsList/" +
-                          QString::number(oldestsetting),
-                        QVariant(QString::fromStdString(filename)));
-     oldestsetting++;
-     if (oldestsetting == 11)
-       oldestsetting = 1;
-     userprefs.setValue("/recentSettingsList/start", oldestsetting);
-   } else {
-     userprefs.setValue("/recentSettingsList/" +
-                          QString::number(num_settings++),
-                        QVariant(QString::fromStdString(filename)));
-     userprefs.setValue("/recentSettingsList/num", num_settings);
-   }
+    if (num_settings == 10) {
+      userprefs.setValue("/recentSettingsList/" +
+                           QString::number(oldestsetting),
+                         QVariant(QString::fromStdString(filename)));
+      oldestsetting++;
+      if (oldestsetting == 11)
+        oldestsetting = 1;
+      userprefs.setValue("/recentSettingsList/start", oldestsetting);
+    } else {
+      userprefs.setValue("/recentSettingsList/" +
+                           QString::number(num_settings++),
+                         QVariant(QString::fromStdString(filename)));
+      userprefs.setValue("/recentSettingsList/num", num_settings);
+    }
   }
 
   return 0;
@@ -476,37 +476,37 @@ Settings::Manager::acquireID(Settings::Object* object, Settings::Object::ID id)
   Mutex::Locker lock(&mutex);
 
   if (id != Object::INVALID) {
-   if (objectMap.find(id) == objectMap.end()) {
-     objectMap[id] = object;
-     object->id = id;
-     return;
-   } else
-     DEBUG_MSG("Settings::Manager::acquireID : requested ID in use\n");
+    if (objectMap.find(id) == objectMap.end()) {
+      objectMap[id] = object;
+      object->id = id;
+      return;
+    } else
+      DEBUG_MSG("Settings::Manager::acquireID : requested ID in use\n");
   }
 
   /***********************************************************
-  * Traverse the ID space to find an available ID.          *
-  *   It ain't pretty, O(n^2) if my math is correct...      *
-  ***********************************************************/
+   * Traverse the ID space to find an available ID.          *
+   *   It ain't pretty, O(n^2) if my math is correct...      *
+   ***********************************************************/
 
   while (objectMap.find(currentID) != objectMap.end() &&
-        currentID != Object::INVALID)
-   ++currentID;
+         currentID != Object::INVALID)
+    ++currentID;
 
   /*****************************************************************************
-  * It is possible that there are no more available IDs, and in that case     *
-  *   the insertion fails and the object is assigned an invalid ID.           *
-  *   In practice this shouldn't ever happen, because on the x86 we have 2^32 *
-  *     IDs, so we would probably run out of memory before hitting this limit *
-  *****************************************************************************/
+   * It is possible that there are no more available IDs, and in that case     *
+   *   the insertion fails and the object is assigned an invalid ID.           *
+   *   In practice this shouldn't ever happen, because on the x86 we have 2^32 *
+   *     IDs, so we would probably run out of memory before hitting this limit *
+   *****************************************************************************/
 
   if (currentID == Object::INVALID) {
-   ERROR_MSG("Settings::Manager::acquireID : maximum number of settings "
-             "objects loaded.\n");
-   object->id = Object::INVALID;
+    ERROR_MSG("Settings::Manager::acquireID : maximum number of settings "
+              "objects loaded.\n");
+    object->id = Object::INVALID;
   } else {
-   object->id = currentID;
-   objectMap[currentID++] = object;
+    object->id = currentID;
+    objectMap[currentID++] = object;
   }
 }
 
@@ -516,10 +516,10 @@ Settings::Manager::releaseID(Settings::Object* object)
   Mutex::Locker lock(&mutex);
 
   if (object->id != Object::INVALID) {
-   objectMap.erase(object->id);
-   if (object->id < currentID)
-     currentID = object->id;
-   object->id = Object::INVALID;
+    objectMap.erase(object->id);
+    if (object->id < currentID)
+      currentID = object->id;
+    object->id = Object::INVALID;
   }
 }
 
@@ -527,8 +527,8 @@ void
 Settings::Manager::insertObject(Settings::Object* object)
 {
   if (!object) {
-   ERROR_MSG("Settings::Manager::insertObject : invalid object\n");
-   return;
+    ERROR_MSG("Settings::Manager::insertObject : invalid object\n");
+    return;
   }
 
   Mutex::Locker lock(&mutex);
@@ -536,8 +536,8 @@ Settings::Manager::insertObject(Settings::Object* object)
   acquireID(object);
   std::list<Object*>::iterator i;
   for (i = objectList.begin(); i != objectList.end() && (*i)->id < object->id;
-      ++i)
-   ;
+       ++i)
+    ;
 
   Event::Object event(Event::SETTINGS_OBJECT_INSERT_EVENT);
   event.setParam("object", object);
@@ -566,17 +566,17 @@ Settings::Manager*
 Settings::Manager::getInstance(void)
 {
   if (instance)
-   return instance;
+    return instance;
 
   /*************************************************************************
-  * Seems like alot of hoops to jump through, but static allocation isn't *
-  *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
-  *************************************************************************/
+   * Seems like alot of hoops to jump through, but static allocation isn't *
+   *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
+   *************************************************************************/
 
   Mutex::Locker lock(&::mutex);
   if (!instance) {
-   static Manager manager;
-   instance = &manager;
+    static Manager manager;
+    instance = &manager;
   }
   return instance;
 }

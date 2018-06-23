@@ -99,8 +99,8 @@ MainWindow::createModuleMenuItem(const QString& text)
 
 QAction*
 MainWindow::createModuleMenuItem(const QString& text,
-                                const QObject* receiver,
-                                const char* member)
+                                 const QObject* receiver,
+                                 const char* member)
 {
   return moduleMenu->addAction(text, receiver, member);
 }
@@ -128,13 +128,13 @@ MainWindow::removeModuleMenuItem(QAction* action)
 {
   QList<QAction*> actionList = moduleMenu->actions();
   if (!actionList.empty())
-   moduleMenu->removeAction(action);
+    moduleMenu->removeAction(action);
 }
 
 QAction*
 MainWindow::createUtilMenuItem(const QString& text,
-                              const QObject* receiver,
-                              const char* member)
+                               const QObject* receiver,
+                               const char* member)
 {
   return utilMenu->addAction(text, receiver, member);
 }
@@ -150,9 +150,9 @@ MainWindow::createFileMenu()
   fileMenu->addAction(quit);
   fileMenu->addSeparator();
   connect(fileMenu,
-         SIGNAL(triggered(QAction*)),
-         this,
-         SLOT(fileMenuActivated(QAction*)));
+          SIGNAL(triggered(QAction*)),
+          this,
+          SLOT(fileMenuActivated(QAction*)));
 }
 
 void
@@ -160,9 +160,9 @@ MainWindow::createModuleMenu()
 {
   moduleMenu = menuBar()->addMenu(tr("&Modules"));
   connect(moduleMenu,
-         SIGNAL(triggered(QAction*)),
-         this,
-         SLOT(modulesMenuActivated(QAction*)));
+          SIGNAL(triggered(QAction*)),
+          this,
+          SLOT(modulesMenuActivated(QAction*)));
 }
 
 void
@@ -173,35 +173,35 @@ MainWindow::createUtilMenu()
   signalsSubMenu = utilMenu->addMenu(tr("&Signals"));
   utilitiesSubMenu = utilMenu->addMenu(tr("&Utilities"));
   connect(utilMenu,
-         SIGNAL(triggered(QAction*)),
-         this,
-         SLOT(utilitiesMenuActivated(QAction*)));
+          SIGNAL(triggered(QAction*)),
+          this,
+          SLOT(utilitiesMenuActivated(QAction*)));
 
   QDir libsDir("/usr/local/lib/rtxi/");
   if (!libsDir.exists())
-   return;
+    return;
 
   libsDir.setNameFilters(QStringList("*.so"));
   for (size_t i = 0; i < libsDir.entryList().size(); i++) {
-   utilItem = new QAction(libsDir.entryList().at(i), this);
-   if (libsDir.entryList().at(i).contains("analysis"))
-     utilitiesSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("sync"))
-     utilitiesSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("mimic"))
-     utilitiesSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("iir"))
-     filtersSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("fir"))
-     filtersSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("signal"))
-     signalsSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("noise"))
-     signalsSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("ttl"))
-     signalsSubMenu->addAction(utilItem);
-   else if (libsDir.entryList().at(i).contains("maker"))
-     signalsSubMenu->addAction(utilItem);
+    utilItem = new QAction(libsDir.entryList().at(i), this);
+    if (libsDir.entryList().at(i).contains("analysis"))
+      utilitiesSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("sync"))
+      utilitiesSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("mimic"))
+      utilitiesSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("iir"))
+      filtersSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("fir"))
+      filtersSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("signal"))
+      signalsSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("noise"))
+      signalsSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("ttl"))
+      signalsSubMenu->addAction(utilItem);
+    else if (libsDir.entryList().at(i).contains("maker"))
+      signalsSubMenu->addAction(utilItem);
   }
 }
 
@@ -216,9 +216,9 @@ MainWindow::createWindowsMenu()
 {
   windowsMenu = menuBar()->addMenu(tr("&Windows"));
   connect(windowsMenu,
-         SIGNAL(aboutToShow(void)),
-         this,
-         SLOT(windowsMenuAboutToShow(void)));
+          SIGNAL(aboutToShow(void)),
+          this,
+          SLOT(windowsMenuAboutToShow(void)));
 }
 
 void
@@ -285,8 +285,8 @@ MainWindow::createHelpActions()
 
 QAction*
 MainWindow::createSystemMenuItem(const QString& text,
-                                const QObject* receiver,
-                                const char* member)
+                                 const QObject* receiver,
+                                 const char* member)
 {
   return systemMenu->addAction(text, receiver, member);
 }
@@ -295,10 +295,10 @@ void
 MainWindow::about(void)
 {
   QMessageBox::about(
-   this,
-   "About RTXI",
-   "RTXI Version " + QString(VERSION) +
-     "\n\nReleased under the GPLv3.\nSee www.rtxi.org for details.");
+    this,
+    "About RTXI",
+    "RTXI Version " + QString(VERSION) +
+      "\n\nReleased under the GPLv3.\nSee www.rtxi.org for details.");
 }
 
 void
@@ -317,7 +317,7 @@ MainWindow::aboutXeno(void)
   fscanf(fp, "%s", xeno_buff);
   fclose(fp);
   QMessageBox::about(
-   this, "About Xenomai", "Xenomai Version " + QString(xeno_buff));
+    this, "About Xenomai", "Xenomai Version " + QString(xeno_buff));
 #else
   QMessageBox::about(this, "About Xenomai", "Running POSIX (non-RT)");
 #endif
@@ -333,7 +333,7 @@ void
 MainWindow::openSubIssue(void)
 {
   QDesktopServices::openUrl(
-   QUrl("https://github.com/rtxi/rtxi/issues", QUrl::TolerantMode));
+    QUrl("https://github.com/rtxi/rtxi/issues", QUrl::TolerantMode));
 }
 
 /*
@@ -344,13 +344,13 @@ MainWindow::loadWindow(void)
 {
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
   userprefs.beginGroup("MainWindow");
   restoreGeometry(userprefs.value("geometry", saveGeometry()).toByteArray());
   move(userprefs.value("pos", pos()).toPoint());
   resize(userprefs.value("size", size()).toSize());
   if (userprefs.value("maximized", isMaximized()).toBool())
-   showMaximized();
+    showMaximized();
   userprefs.endGroup();
   show();
 }
@@ -360,18 +360,18 @@ MainWindow::loadSettings(void)
 {
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
 
   QString filename = QFileDialog::getOpenFileName(
-   this,
-   tr("Load saved workspace"),
-   userprefs.value("/dirs/setfiles", getenv("HOME")).toString(),
-   tr("Settings (*.set)"));
+    this,
+    tr("Load saved workspace"),
+    userprefs.value("/dirs/setfiles", getenv("HOME")).toString(),
+    tr("Settings (*.set)"));
 
   if (QFile(filename).exists()) {
-   systemMenu->clear();
-   mdiArea->closeAllSubWindows();
-   Settings::Manager::getInstance()->load(filename.toStdString());
+    systemMenu->clear();
+    mdiArea->closeAllSubWindows();
+    Settings::Manager::getInstance()->load(filename.toStdString());
   }
 }
 
@@ -380,28 +380,28 @@ MainWindow::saveSettings(void)
 {
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
 
   QString filename = QFileDialog::getSaveFileName(
-   this,
-   tr("Save current workspace"),
-   userprefs.value("/dirs/setfiles", getenv("HOME")).toString(),
-   tr("Settings (*.set)"));
+    this,
+    tr("Save current workspace"),
+    userprefs.value("/dirs/setfiles", getenv("HOME")).toString(),
+    tr("Settings (*.set)"));
 
   if (!filename.isEmpty()) {
-   if (!filename.endsWith(".set"))
-     filename = filename + ".set";
-   if (QFileInfo(filename).exists() &&
-       QMessageBox::warning(this,
-                            "File Exists",
-                            "Do you wish to overwrite " + filename + "?",
-                            QMessageBox::Yes | QMessageBox::Default,
-                            QMessageBox::No | QMessageBox::Escape) !=
-         QMessageBox::Yes) {
-     DEBUG_MSG("MainWindow::saveSettings : canceled overwrite\n");
-     return;
-   }
-   Settings::Manager::getInstance()->save(filename.toStdString());
+    if (!filename.endsWith(".set"))
+      filename = filename + ".set";
+    if (QFileInfo(filename).exists() &&
+        QMessageBox::warning(this,
+                             "File Exists",
+                             "Do you wish to overwrite " + filename + "?",
+                             QMessageBox::Yes | QMessageBox::Default,
+                             QMessageBox::No | QMessageBox::Escape) !=
+          QMessageBox::Yes) {
+      DEBUG_MSG("MainWindow::saveSettings : canceled overwrite\n");
+      return;
+    }
+    Settings::Manager::getInstance()->save(filename.toStdString());
   }
 }
 
@@ -436,18 +436,18 @@ MainWindow::windowsMenuAboutToShow(void)
 
   // Make sure it isn't empty
   if (subWindows.isEmpty())
-   return;
+    return;
 
   // Create windows list based off of what's open
   for (int i = 0; i < subWindows.size(); i++) {
-   QAction* item =
-     new QAction(subWindows.at(i)->widget()->windowTitle(), this);
-   windowsMenu->addAction(item);
+    QAction* item =
+      new QAction(subWindows.at(i)->widget()->windowTitle(), this);
+    windowsMenu->addAction(item);
   }
   connect(windowsMenu,
-         SIGNAL(triggered(QAction*)),
-         this,
-         SLOT(windowsMenuActivated(QAction*)));
+          SIGNAL(triggered(QAction*)),
+          this,
+          SLOT(windowsMenuActivated(QAction*)));
 }
 
 void
@@ -459,11 +459,11 @@ MainWindow::windowsMenuActivated(QAction* id)
 
   // Make sure it isn't empty
   if (subWindows.isEmpty())
-   return;
+    return;
 
   for (uint16_t i = 0; i < subWindows.size(); i++)
-   if (subWindows.at(i)->widget()->windowTitle() == id->text())
-     mdiArea->setActiveSubWindow(subWindows.at(i));
+    if (subWindows.at(i)->widget()->windowTitle() == id->text())
+      mdiArea->setActiveSubWindow(subWindows.at(i));
 }
 
 void
@@ -472,7 +472,7 @@ MainWindow::modulesMenuActivated(QAction* id)
   // Annoying but the best way to do it is to tie an action to the entire menu
   // so we have to tell it to ignore the first two modules
   if (id->text().contains("Load Plugin"))
-   return;
+    return;
 
   // Have to trim the first three characters before loading
   // or else parser will include qstring formatting
@@ -485,9 +485,9 @@ MainWindow::fileMenuActivated(QAction* id)
   // Annoying but the best way to do it is to tie an action to the entire menu
   // so we have to tell it to ignore the first three items
   if (id->text().contains("Load Workspace") ||
-     id->text().contains("Save Workspace") ||
-     id->text().contains("Reset Workspace") || id->text().contains("Quit"))
-   return;
+      id->text().contains("Save Workspace") ||
+      id->text().contains("Reset Workspace") || id->text().contains("Quit"))
+    return;
 
   // Have to trim the first three characters before loading
   // or else parser will include qstring formatting
@@ -500,17 +500,17 @@ void
 MainWindow::closeEvent(QCloseEvent* event)
 {
   /*
-  * Save MainWindow settings
-  */
+   * Save MainWindow settings
+   */
   QSettings userprefs;
   userprefs.setPath(
-   QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
+    QSettings::NativeFormat, QSettings::SystemScope, "/usr/local/share/rtxi/");
   userprefs.beginGroup("MainWindow");
   userprefs.setValue("geometry", saveGeometry());
   userprefs.setValue("maximized", isMaximized());
   if (!isMaximized()) {
-   userprefs.setValue("pos", pos());
-   userprefs.setValue("size", size());
+    userprefs.setValue("pos", pos());
+    userprefs.setValue("size", size());
   }
   userprefs.endGroup();
 }
@@ -522,17 +522,17 @@ MainWindow*
 MainWindow::getInstance(void)
 {
   if (instance)
-   return instance;
+    return instance;
 
   /*************************************************************************
-  * Seems like alot of hoops to jump through, but static allocation isn't *
-  *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
-  *************************************************************************/
+   * Seems like alot of hoops to jump through, but static allocation isn't *
+   *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
+   *************************************************************************/
 
   Mutex::Locker lock(&::mutex);
   if (!instance) {
-   static MainWindow mainwindow;
-   instance = &mainwindow;
+    static MainWindow mainwindow;
+    instance = &mainwindow;
   }
   return instance;
 }

@@ -36,7 +36,7 @@ Fifo::Fifo(size_t s)
 Fifo::~Fifo(void)
 {
   if (data)
-   delete[] data;
+    delete[] data;
 
   pthread_mutex_destroy(&mutex);
   pthread_cond_destroy(&data_available);
@@ -47,28 +47,28 @@ Fifo::read(void* buffer, size_t n, bool blocking)
 {
   // Acquire the data lock
   if (blocking)
-   pthread_mutex_lock(&mutex);
+    pthread_mutex_lock(&mutex);
   else if (pthread_mutex_trylock(&mutex) != 0)
-   return 0;
+    return 0;
 
   // Check that enough data is available
   if (AVAILABLE < n)
-   if (blocking) {
-     do {
-       pthread_cond_wait(&data_available, &mutex);
-     } while (AVAILABLE < n);
-   } else {
-     pthread_mutex_unlock(&mutex);
-     return 0;
-   }
+    if (blocking) {
+      do {
+        pthread_cond_wait(&data_available, &mutex);
+      } while (AVAILABLE < n);
+    } else {
+      pthread_mutex_unlock(&mutex);
+      return 0;
+    }
 
   // Copy the data from the fifo
   if (size - rptr < n) {
-   size_t m = size - rptr;
-   memcpy(buffer, data + rptr, m);
-   memcpy(reinterpret_cast<char*>(buffer) + m, data, n - m);
+    size_t m = size - rptr;
+    memcpy(buffer, data + rptr, m);
+    memcpy(reinterpret_cast<char*>(buffer) + m, data, n - m);
   } else
-   memcpy(buffer, data + rptr, n);
+    memcpy(buffer, data + rptr, n);
   rptr = (rptr + n) % size;
 
   pthread_mutex_unlock(&mutex);
@@ -79,16 +79,16 @@ size_t
 Fifo::write(const void* buffer, size_t n)
 {
   if (n >= size - AVAILABLE) {
-   ERROR_MSG("Fifo::write : fifo full, data lost\n");
-   return 0;
+    ERROR_MSG("Fifo::write : fifo full, data lost\n");
+    return 0;
   }
 
   if (n > size - wptr) {
-   size_t m = size - wptr;
-   memcpy(data + wptr, buffer, m);
-   memcpy(data, reinterpret_cast<const char*>(buffer) + m, n - m);
+    size_t m = size - wptr;
+    memcpy(data + wptr, buffer, m);
+    memcpy(data, reinterpret_cast<const char*>(buffer) + m, n - m);
   } else
-   memcpy(data + wptr, buffer, n);
+    memcpy(data + wptr, buffer, n);
   wptr = (wptr + n) % size;
 
   pthread_cond_signal(&data_available);

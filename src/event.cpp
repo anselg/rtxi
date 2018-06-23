@@ -94,8 +94,8 @@ void*
 Event::Object::getParam(const char* nam) const
 {
   for (size_t i = 0; i < nparams; ++i)
-   if (!strcmp(params[i].name, nam))
-     return params[i].value;
+    if (!strcmp(params[i].name, nam))
+      return params[i].value;
   return 0;
 }
 
@@ -103,13 +103,13 @@ void
 Event::Object::setParam(const char* nam, void* val)
 {
   for (size_t i = 0; i < nparams; ++i)
-   if (!strcmp(params[i].name, nam)) {
-     params[i].value = val;
-     return;
-   }
+    if (!strcmp(params[i].name, nam)) {
+      params[i].value = val;
+      return;
+    }
 
   if (nparams >= MAX_PARAMS)
-   return;
+    return;
 
   params[nparams].name = nam;
   params[nparams].value = val;
@@ -126,20 +126,20 @@ Event::Manager::postEvent(const Object* event)
   Mutex::Locker lock(&mutex);
 
   for (std::list<Handler*>::iterator i = handlerList.begin(),
-                                    end = handlerList.end();
-      i != end;
-      ++i)
-   (*i)->receiveEvent(event);
+                                     end = handlerList.end();
+       i != end;
+       ++i)
+    (*i)->receiveEvent(event);
 }
 
 void
 Event::Manager::postEventRT(const Object* event)
 {
   for (RT::List<RTHandler>::iterator i = rthandlerList.begin(),
-                                    end = rthandlerList.end();
-      i != end;
-      ++i)
-   i->receiveEventRT(event);
+                                     end = rthandlerList.end();
+       i != end;
+       ++i)
+    i->receiveEventRT(event);
 }
 
 void
@@ -175,17 +175,17 @@ Event::Manager*
 Event::Manager::getInstance(void)
 {
   if (instance)
-   return instance;
+    return instance;
 
   /*************************************************************************
-  * Seems like alot of hoops to jump through, but static allocation isn't *
-  *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
-  *************************************************************************/
+   * Seems like alot of hoops to jump through, but static allocation isn't *
+   *   thread-safe. So effort must be taken to ensure mutual exclusion.    *
+   *************************************************************************/
 
   Mutex::Locker lock(&::mutex);
   if (!instance) {
-   static Manager manager;
-   instance = &manager;
+    static Manager manager;
+    instance = &manager;
   }
 
   return instance;

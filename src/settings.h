@@ -45,110 +45,110 @@ class Object
 
 public:
   /*!
-  *
-  */
+   *
+   */
   typedef unsigned long ID;
   /*!
-  *
-  */
+   *
+   */
   const static ID INVALID = 0;
 
   /*!
-  *
-  */
+   *
+   */
   class State
   {
 
-   friend class Manager;
-   friend class Object;
+    friend class Manager;
+    friend class Object;
 
   public:
-   State(void);
-   State(ID n);
-   ~State(void);
+    State(void);
+    State(ID n);
+    ~State(void);
 
-   /*!
-    *
-    */
-   double loadDouble(const std::string& name) const;
-   /*!
-    *
-    */
-   int loadInteger(const std::string& name) const;
-   /*!
-    *
-    */
-   std::string loadString(const std::string& name) const;
-   /*!
-    *
-    */
-   void saveDouble(const std::string& name, double);
-   /*!
-    *
-    */
-   void saveInteger(const std::string& name, int);
-   /*!
-    *
-    */
-   void saveString(const std::string& name, const std::string& value);
+    /*!
+     *
+     */
+    double loadDouble(const std::string& name) const;
+    /*!
+     *
+     */
+    int loadInteger(const std::string& name) const;
+    /*!
+     *
+     */
+    std::string loadString(const std::string& name) const;
+    /*!
+     *
+     */
+    void saveDouble(const std::string& name, double);
+    /*!
+     *
+     */
+    void saveInteger(const std::string& name, int);
+    /*!
+     *
+     */
+    void saveString(const std::string& name, const std::string& value);
 
-   /*!
-    *
-    */
-   State loadState(const std::string& name) const;
-   /*!
-    *
-    */
-   void saveState(const std::string& name, const State& value);
+    /*!
+     *
+     */
+    State loadState(const std::string& name) const;
+    /*!
+     *
+     */
+    void saveState(const std::string& name, const State& value);
 
-   /*!
-    *
-    */
-   QDomElement xml(QDomDocument&) const;
-   /*!
-    *
-    */
-   void xml(const QDomElement&);
+    /*!
+     *
+     */
+    QDomElement xml(QDomDocument&) const;
+    /*!
+     *
+     */
+    void xml(const QDomElement&);
 
   private:
-   ID id;
-   std::map<std::string, std::string> paramMap;
-   std::map<std::string, State> stateMap;
+    ID id;
+    std::map<std::string, std::string> paramMap;
+    std::map<std::string, State> stateMap;
   };
 
   Object(void);
   virtual ~Object(void);
 
   /*!
-  *
-  */
+   *
+   */
   ID getID(void) const { return id; };
 
   /*!
-  *
-  */
+   *
+   */
   State save(void) const;
   /*!
-  *
-  */
+   *
+   */
   void load(const State&);
   /*!
-  *
-  */
+   *
+   */
   void deferred(const State&);
 
 protected:
   /*!
-  *
-  */
+   *
+   */
   virtual void doLoad(const State&){};
   /*!
-  *
-  */
+   *
+   */
   virtual void doDeferred(const State&){};
   /*!
-  *
-  */
+   *
+   */
   virtual void doSave(State&) const {};
 
 private:
@@ -166,32 +166,32 @@ class Manager
 
 public:
   /*!
-  *
-  */
+   *
+   */
   static Manager* getInstance(void);
 
   /*!
-  *
-  */
+   *
+   */
   Object* getObject(Object::ID) const;
   /*!
-  *
-  */
+   *
+   */
   void foreachObject(void (*callback)(Object*, void*), void* param);
 
   /*!
-  *
-  */
+   *
+   */
   int load(const std::string&);
   /*!
-  *
-  */
+   *
+   */
   int save(const std::string&);
 
 private:
   Manager(void)
-   : mutex(Mutex::RECURSIVE)
-   , currentID(Object::INVALID + 1){};
+    : mutex(Mutex::RECURSIVE)
+    , currentID(Object::INVALID + 1){};
   ~Manager(void){};
   Manager(const Manager&){};
   Manager& operator=(const Manager&) { return *getInstance(); };

@@ -39,19 +39,19 @@ int
 RT::OS::initiate(void)
 {
   /*
-  * I want users to be very much aware that they aren't running in realtime.
-  */
+   * I want users to be very much aware that they aren't running in realtime.
+   */
   ERROR_MSG("***WARNING*** You are using the POSIX compatibility layer, RTXI "
-           "is NOT running in realtime!!!\n");
+            "is NOT running in realtime!!!\n");
 
   if (mlockall(MCL_CURRENT | MCL_FUTURE)) {
-   ERROR_MSG("RT::OS(POSIX)::initiate : failed to lock memory.\n");
+    ERROR_MSG("RT::OS(POSIX)::initiate : failed to lock memory.\n");
 
-   /*
-    * I don't think it is necessary to return an error in this case.
-    *  Because unless you are root it will always error.
-    */
-   // return -EPERM;
+    /*
+     * I don't think it is necessary to return an error in this case.
+     *  Because unless you are root it will always error.
+     */
+    // return -EPERM;
   }
 
   pthread_key_create(&is_rt_key, 0);
@@ -78,7 +78,7 @@ static void*
 bounce(void* bounce_info)
 {
   posix_bounce_info_t* info =
-   reinterpret_cast<posix_bounce_info_t*>(bounce_info);
+    reinterpret_cast<posix_bounce_info_t*>(bounce_info);
 
   posix_task_t* t = info->t;
   void* (*entry)(void*) = info->entry;
@@ -102,17 +102,17 @@ RT::OS::createTask(RT::OS::Task* task, void* (*entry)(void*), void* arg, int)
   *task = t;
 
   posix_bounce_info_t info = {
-   entry,
-   t,
-   arg,
+    entry,
+    t,
+    arg,
   };
   sem_init(&info.sem, 0, 0);
 
   retval = pthread_create(&t->thread, NULL, &::bounce, &info);
   if (!retval)
-   sem_wait(&info.sem);
+    sem_wait(&info.sem);
   else
-   ERROR_MSG("RT::OS::createTask : pthread_create failed\n");
+    ERROR_MSG("RT::OS::createTask : pthread_create failed\n");
 
   sem_destroy(&info.sem);
   return retval;
@@ -123,7 +123,7 @@ RT::OS::deleteTask(RT::OS::Task task)
 {
   posix_task_t* t = reinterpret_cast<posix_task_t*>(task);
   if (t == NULL)
-   return;
+    return;
 
   pthread_join(t->thread, 0);
   delete t;
@@ -133,7 +133,7 @@ bool
 RT::OS::isRealtime(void)
 {
   if (init_rt && pthread_getspecific(is_rt_key))
-   return true;
+    return true;
   return false;
 }
 
@@ -163,16 +163,16 @@ RT::OS::sleepTimestep(RT::OS::Task task)
 {
   posix_task_t* t = reinterpret_cast<posix_task_t*>(task);
   if (t == NULL)
-   return;
+    return;
 
   long long sleep_time = t->next_t - getTime();
   t->next_t += t->period;
 
   struct timespec ts = {
-   sleep_time / 1000000000ll,
-   sleep_time % 1000000000ll,
+    sleep_time / 1000000000ll,
+    sleep_time % 1000000000ll,
   };
 
   while (nanosleep(&ts, &ts) < 0 && errno == EINTR)
-   ;
+    ;
 }

@@ -29,50 +29,50 @@ class Mutex
 
 public:
   /*!
-  *
-  */
+   *
+   */
   class Locker
   {
 
   public:
-   /*!
-    *
-    */
-   Locker(Mutex* m);
-   ~Locker(void);
+    /*!
+     *
+     */
+    Locker(Mutex* m);
+    ~Locker(void);
 
   private:
-   Mutex* mutex;
+    Mutex* mutex;
   };
 
   /*!
-  *
-  */
+   *
+   */
   enum type_t
   {
-   FAST,      /*!< */
-   RECURSIVE, /*!< */
+    FAST,      /*!< */
+    RECURSIVE, /*!< */
   };
 
   /*!
-  *
-  */
+   *
+   */
   Mutex(type_t type = FAST);
   ~Mutex(void);
 
   /*!
-  *
-  */
+   *
+   */
   void lock(void);
 
   /*!
-  *
-  */
+   *
+   */
   void unlock(void);
 
   /*!
-  *
-  */
+   *
+   */
   bool tryLock(void);
 
 private:
