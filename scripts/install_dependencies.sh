@@ -67,7 +67,7 @@ echo "-----> libgit2 installed."
 
 # Install Qwt package if available in repos, compile if not.
 echo "-----> Installing qwt..."
-if [ $(apt-cache show libqwt-qt5-dev) > /dev/null ]; then
+if [[ $(apt-cache show libqwt-qt5-dev) > /dev/null ]]; then
   apt-get -y install libqwt-qt5-dev
 else
   cd ${DEPS}
