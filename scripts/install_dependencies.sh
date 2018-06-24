@@ -33,9 +33,6 @@ DIR=$PWD
 ROOT=${DIR}/../
 DEPS=${ROOT}/deps
 
-# Some easy to use defines
-QWT_VERSION=6.1.3
-
 # Install RTXI dependencies
 echo "-----> Installing dependencies..."
 apt-get update
@@ -69,12 +66,10 @@ echo "-----> Installing qwt..."
 if [[ $(apt-cache show libqwt-qt5-dev) > /dev/null ]]; then
   apt-get -y install libqwt-qt5-dev
 else
-  cd ${DEPS}
-  tar xf qwt-${QWT_VERSION}.tar.bz2
-  cd qwt-${QWT_VERSION}
+  cd ${DEPS}/qwt
+  git submodule update --init .
   qmake qwt.pro
-  make -sj`nproc`
-  make install
+  make -sj`nproc` && make install
   ldconfig
 fi
 echo "-----> Qwt installed."
