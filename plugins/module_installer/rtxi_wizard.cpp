@@ -252,10 +252,11 @@ RTXIWizard::Panel::cloneModule(void)
       "/usr/bin/make -j2 -C " + modules[name].location.toString();
     QString make_install_cmd;
 
-    // If RTXI is root, no need to call gksudo.
+    // If RTXI is root, no need to call pkexec.
     if (getuid())
-      make_install_cmd = "gksudo \"/usr/bin/make install -C" +
-                         modules[name].location.toString() + "\"";
+      make_install_cmd =
+        "pkexec /usr/bin/make -C " + modules[name].location.toString() +
+        " -f " + modules[name].location.toString() + "/Makefile install";
     else
       make_install_cmd =
         "/usr/bin/make install -C" + modules[name].location.toString();
@@ -525,8 +526,9 @@ RTXIWizard::Panel::installFromString(std::string module_name)
     "/usr/bin/make -j2 -C " + QString::fromStdString(locationUrl);
   QString make_install_cmd;
   if (getuid())
-    make_install_cmd = "gksudo \"/usr/bin/make install -C" +
-                       QString::fromStdString(locationUrl) + "\"";
+    make_install_cmd =
+      "pkexec /usr/bin/make -C" + QString::fromStdString(locationUrl) + " -f " +
+      QString::fromStdString(locationUrl) + "/Makefile install";
   else
     make_install_cmd =
       "/usr/bin/make install -C" + QString::fromStdString(locationUrl);
