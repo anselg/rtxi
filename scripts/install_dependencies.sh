@@ -49,12 +49,13 @@ echo "-----> Package dependencies installed."
 # Install libgit2 from source
 echo "-----> Installing libgit2..."
 cd $DEPS
-if [[ $(lsb_release -sc) == "bionic" ]]; then
+if [[ $(lsb_release -sc) == "bionic" ]] || \
+   [[ $(lsb_release -sc) == "trusty" ]]; then
   sudo apt-get install -y libgit2-dev
 else
   rm -rf libgit2 # in case libgit2 repo is there from previous install attempt
-  git clone --depth 1 https://github.com/libgit2/libgit2.git && cd libgit2
-  mkdir build && cd build
+  git clone --depth 1 https://github.com/libgit2/libgit2.git
+  mkdir -p libgit2/build && cd libgit2/build
   cmake .. -DCURL=OFF
   cmake --build . --target install
   ldconfig
