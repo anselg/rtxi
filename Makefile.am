@@ -87,6 +87,8 @@ Makefile.plugin_compile: Makefile
 	@echo 'OBJECTS   = $$(shell echo $$(SOURCES) | sed "s/\.cpp[ \t\n]*/\.lo /g")' >> $@
 	@echo 'MOOBJECTS = $$(shell echo $$(HEADERS) | sed "s/\.h[ \t\n]*/\.lo /g")' >> $@
 	@echo ''>> $@
+	@echo 'BUILD_README = ' $(pkgdatadir)/build_readme >> $@
+	@echo ''>> $@
 	@echo 'all: $$(PLUGIN_NAME).la'>> $@
 	@echo ''>> $@
 	@echo '%.lo: %.cpp'>> $@
@@ -97,6 +99,9 @@ Makefile.plugin_compile: Makefile
 	@echo ''>> $@
 	@echo 'install: $$(PLUGIN_NAME).la'>> $@
 	@echo '	$$(LIBTOOL) --mode=install cp $$(PLUGIN_NAME).la `readlink -f $$(exec_modeldir)`' >> $@
+	@echo ''>> $@
+	@echo 'readme:'>> $@
+	@echo '	$$(BUILD_README)' >> $@
 	@echo ''>> $@
 	@echo 'clean:'>> $@
 	@echo '	rm -f $$(OBJECTS)'>> $@
