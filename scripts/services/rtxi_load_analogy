@@ -45,9 +45,9 @@ $(/usr/xenomai/sbin/analogy_config analogy0 analogy_ni_pcimio)
 
 # error check
 if [ $? -eq 0 ]; then
-	echo "Analogy device loaded."
+  echo "Analogy device loaded."
+  exit 0
 else
-	echo "ERROR: Analogy device loading failed."
+  echo "ERROR: Analogy device loading failed."
+  exit 1
 fi
-
-exit 0
