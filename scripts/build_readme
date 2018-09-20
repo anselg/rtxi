@@ -37,6 +37,27 @@ CPPFILE="${PWD##*/}.cpp"
 HEADER="${PWD##*/}.h"
 SCREENSHOT="${PWD##*/}.png"
 
+# Check if default CPPFILE exists. If not, prompt user based on `ls` output in
+# the directory in which build_readme is run.
+if ! [[ -f ${CPPFILE} ]]; then
+  echo "File ${CPPFILE} not found. Enter main .cpp file:"
+  select cpp in $(ls *.cpp); do
+    CPPFILE="${cpp}"
+    break
+  done
+fi
+
+# Check if default HEADER exists. If not, prompt user based on `ls` output in
+# the directory in which build_readme is run.
+if ! [[ -f ${HEADER} ]]; then
+  echo "File ${HEADER} not found. Enter main .h file:"
+  select h in $(ls *.h); do
+    HEADER="${h}"
+    break
+  done
+fi
+
+
 # Name of the output. Change to README.md to automatically overwrite the
 # current readme.
 OUTPUT=NEW_README.md
