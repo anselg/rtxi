@@ -42,8 +42,12 @@ SCREENSHOT="${PWD##*/}.png"
 if ! [[ -f ${CPPFILE} ]]; then
   echo "File ${CPPFILE} not found. Enter main .cpp file:"
   select cpp in $(ls *.cpp); do
-    CPPFILE="${cpp}"
-    break
+    if [ "${cpp}" = "" ]; then
+      echo "Selection not found. Try again."
+    else
+      CPPFILE="${cpp}"
+      break
+    fi
   done
 fi
 
@@ -52,8 +56,12 @@ fi
 if ! [[ -f ${HEADER} ]]; then
   echo "File ${HEADER} not found. Enter main .h file:"
   select h in $(ls *.h); do
-    HEADER="${h}"
-    break
+    if [ "${h}" = "" ]; then
+      echo "Selection not found. Try again."
+    else
+      HEADER="${h}"
+      break
+    fi
   done
 fi
 
