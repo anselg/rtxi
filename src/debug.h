@@ -20,7 +20,7 @@
 #define DEBUG_H
 
 #include <execinfo.h>
-#include <stdio.h>
+#include <cstdio>
 
 #if XENOMAI
 #include <rtdk.h>

@@ -16,10 +16,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <atomic_fifo.h>
-#include <debug.h>
+#include "atomic_fifo.h"
+#include "debug.h"
 #include <iostream>
-#include <string.h>
+#include <cstring>
 
 AtomicFifo::AtomicFifo(size_t s)
   : head(0)

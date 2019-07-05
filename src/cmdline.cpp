@@ -16,10 +16,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <cmdline.h>
-#include <debug.h>
-#include <stdlib.h>
-#include <string.h>
+#include "cmdline.h"
+#include "debug.h"
+#include <cstdlib>
+#include <cstring>
 #include <sys/wait.h>
 #include <unistd.h>
 

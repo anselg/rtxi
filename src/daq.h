@@ -21,9 +21,9 @@
 #ifndef DAQ_DEVICE_H
 #define DAQ_DEVICE_H
 
-#include <io.h>
 #include <map>
-#include <rt.h>
+#include "io.h"
+#include "rt.h"
 
 //! DAQ Oriented Classes
 /*!

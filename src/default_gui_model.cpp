@@ -16,9 +16,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <default_gui_model.h>
 #include <iostream>
-#include <main_window.h>
+#include "default_gui_model.h"
+#include "main_window.h"
 
 namespace {
 class SyncEvent : public RT::Event
