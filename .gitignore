@@ -1,4 +1,7 @@
-#Ignore compiled objects and libraries
+# Ignore doxygen output
+doxygen/
+
+# Ignore compiled objects and libraries
 *.o
 *.lo
 *.la
@@ -8,7 +11,7 @@
 *~
 compile
 
-#Ignore user specific rtxi files
+# Ignore user specific rtxi files
 Makefile.dynamo_compile
 Makefile.plugin_compile
 Makefile.plugin_example
@@ -22,10 +25,10 @@ scripts/init_rtxi
 scripts/rtxi_comedi
 scripts/rtxi_plugin_config
 
-#Ignore qt generated mocs
+# Ignore qt generated mocs
 moc_*
 
-#Ignore automake files
+# Ignore automake files
 Makefile
 Makefile.in
 aclocal.m4
