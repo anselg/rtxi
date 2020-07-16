@@ -37,6 +37,7 @@ export xenomai_root=/opt/xenomai-$xenomai_version
 export scripts_dir=`pwd`
 export build_root=/opt/build
 export opt=/opt
+export binutils_patch=$(pwd)/binutils_fix.patch
 
 rm -rf $build_root
 rm -rf $linux_tree
@@ -72,6 +73,10 @@ echo "-----> Applied kernel config."
 # Patch kernel
 echo  "-----> Patching kernel."
 cd $linux_tree
+if [[ $(lsb_release -sc) == "focal" ]]; then
+  cp -v ${binutils_patch} .
+  patch -p1 <  ${binutils_patch}
+fi
 $xenomai_root/scripts/prepare-kernel.sh \
   --arch=x86 \
   --ipipe=$opt/ipipe-core-$linux_version-x86-[0-9]*.patch \
