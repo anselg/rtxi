@@ -63,6 +63,12 @@ wget -nc https://xenomai.org/downloads/ipipe/v4.x/x86/ipipe-core-${linux_version
 tar xf xenomai-$xenomai_version.tar.bz2
 echo  "-----> Downloads complete."
 
+echo "-----> Download kernel config."
+wget -nc https://kernel.ubuntu.com/~kernel-ppa/mainline/v${linux_version}/linux-image-${linux_version}-040924-generic_${linux_version}-040924.201704210431_amd64.deb
+dpkg-deb -x linux-image-${linux_version}-040924-generic_${linux_version}-040924.201704210431_amd64.deb linux-image-${linux_version}
+cp -v linux-image-${linux_version}/boot/config-${linux_version}-* linux-${linux_version}/.config
+echo "-----> Applied kernel config."
+
 # Patch kernel
 echo  "-----> Patching kernel."
 cd $linux_tree
@@ -71,7 +77,6 @@ $xenomai_root/scripts/prepare-kernel.sh \
   --ipipe=$opt/ipipe-core-$linux_version-x86-[0-9]*.patch \
   --linux=$linux_tree
 yes "" | make oldconfig
-make localmodconfig
 make menuconfig
 echo  "-----> Patching complete."
 
