@@ -48,9 +48,9 @@ echo  "-----> Environment configuration complete."
 echo  "-----> Downloading Linux kernel."
 cd $opt
 if [[ "$linux_version" =~ "3." ]]; then
-  wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v3.x/linux-$linux_version.tar.xz
+  wget -nc https://www.kernel.org/pub/linux/kernel/v3.x/linux-$linux_version.tar.xz
 elif [[ "$linux_version" =~ "4." ]]; then
-  wget --no-check-certificate https://www.kernel.org/pub/linux/kernel/v4.x/linux-$linux_version.tar.xz
+  wget -nc https://www.kernel.org/pub/linux/kernel/v4.x/linux-$linux_version.tar.xz
 else
   echo "Kernel specified in the \$linux_version variable needs to be 3.x or 4.x"
   exit 1
@@ -58,8 +58,8 @@ fi
 tar xf linux-$linux_version.tar.xz
 
 echo  "-----> Downloading Xenomai."
-wget --no-check-certificate https://xenomai.org/downloads/xenomai/stable/xenomai-$xenomai_version.tar.bz2
-wget --no-check-certificate https://xenomai.org/downloads/ipipe/v4.x/x86/ipipe-core-4.9.24-x86-2.patch
+wget -nc https://xenomai.org/downloads/xenomai/stable/xenomai-$xenomai_version.tar.bz2
+wget -nc https://xenomai.org/downloads/ipipe/v4.x/x86/ipipe-core-${linux_version}-x86-2.patch
 tar xf xenomai-$xenomai_version.tar.bz2
 echo  "-----> Downloads complete."
 
