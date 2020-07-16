@@ -35,22 +35,25 @@ DEPS=${ROOT}/deps
 
 # Install RTXI dependencies
 echo "-----> Installing dependencies..."
-apt-get update
-apt-get -y upgrade
-apt-get -y install \
+apt update
+apt -y upgrade
+sed -i '/deb-src/s/^# //' /etc/apt/sources.list
+apt update
+apt -y install \
   autotools-dev automake libtool kernel-package gcc g++ gdb fakeroot crash \
   kexec-tools makedumpfile kernel-wedge libncurses5-dev libelf-dev \
   binutils-dev libgsl0-dev libboost-dev git lshw stress libqt5svg5-dev \
   libqt5opengl5 libqt5gui5 libqt5core5a libqt5xml5 qt5-default \
   qttools5-dev-tools qttools5-dev libhdf5-dev libmarkdown2-dev cmake
-apt-get -y build-dep linux
+apt -y build-dep linux
 echo "-----> Package dependencies installed."
 
 # Install libgit2 from source
 echo "-----> Installing libgit2..."
 cd $DEPS
 if [[ $(lsb_release -sc) == "bionic" ]] || \
-   [[ $(lsb_release -sc) == "trusty" ]]; then
+   [[ $(lsb_release -sc) == "trusty" ]] || \
+   [[ $(lsb_release -sc) == "focal" ]]; then
   sudo apt-get install -y libgit2-dev
 else
   rm -rf libgit2 # in case libgit2 repo is there from previous install attempt
