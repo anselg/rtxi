@@ -32,7 +32,7 @@ fi
 echo  "-----> Setting up variables."
 export linux_version=4.9.24
 export linux_tree=/opt/linux-$linux_version
-export xenomai_version=3.0.5
+export xenomai_version=3.0.9
 export xenomai_root=/opt/xenomai-$xenomai_version
 export scripts_dir=`pwd`
 export build_root=/opt/build
